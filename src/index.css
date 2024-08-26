@@ -1,0 +1,275 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Manrope";
+  src: url("./assets/fonts/Manrope-Bold.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("./assets/fonts/Manrope-ExtraBold.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("./assets/fonts/Manrope-ExtraLight.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("./assets/fonts/Manrope-Light.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("./assets/fonts/Manrope-Medium.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("./assets/fonts/Manrope-Regular.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("./assets/fonts/Manrope-SemiBold.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 600;
+  font-style: normal;
+}
+
+html,
+body {
+  @layer font-Manrope;
+  @apply scroll-smooth;
+}
+.navMenu {
+  @apply text-white bg-[#FAFAFA] w-full min-h-[350px] fixed top-[4.9rem] transition-all z-50;
+}
+
+/* no scrollbar */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/*   */
+@media screen and (max-width: 450px) {
+}
+
+@media screen and (max-width: 600px) {
+  .homeprod {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .firstpara {
+    padding: 2rem 2rem;
+  }
+  .firstpara-ad {
+    width: 80%;
+  }
+  .product {
+    padding: 2rem 2rem;
+  }
+
+  .how-it-works {
+    padding: 2rem 9rem;
+  }
+  .bannerimg {
+    transform: translateY(80%);
+  }
+  .contactpad {
+    padding: 2rem 3rem;
+  }
+  .footerpad {
+    padding: 2rem 2rem;
+  }
+  .sociallink {
+    width: 40%;
+  }
+  /* .sociallink img {
+    margin-bottom: -1rem;
+  } */
+  .similar-cars {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 890px) {
+  .bannerimg {
+    transform: translateY(60%);
+  }
+}
+
+@media screen and (min-width: 799px) and(max-width:1024) {
+  .midnav {
+    padding: 1px 0;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .headertxt h1 {
+    font-size: 50px;
+  }
+  .firstpara {
+    padding: 2rem 2rem;
+  }
+  .firstpara-ad {
+    width: 80%;
+  }
+  .product {
+    padding: 2rem 5rem;
+  }
+
+  .how-it-works {
+    padding: 2rem 2rem;
+  }
+
+  .bannerimg {
+    transform: translateY(60%);
+  }
+  .calcbox {
+    margin-top: -6.2rem;
+  }
+  .contactpad {
+    padding: 2rem 3rem;
+  }
+  .footerpad {
+    padding: 2rem 2rem;
+  }
+  .sociallink {
+    width: 45%;
+  }
+  /* .sociallink img {
+    margin-bottom: -2rem;
+  } */
+  .similar-cars {
+    width: 50%;
+  }
+}
+/* Define your breakpoints */
+/* @media screen and (min-width: 450px) {
+  
+
+}
+
+@media screen and (max-width: 641px) {
+  
+
+}
+
+@media screen and (min-width: 990px) {
+  
+
+}
+
+@media screen and (min-width: 1024px) {
+  
+
+}
+
+@media screen and (min-width: 1280px) {
+  
+
+}
+
+@media screen and (min-width: 1300px) {
+  
+
+}
+*/
+@media screen and (max-width: 199px) {
+  .homeprod {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (width <= 1199px) {
+  .product {
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+  .product-box {
+    gap: 10px;
+  }
+}
+@media (1200px < width <= 1400px) {
+  .product {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+@media (width > 1400px) {
+  .product {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .headertxt h1 {
+    font-size: 74px;
+  }
+  .sociallink img {
+    margin-bottom: -4rem;
+  }
+  .bannerimg {
+    transform: translateY(50%);
+  }
+
+  .how-it-works {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .calcbox {
+    margin-top: -7rem;
+  }
+  .homeprod {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .headertxt h1 {
+    font-size: 74px;
+  }
+  .sociallink img {
+    margin-bottom: -4rem;
+  }
+  .bannerimg {
+    transform: translateY(50%);
+  }
+  .how-it-works {
+    padding-left: 19%;
+    padding-right: 19%;
+  }
+  .calcbox {
+    margin-top: -7.9rem;
+  }
+  /* .product {
+    padding-left: 21%;
+    padding-right: 21%;
+  } */
+}
+
+@media screen and (min-width: 1870px) {
+  /* .sociallink img {
+    margin-bottom: -10rem;
+  } */
+  .bannerimg {
+    transform: translateY(40%);
+  }
+}
