@@ -206,6 +206,15 @@ body {
   .product-box {
     gap: 10px;
   }
+  .banner {
+    padding-left: 5%;
+    padding-right: 5%;
+
+    .banner-div {
+      padding-left: 2%;
+      padding-right: 2%;
+    }
+  }
 }
 @media (1200px < width <= 1400px) {
   .product {

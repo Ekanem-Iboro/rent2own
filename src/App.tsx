@@ -6,6 +6,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import ScrollToTop from "./components/reuseable/ScrollToTop";
 import AutoScrollToTop from "./components/reuseable/AutoScrollToTop";
 import IndexPage from "./pages/IndexPage";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="/sign-up" element={<Register />} />
         <Route path="/sign-in" element={<Login />} />
         <Route path="/*" element={<Index />} /> */}
-          {/* <Route path="*" element={<Notfound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
