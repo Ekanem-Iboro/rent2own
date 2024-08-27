@@ -40,7 +40,7 @@ const Contact = () => {
       className="bg-[#ffffff] lg:px-[15%] md:px-[8%] px-4 w-full md:pb-3 py-10 "
       id="contact"
     >
-      <div className="w-full md:flex block justify-between items-center py-9">
+      <div className="w-full md:flex block justify-between  py-9">
         <div className="text-center w-full">
           <p className="text-[18px] text-[#191919] font-[600] leading-[21.6px] my-3 ">
             Email
@@ -49,7 +49,7 @@ const Contact = () => {
             Our friendly team is here to help.
           </p>
           <p className="text-[14px] text-primary font-[600] leading-[16.8px] mt-5">
-            prorichauto@gmail.com
+            hi@renttoown.com.au
           </p>
         </div>
 
@@ -60,8 +60,8 @@ const Contact = () => {
           <p className="text-[14px] text-[#2D2D2D] font-[500] leading-[16.8px]">
             Come say hello at our office HQ.
           </p>
-          <p className="text-[14px] text-primary font-[600] leading-[16.8px]  mt-5">
-            1801 Ipswich Road, Rocklea, QLD 4106
+          <p className="text-[14px] text-primary font-[600] leading-[16.8px]  mt-5 md:px-[20%]">
+            100 Smith Street Collingwood VIC 3066 AU
           </p>
         </div>
 
@@ -73,7 +73,7 @@ const Contact = () => {
             Mon-Fri from 8am to 5pm.
           </p>
           <p className="text-[14px] text-primary font-[600] leading-[16.8px] mt-5">
-            +61 (046) 609-2198
+            +1 (555) 000-0000
           </p>
         </div>
         {/* <ul className="flex gap-5 items-center my-8 ">
