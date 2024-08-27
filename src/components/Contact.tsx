@@ -60,7 +60,7 @@ const Contact = () => {
           <p className="text-[14px] text-[#2D2D2D] font-[500] leading-[16.8px]">
             Come say hello at our office HQ.
           </p>
-          <p className="text-[14px] text-primary font-[600] leading-[16.8px]  mt-5 md:px-[20%]">
+          <p className="text-[14px] text-primary font-[600] leading-[16.8px]  mt-5 lg:px-[30%] md:px-[20%]">
             100 Smith Street Collingwood VIC 3066 AU
           </p>
         </div>
