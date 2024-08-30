@@ -182,7 +182,7 @@ const Sidebar = () => {
           </Sheet>
         </div>
 
-        <main className=" w-full overflow-hidden pb-[5%] pt-[1%] px-[1%] bg-[#ffffff]">
+        <main className=" w-full overflow-hidden pb-[1%] pt-[1%] px-[1%] bg-[#ffffff]">
           <Outlet />
         </main>
       </div>

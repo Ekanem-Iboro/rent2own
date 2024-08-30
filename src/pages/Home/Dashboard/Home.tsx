@@ -27,7 +27,7 @@ const Home = () => {
   const [filteredCars, setFilteredCars] = useState<Car[]>([]);
   const [isFiltering, setIsFiltering] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage, setItemPerPage] = useState(9);
+  const [itemPerPage] = useState(9);
 
   const lastItemIndex = currentPage * itemPerPage;
   const firstItemIndex = lastItemIndex - itemPerPage;

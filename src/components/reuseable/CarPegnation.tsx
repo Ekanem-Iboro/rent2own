@@ -33,18 +33,21 @@ export function PaginationCar({
   return (
     <Pagination>
       <PaginationContent>
+        <PaginationItem className="text-[14px] font-[500] leading-[16.8px] mr-5">
+          {itemPerPage} of {pages}
+        </PaginationItem>
         <PaginationItem>
           <PaginationPrevious
             onClick={() => handlePrevChange()}
-            className="hover:bg-neutral-200 cursor-pointer "
+            className="hover:border border-[#6FC200] cursor-pointer "
           />
         </PaginationItem>
         {pages.map((page, idx) => (
           <PaginationItem
             key={idx}
             className={`  ${
-              currentPage === page ? "bg-neutral-200 rounded-lg" : ""
-            } cursor-pointer rounded-lg hover:bg-neutral-200 " `}
+              currentPage === page ? "border border-[#6FC200] rounded-lg" : ""
+            } cursor-pointer rounded-lg hover:border border-[#6FC200] " `}
           >
             <PaginationLink onClick={() => setCurrentPage(page)}>
               {page}
@@ -54,7 +57,7 @@ export function PaginationCar({
         <PaginationItem>
           <PaginationNext
             onClick={() => handleNextChange()}
-            className="hover:bg-neutral-200 cursor-pointer "
+            className="hover:border border-[#6FC200] cursor-pointer "
           />
         </PaginationItem>
       </PaginationContent>
