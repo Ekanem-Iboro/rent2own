@@ -27,15 +27,15 @@ const Products = () => {
     setCurrentCar(product);
   };
 
-  const port = window.location.port;
-  const hostname = window.location.hostname;
+  // const port = window.location.port;
+  // const hostname = window.location.hostname;
 
-  const portServer = () => {
-    if (port && hostname === "localhost") {
-      return "https://rent2ownauto.com.au/";
-    }
-    // return "../";
-  };
+  // const portServer = () => {
+  //   if (port && hostname === "localhost") {
+  //     return "https://rent2ownauto.com.au/";
+  //   }
+  //   // return "../";
+  // };
 
   return (
     <section className="w-full bg-gray-50  px-3 lg:py-[6rem] py-10 product overflow-hidden">
@@ -61,7 +61,7 @@ const Products = () => {
               >
                 <div className="w-full h-[245px] flex justify-center">
                   <img
-                    src={`${portServer()}${item.image_path}`}
+                    src={`https://rent2ownauto.com.au/${item.image_path}`}
                     alt=""
                     className="w-full h-[245px] object-cover cursor-pointer transition-all duration-500 ease-in-out hover:scale-[1.1]"
                   />
