@@ -1,12 +1,14 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-// import ProductDetails from "./pages/ProductDetails";
-// import Register from "./pages/Auth/Register";
-// import Login from "./pages/Auth/Login";
-// import Index from "./pages/Home";
 import ScrollToTop from "./components/reuseable/ScrollToTop";
 import AutoScrollToTop from "./components/reuseable/AutoScrollToTop";
 import IndexPage from "./pages/IndexPage";
 import NotFound from "./pages/NotFound";
+import CarsDetails from "./pages/CarsDetails";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import ForgotPassword from "./pages/Auth/forgot-password/forgot-password";
+import ResetPassword from "./pages/Auth/forgot-password/reset-password";
+import Index from "./pages/Home/Index";
 
 function App() {
   return (
@@ -16,10 +18,13 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<IndexPage />} />
-          {/* <Route path="/products/:userid" element={<ProductDetails />} />
-        <Route path="/sign-up" element={<Register />} />
-        <Route path="/sign-in" element={<Login />} />
-        <Route path="/*" element={<Index />} /> */}
+          <Route path="/products/:userid" element={<CarsDetails />} />
+          <Route path="/sign-up" element={<Register />} />
+          <Route path="/sign-in" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
+          <Route path="/*" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

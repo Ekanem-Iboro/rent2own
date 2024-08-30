@@ -164,7 +164,7 @@ const Products = () => {
                     onClick={() => handleProductClick(item)}
                   >
                     <Link
-                      to={`/products/:${item.make}&:${item.id}`}
+                      to={`/products/${item?.model}`}
                       // state={{ productData: item }}
                     >
                       View more

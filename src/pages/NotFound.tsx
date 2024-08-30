@@ -1,6 +1,18 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
     <div className="flex items-center flex-col justify-center h-screen bg-[#2D2D2D]">
       <motion.div

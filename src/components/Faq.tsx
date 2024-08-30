@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -5,6 +6,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import line from "../assets/images/lines.png";
 
 export default function Faq() {
+  // State to manage which accordion is currently expanded
+  const [expanded, setExpanded] = useState<number | false>(0);
+
+  const handleChange =
+    (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      event.preventDefault();
+      setExpanded(isExpanded ? panel : false);
+    };
+
   return (
     <section
       className="bg-primary w-full md:flex flex-col block justify-center p-[8%] items-center md:relative my-[13%]"
@@ -17,7 +27,8 @@ export default function Faq() {
         {faqData?.map((faqs, index) => (
           <Accordion
             key={faqs.id}
-            defaultExpanded={index === 0} // Only expand the first accordion by default
+            expanded={expanded === index}
+            onChange={handleChange(index)}
             sx={{
               boxShadow: "none",
               backgroundColor: "#016AB3",
