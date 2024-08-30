@@ -9,14 +9,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  server: {
-    proxy: {
-      "/api": {
-        target: "https://www.rent2ownauto.com.au/api/",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-        secure: true, // Ensure this is true for HTTPS requests
-      },
-    },
-  },
+  // server: {
+  //   proxy: {
+  //     "/api": {
+  //       target: "https://www.rent2ownauto.com.au/api/",
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/api/, ""),
+  //       secure: true, // Ensure this is true for HTTPS requests
+  //     },
+  //   },
+  // },
 });
