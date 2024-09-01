@@ -55,7 +55,7 @@ const Sidebar = () => {
                 </NavLink>
               ))}
               <NavLink
-                to="#"
+                to="/home"
                 className={({ isActive }) =>
                   `flex justify-center items-center flex-col mt-[1.5rem] py-[6px] w-full rounded-md ${
                     isActive
@@ -132,7 +132,7 @@ const Sidebar = () => {
                 ))}
 
                 <NavLink
-                  to="#"
+                  to="/home"
                   onClick={handleLinkClick}
                   className={({ isActive }) =>
                     `flex justify-center items-center flex-col mt-[10%] py-[15%] w-full rounded-md ${
