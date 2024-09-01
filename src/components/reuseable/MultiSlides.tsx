@@ -12,15 +12,15 @@ import useCarStore from "@/store/ProductStore";
 
 export function MultiSlides() {
   const { currentCar } = useCarStore();
-  const port = window.location.port;
-  const hostname = window.location.hostname;
+  // const port = window.location.port;
+  // const hostname = window.location.hostname;
 
-  const portServer = () => {
-    if (port && hostname === "localhost") {
-      return "https://rent2ownauto.com.au/";
-    }
-    return "../";
-  };
+  // const portServer = () => {
+  //   if (port && hostname === "localhost") {
+  //     return "https://rent2ownauto.com.au/";
+  //   }
+  //   return "../";
+  // };
 
   return (
     <Carousel
@@ -42,7 +42,7 @@ export function MultiSlides() {
           >
             <div className="">
               <img
-                src={`${portServer()}${img}`}
+                src={`https://rent2ownauto.com.au/${img}`}
                 alt=""
                 className=" md:h-[200px] md:w-[450px] h-[250px] w-[300px] object-cover "
               />
