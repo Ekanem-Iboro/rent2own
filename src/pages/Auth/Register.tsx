@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-
 import eye from "../../assets/icons/eye.svg";
 import hide from "../../assets/icons/hide.svg";
 import { z } from "zod";
@@ -9,12 +8,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AuthTextFeild from "../../components/reuseable/AuthTextField";
 import { useState } from "react";
 import { ChevronLeft } from "lucide-react";
+import { CreateUser } from "@/api/types";
+import { useRegisterUser } from "@/hooks/mutation";
+import Loader from "@/components/reuseable/Loader";
 
 // Define the Zod schema with additional validation
 const RegisterSchema = z
   .object({
-    firstName: z.string().min(1, "First name is required"),
-    lastName: z.string().min(1, "Last name is required"),
+    firstname: z.string().min(1, "First name is required"),
+    lastname: z.string().min(1, "Last name is required"),
     email: z.string().email("Invalid email address"),
     phone: z.string().min(11, "Phone number is required"),
     gender: z.string().nonempty("Gender is required"),
@@ -23,12 +25,12 @@ const RegisterSchema = z
       .min(8, "Password must be at least 8 characters")
       .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
       .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-      .regex(/[0-9]/, "Password must contain at least one number")
-      .regex(
-        /[@$!%*?&#]/,
-        "Password must contain at least one special character"
-      ),
-    confirmPassword: z.string().min(1, "Please confirm your password"),
+      .regex(/[0-9]/, "Password must contain at least one number"),
+    // .regex(
+    //   /[@$!%*?&#]/,
+    //   "Password must contain at least one special character"
+    // ),
+    confirmPassword: z.string().min(5, "Please confirm your password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords must match",
@@ -51,12 +53,15 @@ const Register: React.FC = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = methods;
 
+  const { mutate, isPending, isError, isSuccess } = useRegisterUser();
   // Form submission handler
-  const signUpUser = async (data: RegisterInput) => {
-    console.log(data);
+  const signUpUser = async (data: CreateUser) => {
+    mutate(data);
+    reset();
   };
 
   return (
@@ -85,12 +90,21 @@ const Register: React.FC = () => {
           <p className="text-[#0A0B0A] text-[14px]  font-[500] w-full text-center leading-[16.8px] mt-2">
             Join thousands of users on Rent2own today!
           </p>
-
+          {isSuccess && (
+            <p className="text-green-400 text-[14px] bg-green-50 p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] mt-2">
+              Account created successfully
+            </p>
+          )}
+          {isError && (
+            <p className="text-red-400 text-[14px] bg-red-50 p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] mt-2">
+              Fail to create account, Try again!
+            </p>
+          )}
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(signUpUser)}>
               <div className="mt-4">
                 <AuthTextFeild
-                  name="firstName"
+                  name="firstname"
                   label="First Name"
                   placeholder="e.g John"
                   variant="long"
@@ -98,7 +112,7 @@ const Register: React.FC = () => {
               </div>
               <div className="mt-4">
                 <AuthTextFeild
-                  name="lastName"
+                  name="lastname"
                   label="Last Name"
                   placeholder="Doe"
                   variant="long"
@@ -128,15 +142,21 @@ const Register: React.FC = () => {
                 <select
                   id="gender"
                   {...register("gender")}
-                  className="block w-full border-2 border-[#CCCBCB] rounded-md p-2 outline-none focus:border-[#CCCBCB] bg-transparent text-[#0A0B0A] disabled:opacity-75 disabled:hover:cursor-not-allowed"
+                  className={`block w-full border-2 border-[#CCCBCB] rounded-md p-2 outline-none focus:border-[#CCCBCB] bg-transparent text-[#0A0B0A] disabled:opacity-75 disabled:hover:cursor-not-allowed ${
+                    errors.gender ? "border-2 border-red-500" : " "
+                  }`}
                 >
-                  <option value="" disabled className="text-[#868686]">
+                  <option value="" className="text-[#868686]">
                     Select a gender
                   </option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
-                {errors.gender && <p>{errors.gender.message}</p>}
+                {errors.gender && (
+                  <p className="text-red-500 text-[12px]">
+                    {errors.gender.message}
+                  </p>
+                )}
               </div>
               <div className="relative mt-4">
                 <AuthTextFeild
@@ -166,8 +186,8 @@ const Register: React.FC = () => {
                   onClick={() => setConfirmPasswordShown(!confirmPasswordShown)}
                 />
               </div>
-              <button className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6  ">
-                Sign up
+              <button className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6 border-none  flex justify-center items-center ">
+                {isPending ? <Loader size={30} /> : "Sign up"}
               </button>
             </form>
           </FormProvider>

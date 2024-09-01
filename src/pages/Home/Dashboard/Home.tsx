@@ -226,15 +226,15 @@ const Home = () => {
     setFilteredCars(filteredData);
   };
 
-  // const port = window.location.port;
-  // const hostname = window.location.hostname;
+  const port = window.location.port;
+  const hostname = window.location.hostname;
 
-  // const portServer = () => {
-  //   if (port && hostname === "localhost") {
-  //     return "https://rent2ownauto.com.au/";
-  //   }
-  //   return "../";
-  // };
+  const portServer = () => {
+    if (port && hostname === "localhost") {
+      return "https://rent2ownauto.com.au/";
+    }
+    return "../";
+  };
 
   return (
     <>
@@ -279,137 +279,136 @@ const Home = () => {
             <div className="grid grid-cols-2 homeprod gap-3 w-full">
               {currentCars.map((item, index) => (
                 <BlurFade key={item.id} delay={0.02} duration={0.5} inView>
-                  <div
-                    className={`lg:w-[96%] w-full min-h-[380px] bg-white rounded-[12px] overflow-hidden ${
-                      item.id > 8 ? "hidden " : ""
-                    }   md:mb-0 mb-4`}
-                    key={item.id}
+                  <Link
+                    to={`/products/${item?.model}`}
+                    // state={{ productData: item }}
                   >
-                    <div className="w-full h-[245px] flex justify-center">
-                      <img
-                        src={`https://rent2ownauto.com.au/${item.image_path}`}
-                        alt=""
-                        className="w-full h-[245px] object-cover cursor-pointer transition-all duration-500 ease-in-out hover:scale-[1.1]"
-                      />
-                    </div>
-                    <h1 className="my-4 px-2 md:px-5 text-[#151413] text-[14px] h-[40px] lg:h-[30px] font-[600] leading-[19.8px]">
-                      {item.model} {item.year}
-                    </h1>
-                    <div className="md:px-5 px-2 ">
-                      <div className=" md:grid grid-cols-[25%_55%_15%] block items-center justify-start gap-3 product-box">
-                        {/*  */}
-                        <div className="w-full flex items-center  mb-4">
+                    <div
+                      className={`lg:w-[96%] w-full min-h-[380px] bg-white rounded-[12px] overflow-hidden ${
+                        item.id > 8 ? "hidden " : ""
+                      }   md:mb-0 mb-4`}
+                      key={item.id}
+                      onClick={() => handleProductClick(item)}
+                    >
+                      <div className="w-full h-[245px] flex justify-center">
+                        <img
+                          src={`${portServer()}${item.image_path}`}
+                          alt=""
+                          className="w-full h-[245px] object-cover cursor-pointer transition-all duration-500 ease-in-out hover:scale-[1.1]"
+                        />
+                      </div>
+                      <h1 className="my-4 px-2 md:px-5 text-[#151413] text-[14px] h-[40px] lg:h-[30px] font-[600] leading-[19.8px]">
+                        {item.model} {item.year}
+                      </h1>
+                      <div className="md:px-5 px-2 ">
+                        <div className=" md:grid grid-cols-[25%_55%_15%] block items-center justify-start gap-3 product-box">
                           {/*  */}
-                          <div className="flex  items-center mr-2 ">
-                            <img
-                              src={model}
-                              alt=""
-                              className="w-[20px] h-[20px]"
-                            />
-                            {/* <p className="text-[#898483] font-light text-[10px]">
+                          <div className="w-full flex items-center  mb-4">
+                            {/*  */}
+                            <div className="flex  items-center mr-2 ">
+                              <img
+                                src={model}
+                                alt=""
+                                className="w-[20px] h-[20px]"
+                              />
+                              {/* <p className="text-[#898483] font-light text-[10px]">
                         Make
                       </p> */}
+                            </div>
+                            <p className="text-[#151413] text-[12px]">
+                              {item.make}
+                            </p>
                           </div>
-                          <p className="text-[#151413] text-[12px]">
-                            {item.make}
-                          </p>
-                        </div>
-                        {/*  */}
-                        <div className="w-full flex items-center  mb-4 ">
                           {/*  */}
-                          <div className="flex  items-center mr-2">
-                            <img
-                              src={engine}
-                              alt=""
-                              className="w-[20px] h-[20px]"
-                            />
-                            {/* <p className="text-[#898483] font-light text-[10px]">
+                          <div className="w-full flex items-center  mb-4 ">
+                            {/*  */}
+                            <div className="flex  items-center mr-2">
+                              <img
+                                src={engine}
+                                alt=""
+                                className="w-[20px] h-[20px]"
+                              />
+                              {/* <p className="text-[#898483] font-light text-[10px]">
                         Engine type
                       </p> */}
+                            </div>
+                            <p className="text-[#151413] text-[12px]">
+                              {item.engine}
+                            </p>
                           </div>
-                          <p className="text-[#151413] text-[12px]">
-                            {item.engine}
-                          </p>
-                        </div>
-                        {/*  */}
-                        <div className="w-full flex items-center  mb-4">
                           {/*  */}
-                          <div className="flex  items-center mr-2">
-                            <img
-                              src={passangers}
-                              alt=""
-                              className="w-[20px] h-[20px]"
-                            />
-                            {/* <p className="text-[#898483] font-light text-[10px]">
+                          <div className="w-full flex items-center  mb-4">
+                            {/*  */}
+                            <div className="flex  items-center mr-2">
+                              <img
+                                src={passangers}
+                                alt=""
+                                className="w-[20px] h-[20px]"
+                              />
+                              {/* <p className="text-[#898483] font-light text-[10px]">
                         Passangers
                       </p> */}
+                            </div>
+                            <p className="text-[#151413] text-[12px]">
+                              {item.seating}
+                            </p>
                           </div>
-                          <p className="text-[#151413] text-[12px]">
-                            {item.seating}
-                          </p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className=" product-box md:grid grid-cols-[60%_30%] block items-center gap-3">
-                        <div className="w-full flex items-center  mb-4">
-                          {/*  */}
-                          <div className="flex  items-center mr-2 col-span-2">
-                            <img
-                              src={max_power}
-                              alt=""
-                              className="w-[20px] h-[20px]"
-                            />
-                            {/* <p className="text-[#898483] font-light text-[10px]">
-                        Max power
-                      </p> */}
-                          </div>
-                          <p className="text-[#151413] text-[12px]">
-                            {item.maxpower}HP
-                          </p>
                         </div>
                         {/*  */}
-                        <div className="w-full flex items-center  mb-4">
+                        <div className=" product-box md:grid grid-cols-[60%_30%] block items-center gap-3">
+                          <div className="w-full flex items-center  mb-4">
+                            {/*  */}
+                            <div className="flex  items-center mr-2 col-span-2">
+                              <img
+                                src={max_power}
+                                alt=""
+                                className="w-[20px] h-[20px]"
+                              />
+                              {/* <p className="text-[#898483] font-light text-[10px]">
+                        Max power
+                      </p> */}
+                            </div>
+                            <p className="text-[#151413] text-[12px]">
+                              {item.maxpower}HP
+                            </p>
+                          </div>
                           {/*  */}
-                          <div className="flex  items-center mr-2">
-                            <img
-                              src={location}
-                              alt=""
-                              className="w-[20px] h-[20px]"
-                            />
-                            {/* <p className="text-[#898483] font-light text-[10px]">
+                          <div className="w-full flex items-center  mb-4">
+                            {/*  */}
+                            <div className="flex  items-center mr-2">
+                              <img
+                                src={location}
+                                alt=""
+                                className="w-[20px] h-[20px]"
+                              />
+                              {/* <p className="text-[#898483] font-light text-[10px]">
                         Location
                       </p> */}
+                            </div>
+                            <p className="text-[#151413] text-[12px]">
+                              {item.location}
+                            </p>
                           </div>
-                          <p className="text-[#151413] text-[12px]">
-                            {item.location}
-                          </p>
                         </div>
+                        {/*  */}
                       </div>
-                      {/*  */}
-                    </div>
-                    <div className="flex justify-between items-center md:px-5 px-2 pb-4">
-                      <p className="text-secondary-light text-[18px] font-[600] leading-[19.2px]">
-                        AU <CurrencyFormatter amount={parseFloat(item.price)} />
-                      </p>
-                      <button
-                        className=" text-[16px] text-primary px-3 py-1 rounded-[10px]   font-[400] transition-all duration-500 ease-out hover:opacity-70"
-                        onClick={() => handleProductClick(item)}
-                      >
-                        <Link
-                          to={`/products/${item?.model}`}
-                          // state={{ productData: item }}
-                        >
+                      <div className="flex justify-between items-center md:px-5 px-2 pb-4">
+                        <p className="text-secondary-light text-[18px] font-[600] leading-[19.2px]">
+                          AU{" "}
+                          <CurrencyFormatter amount={parseFloat(item.price)} />
+                        </p>
+                        <button className=" text-[16px] text-primary px-3 py-1 rounded-[10px]   font-[400] transition-all duration-500 ease-out hover:opacity-70">
                           View more
-                        </Link>
-                      </button>
+                        </button>
+                      </div>
+                      <BorderBeam
+                        size={200}
+                        duration={6}
+                        delay={4 + index * 2}
+                        className="lg:mr-2"
+                      />
                     </div>
-                    <BorderBeam
-                      size={200}
-                      duration={6}
-                      delay={4 + index * 2}
-                      className="lg:mr-2"
-                    />
-                  </div>
+                  </Link>
                 </BlurFade>
               ))}
             </div>

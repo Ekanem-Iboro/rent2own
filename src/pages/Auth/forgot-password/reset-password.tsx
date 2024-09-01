@@ -9,6 +9,9 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthTextFeild from "../../../components/reuseable/AuthTextField";
 import { ChevronLeft } from "lucide-react";
+import { resetpsw } from "@/api/types";
+import { useResetPsw } from "@/hooks/mutation";
+import Loader from "@/components/reuseable/Loader";
 
 // Define the Zod schema with additional validation
 const ResetSchema = z
@@ -38,8 +41,7 @@ const ResetPassword: React.FC = () => {
   const navigate = useNavigate();
   const [passwordShown, setPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
-  const [Success, setSuccess] = useState(false);
-  const [error, seterror] = useState(false);
+
   // Initialize useForm with Zod resolver
   const methods = useForm<ResetInput>({
     resolver: zodResolver(ResetSchema),
@@ -51,38 +53,20 @@ const ResetPassword: React.FC = () => {
     reset,
     // formState: { errors },
   } = methods;
+  const { mutate, isPending, isError, isSuccess } = useResetPsw();
 
   // Form submission handler
-  const signUpUser = async (data: ResetInput) => {
-    console.log(data);
+  const signUpUser = async (data: resetpsw) => {
+    mutate(data);
     reset();
-    seterror(true);
-    setSuccess(false);
-
-    // // Simulate a delay for success message
-    // console.log("Success");
-    // if (Success) {
-    //   const timer = setTimeout(() => {
-    //     navigate("/sign-in");
-    //   }, 3000);
-
-    //   return () => clearTimeout(timer);
-    // }
-    // if (error) {
-    //   const timer = setTimeout(() => {
-    //     navigate("/sign-in");
-    //   }, 3000);
-
-    //   return () => clearTimeout(timer);
-    // }
   };
 
   return (
     <div className="bg-gray-50  w-full px-4 min-h-screen">
-      {Success && (
+      {isSuccess && (
         <div
           className={`flex flex-col min-h-screen items-center  md:pt-[10%] pt-[5%]   ${
-            error ? "hidden" : "block"
+            isError ? "hidden" : "block"
           }`}
         >
           <div className="lg:w-[40%] text-center">
@@ -112,10 +96,10 @@ const ResetPassword: React.FC = () => {
           </div>
         </div>
       )}
-      {error && (
+      {isError && (
         <div
           className={`flex flex-col min-h-screen items-center md:pt-[10%] pt-[5%] ${
-            Success ? "hidden" : "block"
+            isSuccess ? "hidden" : "block"
           }`}
         >
           <div className="lg:w-[40%] text-center">
@@ -145,7 +129,7 @@ const ResetPassword: React.FC = () => {
           </div>
         </div>
       )}
-      <div className={`${Success || error ? "hidden" : "block"}`}>
+      <div className={`${isSuccess || isError ? "hidden" : "block"}`}>
         <div className="  w-full  rounded-[18px]   flex  lg:px-[20%] md:px-[9%] px-3 md:pt-[10%] pt-[5%] ">
           <ChevronLeft
             onClick={() => navigate(-1)}
@@ -210,8 +194,8 @@ const ResetPassword: React.FC = () => {
                     }
                   />
                 </div>
-                <button className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6  ">
-                  Reset password
+                <button className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6 border-none  flex justify-center items-center ">
+                  {isPending ? <Loader size={30} /> : "Reset password"}
                 </button>
               </form>
             </FormProvider>

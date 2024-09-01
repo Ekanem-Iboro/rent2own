@@ -5,6 +5,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthTextField from "../../../components/reuseable/AuthTextField";
 import { ChevronLeft } from "lucide-react";
+import { useForgotPsw } from "@/hooks/mutation";
+import Loader from "@/components/reuseable/Loader";
 
 // Define the Zod schema with additional validation
 const ResetPasswordSchema = z.object({
@@ -28,12 +30,10 @@ const ForgotPassword: React.FC = () => {
     // formState: { errors },
   } = methods;
 
+  const { mutate, isPending } = useForgotPsw();
   // Form submission handler
   const getUserEmail = async (data: ResetPasswordInput) => {
-    console.log(data);
-    // Navigate after successful form submission
-
-    navigate("/reset-password");
+    mutate(data);
   };
 
   return (
@@ -71,11 +71,8 @@ const ForgotPassword: React.FC = () => {
                   variant="long"
                 />
               </div>
-              <button
-                type="submit"
-                className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6"
-              >
-                Continue
+              <button className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6 border-none  flex justify-center items-center ">
+                {isPending ? <Loader size={30} /> : "Continue"}
               </button>
             </form>
           </FormProvider>

@@ -9,6 +9,7 @@ import Register from "./pages/Auth/Register";
 import ForgotPassword from "./pages/Auth/forgot-password/forgot-password";
 import ResetPassword from "./pages/Auth/forgot-password/reset-password";
 import Index from "./pages/Home/Index";
+import PrivateRoute from "./components/privateRoute";
 
 function App() {
   return (
@@ -24,7 +25,14 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
 
-          <Route path="/*" element={<Index />} />
+          <Route
+            path="/*"
+            element={
+              <PrivateRoute>
+                <Index />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

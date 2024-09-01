@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import logo2 from "../assets/images/logo2.png";
 
@@ -14,8 +14,10 @@ import {
 import { useState } from "react";
 import Sidebardata from "@/components/reuseable/SidebarData";
 import Footer from "@/components/Footer";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleLinkClick = () => {
@@ -53,7 +55,7 @@ const Sidebar = () => {
                 </NavLink>
               ))}
               <NavLink
-                to="/sign-in"
+                to="#"
                 className={({ isActive }) =>
                   `flex justify-center items-center flex-col mt-[1.5rem] py-[6px] w-full rounded-md ${
                     isActive
@@ -73,26 +75,20 @@ const Sidebar = () => {
           <div
             className="flex flex-col items-center justify-center mb-[7px] cursor-pointer"
             // Uncomment and implement logout functionality as needed
-            // onClick={() => {
-            //   localStorage.clear();
-            //   toast.warning("Logging out user", {
-            //     toastId: "warning1",
-            //   });
-            //   setTimeout(() => {
-            //     navigate("/");
-            //   }, 1500);
-            // }}
+            onClick={() => {
+              localStorage.clear();
+              toast.warning("Logging out user", {
+                toastId: "warning1",
+              });
+              setTimeout(() => {
+                navigate("/");
+              }, 1500);
+            }}
           >
-            <NavLink
-              to={"/sign-in"}
-              className="mb-[2rem] flex flex-col items-center"
-            >
-              {" "}
-              <LogOut size={25} color="red" className="-rotate-[179deg]" />
-              <h2 className="text-[18px] leading-[16.8px] mt-[5%] font-[400] text-red">
-                Sign Out
-              </h2>
-            </NavLink>
+            <LogOut size={25} color="red" className="-rotate-[179deg]" />
+            <h2 className="text-[18px] leading-[16.8px] mt-[5%] font-[400] text-red">
+              Sign Out
+            </h2>
           </div>
         </div>
 
@@ -136,7 +132,7 @@ const Sidebar = () => {
                 ))}
 
                 <NavLink
-                  to="/sign-in"
+                  to="#"
                   onClick={handleLinkClick}
                   className={({ isActive }) =>
                     `flex justify-center items-center flex-col mt-[10%] py-[15%] w-full rounded-md ${
@@ -161,22 +157,20 @@ const Sidebar = () => {
               <div
                 className="flex flex-col items-center  cursor-pointer"
                 // Uncomment and implement logout functionality as needed
-                // onClick={() => {
-                //   localStorage.clear();
-                //   toast.warning("Logging out user", {
-                //     toastId: "warning1",
-                //   });
-                //   setTimeout(() => {
-                //     navigate("/");
-                //   }, 1500);
-                // }}
+                onClick={() => {
+                  localStorage.clear();
+                  toast.warning("Logging out user", {
+                    toastId: "warning1",
+                  });
+                  setTimeout(() => {
+                    navigate("/");
+                  }, 1500);
+                }}
               >
-                <NavLink to={"/sign-in"}>
-                  <LogOut size={25} color="red" className="" />
-                  <h2 className="text-[18px] leading-[16.8px] mt-[5%] font-[400] text-red">
-                    Sign Out
-                  </h2>
-                </NavLink>
+                <LogOut size={25} color="red" className="" />
+                <h2 className="text-[18px] leading-[16.8px] mt-[5%] font-[400] text-red">
+                  Sign Out
+                </h2>
               </div>
             </SheetContent>
           </Sheet>

@@ -88,3 +88,23 @@ export interface FuelFilters {
   electric?: boolean;
   diesel?: boolean;
 }
+
+export interface CreateUser {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  gender: string;
+}
+
+export interface SignInUser {
+  email: string;
+  password: string;
+}
+export interface forgotpsw {
+  email: string;
+}
+export interface resetpsw {
+  password: string;
+  reset_password_token: string;
+}

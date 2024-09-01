@@ -12,15 +12,15 @@ import useCarStore from "@/store/ProductStore";
 
 function Slider() {
   const { currentCar } = useCarStore();
-  // const port = window.location.port;
-  // const hostname = window.location.hostname;
+  const port = window.location.port;
+  const hostname = window.location.hostname;
 
-  // const portServer = () => {
-  //   if (port && hostname === "localhost") {
-  //     return "https://rent2ownauto.com.au/";
-  //   }
-  //   return "../";
-  // };
+  const portServer = () => {
+    if (port && hostname === "localhost") {
+      return "https://rent2ownauto.com.au/";
+    }
+    return "../";
+  };
 
   return (
     <div className="w-full bg-gray-50 overflow-hidden md:px-[8%]  px-2 rounded-sm">
@@ -43,7 +43,7 @@ function Slider() {
             >
               <div className=" ">
                 <img
-                  src={`https://rent2ownauto.com.au/${img}`}
+                  src={`${portServer()}${img}`}
                   alt=""
                   className="lg:h-[830px] md:h-[1300px] h-[343px] w-full object-cover"
                 />
