@@ -82,7 +82,7 @@ const Sidebar = () => {
                 }
               >
                 {sessionToken ? (
-                  <div className="w-[50px] h-[50px] rounded-full border border-[#D8E6FA] flex justify-center items-center mb-[3px] bg-[#D8E6FA] overflow-hidden">
+                  <div className="w-[50px] h-[50px] rounded-full border border-[#D8E6FA] flex justify-center text-[#1C6CDB] items-center mb-[3px] bg-[#D8E6FA] overflow-hidden">
                     <p className="text-[25px]">{avatarLetters}</p>
                   </div>
                 ) : (
@@ -174,7 +174,7 @@ const Sidebar = () => {
                   }
                 >
                   {sessionToken ? (
-                    <div className="w-[50px] h-[50px] rounded-full border border-[#D8E6FA] flex justify-center items-center mb-[3px] bg-[#D8E6FA]  overflow-hidden"></div>
+                    <div className="w-[50px] h-[50px] rounded-full border border-[#D8E6FA] flex justify-center items-center mb-[3px] bg-[#D8E6FA] text-[#1C6CDB]  overflow-hidden"></div>
                   ) : (
                     <UserCircle className="mb-[3px] " />
                   )}
