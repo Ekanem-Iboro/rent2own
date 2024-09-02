@@ -10,13 +10,13 @@ export const useRegisterUser = () => {
   return useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
-      console.log("Response Data:", data);
-      if (data.data?.email) {
-        localStorage.setItem("email", data.data.email || "");
+      if (data.config.data) {
+        localStorage.setItem("email", data.config.data.email || "");
       }
       toast.success(data.data.message);
-
-      navigate("/sign-in");
+      setTimeout(() => {
+        navigate("/sign-in");
+      }, 1500);
     },
     onError: (error) => {
       // Check if the error is an AxiosError

@@ -82,7 +82,7 @@ const Sidebar = () => {
                 }
               >
                 {sessionToken ? (
-                  <div className="w-[50px] h-[50px] rounded-full border border-[#D8E6FA] flex justify-center text-[#1C6CDB] items-center mb-[3px] bg-[#D8E6FA] overflow-hidden">
+                  <div className="w-[40px] h-[40x] rounded-full border border-[#D8E6FA] flex justify-center text-[#1C6CDB] items-center mb-[3px] bg-[#D8E6FA] overflow-hidden">
                     <p className="text-[25px]">{avatarLetters}</p>
                   </div>
                 ) : (
@@ -174,7 +174,9 @@ const Sidebar = () => {
                   }
                 >
                   {sessionToken ? (
-                    <div className="w-[50px] h-[50px] rounded-full border border-[#D8E6FA] flex justify-center items-center mb-[3px] bg-[#D8E6FA] text-[#1C6CDB]  overflow-hidden"></div>
+                    <div className="w-[40px] h-[40px] rounded-full border border-[#D8E6FA] flex justify-center items-center mb-[3px] bg-[#D8E6FA] text-[#1C6CDB]  overflow-hidden">
+                      <p className="text-[25px]">{avatarLetters}</p>
+                    </div>
                   ) : (
                     <UserCircle className="mb-[3px] " />
                   )}
@@ -185,7 +187,7 @@ const Sidebar = () => {
                 </NavLink>
               </div>
               <div
-                className="flex flex-col items-center  cursor-pointer"
+                className="flex flex-col items-center justify-center mb-[7px] cursor-pointer"
                 // Uncomment and implement logout functionality as needed
                 onClick={() => {
                   if (!sessionToken) {
@@ -201,9 +203,13 @@ const Sidebar = () => {
                   }
                 }}
               >
-                <LogOut size={25} color="red" className="" />
+                {!sessionToken ? (
+                  <LogIn size={25} className=" text-secondary" />
+                ) : (
+                  <LogOut size={25} color="red" className="-rotate-[179deg]" />
+                )}
                 <h2 className="text-[18px] leading-[16.8px] mt-[5%] font-[400] text-red">
-                  Sign Out
+                  {sessionToken ? "Sign out" : "Sign in"}
                 </h2>
               </div>
             </SheetContent>
