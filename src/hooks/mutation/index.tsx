@@ -38,6 +38,7 @@ export const useSignInUser = () => {
     mutationFn: signInUser,
     onSuccess: (data) => {
       localStorage.setItem("session_token", data.data.token);
+      localStorage.setItem("user_id", data.data.user_id);
       toast.success(data.data.message);
       navigate("/home");
 

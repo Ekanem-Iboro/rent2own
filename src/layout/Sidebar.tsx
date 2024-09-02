@@ -1,8 +1,8 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import logo2 from "../assets/images/logo2.png";
 
-import { LogOut, UserCircle } from "lucide-react";
+import { LogIn, LogOut, UserCircle } from "lucide-react";
 import handbuger from "../assets/icons/handbuger.svg";
 import {
   Sheet,
@@ -15,9 +15,26 @@ import { useState } from "react";
 import Sidebardata from "@/components/reuseable/SidebarData";
 import Footer from "@/components/Footer";
 import { toast } from "react-toastify";
+import { useGetUserProfile } from "@/hooks/query";
 
 const Sidebar = () => {
+  const sessionToken = localStorage.getItem("session_token");
+  const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
+  const {
+    data: userProfile,
+    //  isLoading: isUserProfileLoading,
+    //  error,
+  } = useGetUserProfile(userId);
+  //Avata
+  const firstName = userProfile?.firstname || "";
+  const lastName = userProfile?.lastname || "";
+  const avatarLetters = `${firstName.charAt(0)}${lastName.charAt(
+    0
+  )}`.toUpperCase();
+  //
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleLinkClick = () => {
@@ -43,7 +60,7 @@ const Sidebar = () => {
                   key={item.title}
                   to={item.path}
                   className={`flex justify-center items-center flex-col mt-[1.5rem] py-[6px] w-full rounded-md ${
-                    item.path === "/home"
+                    item.path === location.pathname
                       ? "bg-[#D8E6FA] text-[#1C6CDB] transition-all duration-500 ease-in-out"
                       : "bg-transparent"
                   }`}
@@ -55,7 +72,7 @@ const Sidebar = () => {
                 </NavLink>
               ))}
               <NavLink
-                to="/home"
+                to="/profile"
                 className={({ isActive }) =>
                   `flex justify-center items-center flex-col mt-[1.5rem] py-[6px] w-full rounded-md ${
                     isActive
@@ -64,7 +81,13 @@ const Sidebar = () => {
                   }`
                 }
               >
-                <UserCircle className="mb-[3px]" />
+                {sessionToken ? (
+                  <div className="w-[50px] h-[50px] rounded-full border border-[#D8E6FA] flex justify-center items-center mb-[3px] bg-[#D8E6FA] overflow-hidden">
+                    <p className="text-[25px]">{avatarLetters}</p>
+                  </div>
+                ) : (
+                  <UserCircle className="mb-[3px] " />
+                )}
                 {/* <img src={User} className="mb-[3px]" alt="User Icon" /> */}
                 <h2 className="text-[16px] leading-[16.8px] font-[400]">
                   Profile
@@ -76,18 +99,26 @@ const Sidebar = () => {
             className="flex flex-col items-center justify-center mb-[7px] cursor-pointer"
             // Uncomment and implement logout functionality as needed
             onClick={() => {
-              localStorage.clear();
-              toast.warning("Logging out user", {
-                toastId: "warning1",
-              });
-              setTimeout(() => {
-                navigate("/");
-              }, 1500);
+              if (!sessionToken) {
+                navigate("/sign-in");
+              } else {
+                localStorage.clear();
+                toast.warning("Logging out user", {
+                  toastId: "warning1",
+                });
+                setTimeout(() => {
+                  navigate("/");
+                }, 1500);
+              }
             }}
           >
-            <LogOut size={25} color="red" className="-rotate-[179deg]" />
+            {!sessionToken ? (
+              <LogIn size={25} className=" text-secondary" />
+            ) : (
+              <LogOut size={25} color="red" className="-rotate-[179deg]" />
+            )}
             <h2 className="text-[18px] leading-[16.8px] mt-[5%] font-[400] text-red">
-              Sign Out
+              {sessionToken ? "Sign out" : "Sign in"}
             </h2>
           </div>
         </div>
@@ -132,24 +163,23 @@ const Sidebar = () => {
                 ))}
 
                 <NavLink
-                  to="/home"
+                  to="/profile"
                   onClick={handleLinkClick}
                   className={({ isActive }) =>
-                    `flex justify-center items-center flex-col mt-[10%] py-[15%] w-full rounded-md ${
+                    `flex justify-center items-center flex-col mt-[1.5rem] py-[6px] w-full rounded-md ${
                       isActive
                         ? "bg-[#D8E6FA] text-[#1C6CDB] transition-all duration-500 ease-in-out"
                         : "bg-transparent"
                     }`
                   }
                 >
-                  <UserCircle className="mb-[3px]" />
-
-                  {/* <img
-                  src={userIcon}
-                  className="mb-[10%] w-[50px] h-[50px]"
-                  alt="User Icon"
-                /> */}
-                  <h2 className="text-[16px] leading-[16.8px] mt-[3%] font-[400]">
+                  {sessionToken ? (
+                    <div className="w-[50px] h-[50px] rounded-full border border-[#D8E6FA] flex justify-center items-center mb-[3px] bg-[#D8E6FA]  overflow-hidden"></div>
+                  ) : (
+                    <UserCircle className="mb-[3px] " />
+                  )}
+                  {/* <img src={User} className="mb-[3px]" alt="User Icon" /> */}
+                  <h2 className="text-[16px] leading-[16.8px] font-[400]">
                     Profile
                   </h2>
                 </NavLink>
@@ -158,13 +188,17 @@ const Sidebar = () => {
                 className="flex flex-col items-center  cursor-pointer"
                 // Uncomment and implement logout functionality as needed
                 onClick={() => {
-                  localStorage.clear();
-                  toast.warning("Logging out user", {
-                    toastId: "warning1",
-                  });
-                  setTimeout(() => {
-                    navigate("/");
-                  }, 1500);
+                  if (!sessionToken) {
+                    navigate("/sign-in");
+                  } else {
+                    localStorage.clear();
+                    toast.warning("Logging out user", {
+                      toastId: "warning1",
+                    });
+                    setTimeout(() => {
+                      navigate("/");
+                    }, 1500);
+                  }
                 }}
               >
                 <LogOut size={25} color="red" className="" />

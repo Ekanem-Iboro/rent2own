@@ -22,3 +22,7 @@ export const resetPsw = async (data: resetpsw) => {
   const res = await publicApi.post("/reset-password", data);
   return res;
 };
+export const getProfile = async (id: number) => {
+  const res = await publicApi.get(`/get_user.php?user_id=${id}`);
+  return res.data; // Assuming you want to return the response data directly
+};

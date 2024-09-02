@@ -9,22 +9,22 @@ const Sidebardata = [
   },
   {
     title: "Notification",
-    // path: "/notification",
-    path: "#",
+    path: "/notification",
+
     icon: BellIcon,
     name: "notification",
   },
   {
     title: "My Orders",
-    // path: "/orders",
-    path: "#",
+    path: "/orders",
+
     icon: Car,
     name: "orders",
   },
   {
     title: "Help",
-    // path: "/help",
-    path: "#",
+    path: "/help",
+
     icon: HelpCircleIcon,
     name: "help",
   },

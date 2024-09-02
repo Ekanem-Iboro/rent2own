@@ -6,6 +6,7 @@ import Notification from "./Dashboard/Notification";
 import Order from "./Dashboard/Order";
 import Help from "./Dashboard/Help";
 import Profile from "./Dashboard/Profile";
+import PrivateRoute from "@/components/privateRoute";
 
 function Index() {
   return (
@@ -15,10 +16,39 @@ function Index() {
       <Routes>
         <Route path="/" element={<Sidebar />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/notification" element={<Notification />} />
-          <Route path="/orders" element={<Order />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/notification"
+            element={
+              <PrivateRoute>
+                <Notification />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/orders"
+            element={
+              <PrivateRoute>
+                <Order />{" "}
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/help"
+            element={
+              <PrivateRoute>
+                <Help />{" "}
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />{" "}
+              </PrivateRoute>
+            }
+          />
         </Route>
       </Routes>
     </>

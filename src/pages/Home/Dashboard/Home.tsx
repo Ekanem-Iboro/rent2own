@@ -22,7 +22,7 @@ import { PaginationCar } from "@/components/reuseable/CarPegnation";
 
 const Home = () => {
   const { setCurrentCar } = useCarStore();
-  const { data, isLoading } = useCars();
+  const { data, isLoading: isCarLoading } = useCars();
 
   const [filteredCars, setFilteredCars] = useState<Car[]>([]);
   const [isFiltering, setIsFiltering] = useState(true);
@@ -36,11 +36,11 @@ const Home = () => {
   const searchQuery = watch("search", ""); // Watch the search input field
 
   useEffect(() => {
-    if (data && !isLoading) {
+    if (data && !isCarLoading) {
       setFilteredCars(data);
       setIsFiltering(false);
     }
-  }, [data, isLoading]);
+  }, [data, isCarLoading]);
 
   useEffect(() => {
     if (searchQuery && data) {
@@ -267,7 +267,7 @@ const Home = () => {
               <Search className="text-[#BDBDBD] absolute left-3 top-2" />
             </div>
           </div>
-          {isLoading ? (
+          {isCarLoading ? (
             <div className="w-full text-center">Loading...</div>
           ) : isFiltering ? (
             <div className="w-full text-center"></div>
