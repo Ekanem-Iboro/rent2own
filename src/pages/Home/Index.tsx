@@ -7,6 +7,8 @@ import Order from "./Dashboard/Order";
 import Help from "./Dashboard/Help";
 import Profile from "./Dashboard/Profile";
 import PrivateRoute from "@/components/privateRoute";
+import HomeCarDetails from "./Dashboard/HomeCarDetails";
+import NotFound from "../NotFound";
 
 function Index() {
   return (
@@ -16,6 +18,7 @@ function Index() {
       <Routes>
         <Route path="/" element={<Sidebar />}>
           <Route path="/home" element={<Home />} />
+          <Route path="/home_products/:id" element={<HomeCarDetails />} />
           <Route
             path="/notification"
             element={
@@ -24,7 +27,6 @@ function Index() {
               </PrivateRoute>
             }
           />
-
           <Route
             path="/orders"
             element={
@@ -50,6 +52,7 @@ function Index() {
             }
           />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

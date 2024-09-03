@@ -280,7 +280,7 @@ const Home = () => {
               {currentCars.map((item, index) => (
                 <BlurFade key={item.id} delay={0.02} duration={0.5} inView>
                   <Link
-                    to={`/products/${item?.model}`}
+                    to={`/home_products/${item?.model}`}
                     // state={{ productData: item }}
                   >
                     <div

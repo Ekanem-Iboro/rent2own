@@ -46,6 +46,7 @@ const Login: React.FC = () => {
   // Form submission handler
   const signUpUser = async (data: SignInUser) => {
     mutate(data);
+
     reset();
   };
 
@@ -55,7 +56,7 @@ const Login: React.FC = () => {
         <Link to={"/"} className="md:block hidden mt-[3rem]">
           <ChevronLeft
             size={30}
-            className="text-[#655F5F] border border-[#655F5F] w-[30px] h-[30px] rounded-lg  "
+            className="text-[#655F5F] border border-[#655F5F] w-[30px] h-[30px] rounded-lg   "
           />
         </Link>
         <div className=" lg:w-[40%] md:w-[70%] w-full mx-auto">

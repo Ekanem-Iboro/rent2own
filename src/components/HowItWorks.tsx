@@ -15,7 +15,7 @@ function HoewItWorks() {
               Here are 5 easy steps to use rent-to-own platform.
             </p>
             <button className="text-[18px] text-primary border border-primary rounded-lg font-[600] leading-[21.6px] p-3 md:w-[60%] w-full">
-              Join us today!
+              <a href="/sign-up">Join us today!</a>
             </button>
           </div>
         </div>

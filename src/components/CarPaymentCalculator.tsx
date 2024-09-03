@@ -20,6 +20,8 @@ const CarPaymentCalculator = () => {
   const methods = useForm<claculatePaymet>({
     resolver: zodResolver(calculateSchema),
   });
+
+  const sessionToken = localStorage.getItem("session_token");
   // useForm() destructuring or methods destructuring. Here methods = useForm()
   const { handleSubmit, setValue, reset } = methods;
   const { currentCar } = useCarStore();
@@ -40,11 +42,17 @@ const CarPaymentCalculator = () => {
         </div>
 
         <div className="w-full text-center px-7">
-          <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
-            <a href="/">I want this car</a>
-          </button>
+          <Link to="/orders">
+            <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
+              I want this car
+            </button>
+          </Link>
         </div>
-        <p className="text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-7  ">
+        <p
+          className={` text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-7  ${
+            sessionToken ? "hidden" : "block"
+          } `}
+        >
           <Link to="/sign-up" className="text-primary">
             {" "}
             create an account now{" "}
