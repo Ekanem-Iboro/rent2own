@@ -84,7 +84,6 @@ const CarsDetails = () => {
         <FindSimilarCars />
         <DetailsBanner />
       </div>
-
       <div className="w-full md:flex block justify-between  py-9 md:px-[10%] px-3 bg-[#ffffff]">
         <div className="text-center w-full">
           <p className="text-[18px] text-[#191919] font-[600] leading-[21.6px] my-3 ">
