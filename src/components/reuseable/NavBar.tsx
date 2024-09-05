@@ -30,43 +30,27 @@ const NavBar = () => {
 
           <nav>
             <ul className="flex gap-8 text-[16px] leading-[19.2px] font-[500]">
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-primary font-[700]"
-                      : "text-[#191919] hover:text-primary  transition-all"
-                  }
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <a href="#howitworks" id="" className="text-[#191919] ">
-                  How it works
-                </a>
-              </li>
-              <li>
-                <a href="/#faq" id="contact-link" className="text-[#191919] ">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  id="contact-link"
-                  className="text-[#191919] "
-                >
-                  Contact us
-                </a>
-              </li>
+              {navBars?.map((data, index) => (
+                <li>
+                  <NavLink
+                    to={data.path}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-primary font-[700]"
+                        : "text-[#191919] hover:text-primary  transition-all"
+                    }
+                    key={index}
+                  >
+                    {data.route}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
 
         <div className="flex  items-center justify-between gap-10">
-          <p className="cursor-pointer font-[600] text-primary border border-primary leadeing-[21.6px] py-2 px-[2rem] rounded-xl text-[18px]">
+          <p className="cursor-pointer font-[600] text-primary border border-primary leading-[21.6px] py-2 px-[2rem] rounded-xl text-[18px]">
             <Link to="/sign-in">Sign in</Link>
           </p>
           <button className="bg-primary  font-[600] py-3 px-[4rem] rounded-xl text-[18px] text-[#FAFAFA] ">
@@ -113,51 +97,39 @@ const NavBar = () => {
       >
         <nav>
           <ul className="lg:flex block p-4 font-[500]">
-            <li className="mb-4 mt-4">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-primary font-[700]"
-                    : "text-[#191919] hover:text-primary  transition-all"
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li className="mb-4 ">
-              <a href="#howitworks" id="" className="text-[#191919] ">
-                How it works
-              </a>
-            </li>
-            <li className="mb-4 ">
-              <a href="/#faq" id="contact-link" className="text-[#191919] ">
-                FAQ
-              </a>
-            </li>
-            <li className="mb-4 ">
-              <a href="#contact" id="contact-link" className="text-[#191919] ">
-                Contact us
-              </a>
-            </li>
+            {navBars?.map((data) => (
+              <li className="mt-4 mb-4">
+                <NavLink
+                  to={data.path}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-primary font-[700]"
+                      : "text-[#191919] hover:text-primary  transition-all"
+                  }
+                  key={data.id}
+                >
+                  {data.route}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
 
         <hr className=" lg:hidden block my-2 " />
 
         <div className="flex flex-col items-center justify-center gap-6 p-5">
-          <button
-            className="bg-primary py-2 px-[4rem] w-full  font-[600] rounded-[10px] mt-5"
-            onClick={closeSidebar}
-          >
-            <Link to="/sign-up">Create an account</Link>
-          </button>
           <p
-            className="cursor-pointer text-primary  font-[600]"
+            className="cursor-pointer text-primary py-3 px-[4rem] text-center rounded-[10px] font-[600] border border-primary w-full mt-3"
             onClick={closeSidebar}
           >
             <Link to="/sign-in">Sign in</Link>
           </p>
+          <button
+            className="bg-primary py-3 px-[4rem] w-full  font-[600] rounded-[10px] "
+            onClick={closeSidebar}
+          >
+            <Link to="/sign-up">Create an account</Link>
+          </button>
         </div>
       </div>
     </>
@@ -165,3 +137,26 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+const navBars = [
+  {
+    id: 1,
+    route: "Home",
+    path: "/",
+  },
+  {
+    id: 2,
+    route: "How it works",
+    path: "/howitworks",
+  },
+  {
+    id: 3,
+    route: "FAQ",
+    path: "/faq",
+  },
+  {
+    id: 4,
+    route: "Contact us",
+    path: "/contactus",
+  },
+];

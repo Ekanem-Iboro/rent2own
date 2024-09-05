@@ -35,7 +35,7 @@ const CarsDetails = () => {
   return (
     <section>
       <NavBar />
-      <BreadcrumbComp />
+      <BreadcrumbComp item={currentCar?.model} />
       <Slider />
       <MultiSlides />
 

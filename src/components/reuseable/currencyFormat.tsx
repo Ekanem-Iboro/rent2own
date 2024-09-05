@@ -9,7 +9,7 @@ const CurrencyFormatter = ({ amount }: IAmount) => {
     maximumFractionDigits: 2,
   });
 
-  return <span>{formatter.format(amount)}</span>;
+  return <span>{formatter.format(amount)} </span>;
 };
 
 export default CurrencyFormatter;

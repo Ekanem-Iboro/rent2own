@@ -17,6 +17,7 @@ export interface Car {
   created_at: string;
   image_path: string;
   images: string[];
+  weekly: string;
 }
 
 export interface Filters {

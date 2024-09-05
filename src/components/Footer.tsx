@@ -11,7 +11,7 @@ import facebook from "../assets/icons/facebook.svg";
 
 const Footer = () => {
   return (
-    <footer className="lg:px-[6rem] px-2 py-9 w-full bg-grey-50 footerpad">
+    <footer className="lg:px-[6rem]  py-9 w-full bg-grey-50 footerpad px-6">
       <div className="md:flex block justify-between items-center md:px-[2rem] p-0   ">
         <div className="">
           <div className="md:w-[50%] w-full">
@@ -48,17 +48,17 @@ const Footer = () => {
               </Link>
             </li>
             <li className="mb-7">
-              <a href="#howitworks" className=" transition-all mb-6 underline">
+              <a href="/howitworks" className=" transition-all mb-6 underline">
                 How it works
               </a>
             </li>
             <li className="mb-7">
-              <a href="/#contact" className=" transition-all mb-6 underline">
+              <a href="/contact" className=" transition-all mb-6 underline">
                 Contact us
               </a>
             </li>
             <li className="mb-7">
-              <a href="/#faq" className=" transition-all mb-6 underline">
+              <a href="/faq" className=" transition-all mb-6 underline">
                 FAQ
               </a>
             </li>
@@ -67,12 +67,12 @@ const Footer = () => {
           <ul className="md:hidden flex  items-start gap-5  mt-8 font-[700] leading-[16.8px] text-[14px] text-[#2D2D2D]">
             <div className="flex-1">
               <li className="mb-4">
-                <Link to="/" className="underline">
+                <Link to="/sign-up" className="underline">
                   Sign up
                 </Link>
               </li>
               <li className="mb-4">
-                <Link to="/" className="underline">
+                <Link to="/sign-in" className="underline">
                   Sign in
                 </Link>
               </li>
@@ -84,17 +84,17 @@ const Footer = () => {
             </div>
             <div className="flex-1">
               <li className="mb-4">
-                <a href="/#howitworks" className="underline">
+                <a href="/howitworks" className="underline">
                   How it works
                 </a>
               </li>
               <li className="mb-4">
-                <a href="contact" className="underline">
+                <a href="/contact" className="underline">
                   Contact us
                 </a>
               </li>
               <li className="mb-7">
-                <a href="/#faq" className=" transition-all mb-6 underline">
+                <a href="/faq" className=" transition-all mb-6 underline">
                   FAQ
                 </a>
               </li>
@@ -103,7 +103,7 @@ const Footer = () => {
         </div>
         <div className="lg:w-[25%] w-full  flex  md:mt-0 mt-10">
           {appStores?.map((item, index) => (
-            <div className="flex items-start" key={item.id}>
+            <div className="flex items-start" key={index}>
               <Link to={item.path}>
                 <img
                   src={item.icon}
@@ -135,8 +135,8 @@ const Footer = () => {
       {/* mobile */}
       <div className="  mt-[4rem] pb-6 block md:hidden  border-t border-t-gray-300 ">
         <ul className="flex gap-5 items-center mt-8 w-full ">
-          {socialLinks?.map((item) => (
-            <li key={item.id} className="">
+          {socialLinks?.map((item, idx) => (
+            <li key={idx} className="">
               <Link to={item.path} className="underline">
                 <img src={item.icon} alt="" className="text-[#191919]" />
               </Link>

@@ -4,6 +4,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import line from "../assets/images/lines.png";
+import NavBar from "@/components/reuseable/NavBar";
 
 export default function Faq() {
   // State to manage which accordion is currently expanded
@@ -16,80 +17,83 @@ export default function Faq() {
     };
 
   return (
-    <section
-      className="bg-primary w-full md:flex flex-col block justify-center p-[8%] items-center md:relative my-[13%]"
-      id="faq"
-    >
-      <h1 className="w-full text-center md:text-[36px] text-[24px] text-[#ffffff] leading-[43.2px] font-[600] mb-8">
-        Frequently Asked Questions
-      </h1>
-      <div className="lg:w-[50%] md:w-[60%] w-full">
-        {faqData?.map((faqs, index) => (
-          <Accordion
-            key={faqs.id}
-            expanded={expanded === index}
-            onChange={handleChange(index)}
-            sx={{
-              boxShadow: "none",
-              backgroundColor: "#016AB3",
-              "&:not(:last-child)": {
-                borderBottom: "1px solid white",
-              },
-              "&:before": {
-                display: "none",
-              },
-            }}
-          >
-            <AccordionSummary
-              expandIcon={
-                <ExpandMoreIcon
-                  sx={{
-                    color: "white",
-                    marginBottom: "30px",
-                  }}
-                />
-              }
-              aria-controls={`panel${faqs.id}-content`}
-              id={`panel${faqs.id}-header`}
+    <div>
+      <NavBar />
+      <section
+        className="bg-primary w-full md:flex flex-col block justify-center p-[8%] items-center md:relative my-[13%]"
+        id="faq"
+      >
+        <h1 className="w-full text-center md:text-[36px] text-[24px] text-[#ffffff] leading-[43.2px] font-[600] mb-8">
+          Frequently Asked Questions
+        </h1>
+        <div className="lg:w-[50%] md:w-[60%] w-full">
+          {faqData?.map((faqs, index) => (
+            <Accordion
+              key={faqs.id}
+              expanded={expanded === index}
+              onChange={handleChange(index)}
               sx={{
-                color: "white",
-                paddingLeft: "0",
-                paddingTop: "30px",
-                "& .MuiAccordionSummary-content": {
-                  margin: "0",
-                  marginBottom: "30px",
+                boxShadow: "none",
+                backgroundColor: "#016AB3",
+                "&:not(:last-child)": {
+                  borderBottom: "1px solid white",
+                },
+                "&:before": {
+                  display: "none",
                 },
               }}
-              className="text-[18px] font-[500] leading-[21.8px]"
             >
-              {faqs.question}
-            </AccordionSummary>
-            <AccordionDetails
-              sx={{
-                backgroundColor: "#016AB3",
-                color: "white",
-                paddingLeft: "0",
-                marginTop: "10px",
-                paddingRight: "40px",
-              }}
-              className="text-[16px] font-[400] leading-[17.8px]"
-            >
-              {faqs.answer}
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </div>
-      <img
-        src={line}
-        alt="lines"
-        className=" absolute -bottom-[14%] right-[10%] md:block hidden"
-      />
-      <img
-        src={line}
-        alt="lines"
-        className=" absolute -top-[14%] left-[10%] md:block hidden"
-      />
-    </section>
+              <AccordionSummary
+                expandIcon={
+                  <ExpandMoreIcon
+                    sx={{
+                      color: "white",
+                      marginBottom: "30px",
+                    }}
+                  />
+                }
+                aria-controls={`panel${faqs.id}-content`}
+                id={`panel${faqs.id}-header`}
+                sx={{
+                  color: "white",
+                  paddingLeft: "0",
+                  paddingTop: "30px",
+                  "& .MuiAccordionSummary-content": {
+                    margin: "0",
+                    marginBottom: "30px",
+                  },
+                }}
+                className="text-[18px] font-[500] leading-[21.8px]"
+              >
+                {faqs.question}
+              </AccordionSummary>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "#016AB3",
+                  color: "white",
+                  paddingLeft: "0",
+                  marginTop: "10px",
+                  paddingRight: "40px",
+                }}
+                className="text-[16px] font-[400] leading-[17.8px]"
+              >
+                {faqs.answer}
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </div>
+        <img
+          src={line}
+          alt="lines"
+          className=" absolute -bottom-[14%] right-[10%] md:block hidden"
+        />
+        <img
+          src={line}
+          alt="lines"
+          className=" absolute -top-[14%] left-[10%] md:block hidden"
+        />
+      </section>
+    </div>
   );
 }
 

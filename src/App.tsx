@@ -9,6 +9,10 @@ import Register from "./pages/Auth/Register";
 import ForgotPassword from "./pages/Auth/forgot-password/forgot-password";
 import ResetPassword from "./pages/Auth/forgot-password/reset-password";
 import Index from "./pages/Home/Index";
+import HowItWorks from "./pages/HowItWorks";
+import ContactUs from "./pages/ContactUs";
+import Faq from "./pages/Faq";
+import CarListing from "./pages/CarListing";
 
 function App() {
   return (
@@ -19,6 +23,10 @@ function App() {
         <Routes>
           <Route path="/" element={<IndexPage />} />
           <Route path="/products/:userid" element={<CarsDetails />} />
+          <Route path="/carlisting" element={<CarListing />} />
+          <Route path="/howitworks" element={<HowItWorks />} />
+          <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
