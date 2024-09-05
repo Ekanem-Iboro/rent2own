@@ -32,7 +32,7 @@ const CarPaymentCalculator = () => {
   };
   return (
     <>
-      <div className=" md:mt-[5rem] m-auto md:w-[420px] py-[25px] bg-white rounded-[10px] overflow-hidden     md:block hidden">
+      <div className="   md:w-[420px]  bg-white rounded-[10px] overflow-hidden     md:block hidden">
         <div className="text-[36px] font-[700] leading-[42.2px] font-[#191919] text-center flex items-center gap-2 mb-4  p-5 px-7">
           <s className="font-[500] text-[#565656] text-[16px] leading-[19.2px]">
             AU$ 4,800
@@ -61,7 +61,7 @@ const CarPaymentCalculator = () => {
         </p>
       </div>
       {/* Calculator */}
-      <div className="relative m-auto md:w-[420px] md:min-h-[522px] bg-primary rounded-[10px] mt-[5rem] p-5">
+      <div className="relative  md:w-[420px] md:min-h-[522px] bg-primary rounded-[10px] mt-[5rem] p-5">
         <h1 className="text-[#FAFAFA] font-[500] text-[24px] leading-[28.8px]">
           Car Payment Calculator
         </h1>

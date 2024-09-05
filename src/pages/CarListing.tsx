@@ -40,7 +40,7 @@ const CarListing = () => {
       if (activeButton === "highest") {
         const sortedData = [...data];
         const Hsort = sortedData.sort(
-          (a, b) => Number(b.price) - Number(a.price)
+          (a, b) => Number(b.weekly) - Number(a.weekly)
         );
         setFilteredCars(Hsort);
       }
@@ -238,10 +238,10 @@ const CarListing = () => {
 
     switch (sortBy) {
       case "highest":
-        sortedData.sort((a, b) => Number(b.price) - Number(a.price));
+        sortedData.sort((a, b) => Number(b.weekly) - Number(a.weekly));
         break;
       case "lowest":
-        sortedData.sort((a, b) => Number(a.price) - Number(b.price));
+        sortedData.sort((a, b) => Number(a.weekly) - Number(b.weekly));
         break;
       case "latest":
         sortedData.sort(

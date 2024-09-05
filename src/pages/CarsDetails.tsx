@@ -33,21 +33,21 @@ const CarsDetails = () => {
   const remainingText = description.split(" ").slice(limit).join(" ");
 
   return (
-    <section>
+    <section className="">
       <NavBar />
       <BreadcrumbComp item={currentCar?.model} />
       <Slider />
       <MultiSlides />
 
       <div
-        className="md:flex  block w-full md:pl-[8%] pl-0 md:mr-[8%] px-3  py-[3%] "
+        className="md:flex  block w-full  md:px-[8%]  py-[4%] "
         key={currentCar?.id}
       >
-        <div className="flex-[40%] md:hidden ">
+        <div className=" w-full md:hidden ">
           <MobileSquareDetails />
         </div>
 
-        <div className="lg:flex-[20%] md:flex-[45%] px-6">
+        <div className=" w-[50%] ">
           <p className=" w-full md:text-[30px] text-[25px] text-[#2B2928] text-wrap leading-[36px] font-[600] mb-9">
             {currentCar?.model}
           </p>
@@ -76,9 +76,11 @@ const CarsDetails = () => {
 
           <CarInformation />
         </div>
-        <div className="md:flex-[45%] px-6  ">{<CarPaymentCalculator />}</div>
+        <div className=" w-[50%]  flex flex-col items-end">
+          {<CarPaymentCalculator />}
+        </div>
       </div>
-      <div className="px-6">
+      <div className="">
         <FindSimilarCars />
         <DetailsBanner />
       </div>
