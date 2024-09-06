@@ -32,14 +32,60 @@ const CarPaymentCalculator = () => {
   };
   return (
     <>
-      <div className="   md:w-[420px]  bg-white rounded-[10px] overflow-hidden     md:block hidden">
-        <div className="text-[36px] font-[700] leading-[42.2px] font-[#191919] text-center flex items-center gap-2 mb-4  p-5 px-7">
-          <s className="font-[500] text-[#565656] text-[16px] leading-[19.2px]">
-            AU$ 4,800
-          </s>{" "}
-          AU
-          <CurrencyFormatter amount={parseFloat(currentCar?.price || "0")} />
+      <div className="   md:w-[420px]  bg-white rounded-[10px] overflow-hidden lg:block hidden p-7">
+        {/*  */}
+        <h1 className="text-[#191919] text-[20px] leading-[24px] font-[500] mb-5">
+          Payment Structure
+        </h1>
+        <div className="w-full  flex justify-between items-center mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[14px] leading-[16.8px]">
+              Weekly rent
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
+            AU{" "}
+            <CurrencyFormatter amount={parseFloat(currentCar?.weekly || "0")} />
+          </p>
         </div>
+        {/*  */}
+        <div className="w-full flex justify-between items-center mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[14px] leading-[16.8px]">
+              Bond
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
+            4 weeks
+          </p>
+        </div>
+        {/*  */}
+        <div className="w-full  flex justify-between items-center mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[14px] leading-[16.8px]">
+              Deposit
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
+            1 week
+          </p>
+        </div>
+        {/*  */}
+        {/*  */}
+        <div className="w-full flex justify-between items-center mb-4">
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[14px] leading-[16.8px]">
+              Duration
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
+            104 weeks
+          </p>
+        </div>
+        {/*  */}
 
         <div className="w-full text-center px-7">
           <Link to="/orders">
@@ -95,14 +141,14 @@ const CarPaymentCalculator = () => {
               <TextFeildCalculate
                 name="weeklypayment"
                 label="Weekly payment"
-                placeholder=" $400"
+                placeholder=" $600"
               />
             </div>
 
             <button className="w-full bg-secondary py-2 px-[4rem] rounded-[6px] text-white mt-6">
               Calculate
             </button>
-            <p className="text-[#E3E3E3] text-[12px] w-full  mt-4 font-[300] ">
+            <p className="text-[#E3E3E3] text-[14px] w-full  mt6.84 font-[300] ">
               This repayment calculator only gives you an estimate of what your
               weekly repayments could be. This is to be used as a guide only and
               does not constitute a quote, pre-qualification, or approval.

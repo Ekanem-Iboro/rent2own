@@ -37,7 +37,7 @@ const FindSimilarCars = () => {
   // };
   return (
     <div>
-      <section className="w-full bg-gray-50  md:py-[1rem] py-10 my-[7rem] md:pl-[8%] md:pr-[14%]  pl-0 ">
+      <section className="w-full bg-gray-50  md:py-[1rem] py-10 my-[4rem] md:pl-[9%] md:pr-[14%]  pl-9 ">
         <p className=" w-full md:text-[36px] text-[25px] text-[#2B2928] font-[600] text-wrap leading-[43.2px]  mb-9">
           Find Similar Cars
         </p>

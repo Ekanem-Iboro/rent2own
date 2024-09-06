@@ -1,8 +1,3 @@
-import modelicon from "../assets/icons/model.svg";
-import engine from "../assets/icons/engine.svg";
-import passangers from "../assets/icons/passangers.svg";
-import coloricon from "../assets/icons/coloricon.svg";
-import yearicon from "../assets/icons/yearicon.svg";
 import useCarStore from "@/store/ProductStore";
 
 const CarSummary = () => {
@@ -11,82 +6,85 @@ const CarSummary = () => {
   return (
     <div className=" md:mt-[4rem] mt-[3rem]  rounded-md">
       <h1 className="text-[#191919] text-[20px] leading-[24px] font-[500]">
-        Car Summary
+        Vehicle Details
       </h1>
-      <div className=" w-full max-h[480px] rounded-[12px] overflow-hidden mt-10 mb-3">
-        <div className="px-2">
-          <div className="w-full flex items-center justify-between mb-6">
-            {/*  */}
-            {/*  */}
-            <div className="flex  items-center gap-2">
-              <img src={yearicon} alt="" />
-              <p className="text-[#2D2D2D]  text-[14px] font-[400] leading-[16.8px]">
-                Year
-              </p>
-            </div>
-            <p className="text-[#2D2D2D] font-[500] leading-[19.2px] text-[16px]">
-              {currentCar?.year}
+      <div className=" md:grid block grid-cols-3 items-center justify-start gap-3 product-box mt-4">
+        {/*  */}
+        <div className="w-full   mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+              Color
             </p>
           </div>
-          {/*  */}
-          {/*  */}
-
-          <div className="w-full flex items-center justify-between mb-6">
-            <div className="flex  items-center gap-2">
-              <img src={engine} alt="" />
-              <p className="text-[#2D2D2D]  text-[14px] font-[400] leading-[16.8px]">
-                Engine type
-              </p>
-            </div>
-            <p className="text-[#2D2D2D] font-[500] leading-[19.2px] text-[16px]">
-              {currentCar?.engine}
-            </p>
-          </div>
-
-          {/*  */}
-          <div className="w-full flex items-center justify-between mb-6">
-            {/*  */}
-            <div className="flex  items-center gap-2">
-              <img src={modelicon} alt="" />
-              <p className="text-[#2D2D2D]  text-[14px] font-[400] leading-[16.8px]">
-                Make
-              </p>
-            </div>
-            <p className="text-[#2D2D2D] font-[500] leading-[19.2px] text-[16px]">
-              {currentCar?.make}
-            </p>
-          </div>
-          {/*  */}
-
-          <div className="w-full flex items-center justify-between mb-6">
-            <div className="flex  items-center gap-2">
-              <img src={coloricon} alt="" />
-              <p className="text-[#2D2D2D]  text-[14px] font-[400] leading-[16.8px]">
-                Color
-              </p>
-            </div>
-            <p className="text-[#2D2D2D] font-[500] leading-[19.2px] text-[16px]">
-              {currentCar?.color}
-            </p>
-          </div>
-
-          {/*  */}
-
-          <div className="w-full flex items-center justify-between mb-6">
-            {/*  */}
-            <div className="flex  items-center gap-2">
-              <img src={passangers} alt="" />
-              <p className="text-[#2D2D2D]  text-[14px] font-[400] leading-[16.8px]">
-                Passangers
-              </p>
-            </div>
-            <p className="text-[#2D2D2D] font-[500] leading-[19.2px] text-[16px]">
-              {currentCar?.seating}
-            </p>
-          </div>
-          {/*  */}
+          <p className="text-[#2D2D2D] font-[400] leading-[16.8px] text-[14px] mt-2">
+            {currentCar?.color}
+          </p>
         </div>
+        {/*  */}
+        <div className="w-full  mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+              Transmission
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[400] leading-[16.8px] text-[14px] mt-2">
+            {/* {currentCar?.transmition} */}6 Speed Auto
+          </p>
+        </div>
+        {/*  */}
+        <div className="w-full   mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+              Model
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[400] leading-[16.8px] text-[14px] mt-2">
+            {currentCar?.model}
+          </p>
+        </div>
+        {/*  */}
+        {/*  */}
+        <div className="w-full  mb-4">
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+              Year
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[400] leading-[16.8px] text-[14px] mt-2">
+            {currentCar?.year}
+          </p>
+        </div>
+        {/*  */}
+        <div className="w-full   mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+              Engine
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[400] leading-[16.8px] text-[14px] mt-2">
+            {currentCar?.engine}
+          </p>
+        </div>
+        {/*  */}
+        <div className="w-full   mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+              Fuel Type
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[400] leading-[16.8px] text-[14px] mt-2">
+            {currentCar?.fuel}
+          </p>
+        </div>
+        {/*  */}
       </div>
+
+      {/*  */}
     </div>
   );
 };
