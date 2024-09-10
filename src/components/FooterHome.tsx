@@ -65,7 +65,7 @@ const Footer = () => {
 
             <li className="mb-7">
               <a
-                href="/termsandconditions"
+                href="/terms_conditions"
                 className=" transition-all mb-6 underline"
               >
                 Terms and Conditions
@@ -109,7 +109,7 @@ const Footer = () => {
               </li>
               <li className="mb-7">
                 <a
-                  href="/termsandconditions"
+                  href="/terms_conditions"
                   className=" transition-all mb-6 underline"
                 >
                   Terms and Conditions

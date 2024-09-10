@@ -29,7 +29,7 @@ function App() {
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/terms&conditions" element={<Term_Conditions />} />
+        <Route path="/termsandconditions" element={<Term_Conditions />} />
         <Route path="/sign-up" element={<Register />} />
         <Route path="/sign-in" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -19,7 +19,7 @@ import { BellIcon, ChevronDown, UserCircle } from "lucide-react";
 // } from "@/components/ui/sheet";
 import { useState } from "react";
 import Sidebardata from "@/components/reuseable/SidebarData";
-import Footer from "@/components/Footer";
+import Footer from "@/components/FooterHome";
 // import { toast } from "react-toastify";
 import { useGetUserProfile } from "@/hooks/query";
 import { toast } from "react-toastify";
@@ -86,14 +86,14 @@ const Sidebar = () => {
               {open && (
                 <div className="absolute top-10 right-0 w-[150px] h-[150px] bg-[#ffffff] py-[40px] rounded-lg transition-all duration-500 delay-500 ease-in-out  ">
                   <div className="flex flex-col gap-9 items-center transition-all duration-500 delay-500 ease-in-out ">
-                    <a
-                      href="/settings"
+                    <Link
+                      to="/settings"
                       className="text-[14px] font-[500] leading-[16.8px] text-[#383434]"
                       onClick={() => setOpen(false)}
                     >
                       {" "}
                       Settings
-                    </a>
+                    </Link>
                     <button
                       className="text-[14px] font-[500] leading-[16.8px] text-[#383434]"
                       onClick={() => {
