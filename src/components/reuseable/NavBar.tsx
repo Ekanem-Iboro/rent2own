@@ -60,7 +60,7 @@ const NavBar = () => {
       </div>
       {/*  */}
       {/* Mobile Nav Bar */}
-      <div className=" lg:hidden flex justify-between items-center   py-[1rem] text-[#FFFFFF]">
+      <div className=" lg:hidden flex justify-between items-center pr-5   py-[1rem] text-[#FFFFFF]">
         <div className="">
           <Link to="/" className="flex items-center" onClick={closeSidebar}>
             <img
@@ -118,18 +118,22 @@ const NavBar = () => {
         <hr className=" lg:hidden block my-2 " />
 
         <div className="flex flex-col items-center justify-center gap-6 p-5">
-          <p
-            className="cursor-pointer text-primary py-3 px-[4rem] text-center rounded-[10px] font-[600] border border-primary w-full mt-3"
-            onClick={closeSidebar}
-          >
-            <Link to="/sign-in">Sign in</Link>
-          </p>
-          <button
-            className="bg-primary py-3 px-[4rem] w-full  font-[600] rounded-[10px] "
-            onClick={closeSidebar}
-          >
-            <Link to="/sign-up">Create an account</Link>
-          </button>
+          <Link to="/sign-in" className="w-full">
+            <p
+              className="cursor-pointer text-primary py-3 px-[4rem] text-center rounded-[10px] font-[600] border border-primary w-full mt-3"
+              onClick={closeSidebar}
+            >
+              Sign in
+            </p>
+          </Link>
+          <Link to="/sign-up" className="w-full">
+            <button
+              className="bg-primary py-3 px-[4rem] w-full  font-[600] rounded-[10px] "
+              onClick={closeSidebar}
+            >
+              Create an account
+            </button>
+          </Link>
         </div>
       </div>
     </>

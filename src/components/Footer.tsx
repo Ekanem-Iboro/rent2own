@@ -10,6 +10,7 @@ import facebook from "../assets/icons/facebook.svg";
 // import cfacebook from "../assets/icons/c_facebook.svg";
 
 const Footer = () => {
+  const session_token = localStorage.getItem("session_token");
   return (
     <footer className="lg:px-[6rem]  py-9 w-full bg-grey-50 footerpad px-6">
       <div className="md:flex block justify-between items-center md:px-[2rem] p-0   ">
@@ -48,29 +49,39 @@ const Footer = () => {
               </Link>
             </li>
             <li className="mb-7">
-              <a href="/howitworks" className=" transition-all mb-6 underline">
+              <Link to="/howitworks" className=" transition-all mb-6 underline">
                 How it works
-              </a>
+              </Link>
             </li>
             <li className="mb-7">
-              <a href="/contact" className=" transition-all mb-6 underline">
+              <Link to="/contact" className=" transition-all mb-6 underline">
                 Contact us
-              </a>
+              </Link>
             </li>
             <li className="mb-7">
-              <a href="/faq" className=" transition-all mb-6 underline">
+              <Link to="/faq" className=" transition-all mb-6 underline">
                 FAQ
-              </a>
+              </Link>
             </li>
-
-            <li className="mb-7">
-              <a
-                href="/termsandconditions"
-                className=" transition-all mb-6 underline"
-              >
-                Terms and Conditions
-              </a>
-            </li>
+            {session_token ? (
+              <li className="mb-7">
+                <Link
+                  to="/terms_conditions"
+                  className=" transition-all mb-6 underline"
+                >
+                  Terms and Conditions
+                </Link>
+              </li>
+            ) : (
+              <li className="mb-7">
+                <Link
+                  to="/termsandconditions"
+                  className=" transition-all mb-6 underline"
+                >
+                  Terms and Conditions
+                </Link>
+              </li>
+            )}
           </ul>
           {/* mobile */}
           <ul className="md:hidden flex   items-start gap-5  mt-8 font-[700] leading-[16.8px] text-[14px] text-[#2D2D2D]">
@@ -93,28 +104,39 @@ const Footer = () => {
             </div>
             <div className="flex-1">
               <li className="mb-4">
-                <a href="/howitworks" className="underline">
+                <Link to="/howitworks" className="underline">
                   How it works
-                </a>
+                </Link>
               </li>
               <li className="mb-4">
-                <a href="/contact" className="underline">
+                <Link to="/contact" className="underline">
                   Contact us
-                </a>
+                </Link>
               </li>
               <li className="mb-7">
-                <a href="/faq" className=" transition-all mb-6 underline">
+                <Link to="/faq" className=" transition-all mb-6 underline">
                   FAQ
-                </a>
+                </Link>
               </li>
-              <li className="mb-7">
-                <a
-                  href="/termsandconditions"
-                  className=" transition-all mb-6 underline"
-                >
-                  Terms and Conditions
-                </a>
-              </li>
+              {session_token ? (
+                <li className="mb-7">
+                  <Link
+                    to="/terms_conditions"
+                    className=" transition-all mb-6 underline"
+                  >
+                    Terms and Conditions
+                  </Link>
+                </li>
+              ) : (
+                <li className="mb-7">
+                  <Link
+                    to="/termsandconditions"
+                    className=" transition-all mb-6 underline"
+                  >
+                    Terms and Conditions
+                  </Link>
+                </li>
+              )}
             </div>
           </ul>
         </div>

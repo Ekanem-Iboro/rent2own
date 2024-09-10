@@ -19,7 +19,7 @@ import { BellIcon, ChevronDown, UserCircle } from "lucide-react";
 // } from "@/components/ui/sheet";
 import { useState } from "react";
 import Sidebardata from "@/components/reuseable/SidebarData";
-import Footer from "@/components/FooterHome";
+import Footer from "@/components/Footer";
 // import { toast } from "react-toastify";
 import { useGetUserProfile } from "@/hooks/query";
 import { toast } from "react-toastify";
