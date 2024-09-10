@@ -23,7 +23,7 @@ function Slider() {
   // };
 
   return (
-    <div className="w-full bg-gray-50 overflow-hidden md:px-[8%]  px-2 rounded-sm">
+    <div className="w-full bg-gray-50 overflow-hidden   px-2 rounded-sm">
       <Carousel
         opts={{
           loop: true,

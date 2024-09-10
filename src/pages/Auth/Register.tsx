@@ -61,8 +61,7 @@ const Register: React.FC = () => {
   // Form submission handler
   const signUpUser = async (data: CreateUser) => {
     mutate(data);
-    console.log(isError);
-    console.log(isSuccess);
+    
     reset();
   };
 

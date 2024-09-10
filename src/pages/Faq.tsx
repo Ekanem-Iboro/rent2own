@@ -5,6 +5,9 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import line from "../assets/images/lines.png";
 import NavBar from "@/components/reuseable/NavBar";
+import { BreadcrumbComp } from "@/components/reuseable/BreadCrumbs";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
 export default function Faq() {
   // State to manage which accordion is currently expanded
@@ -19,14 +22,22 @@ export default function Faq() {
   return (
     <div>
       <NavBar />
+      <div className="px-5">
+        <header className="md:bg-[url('assets/images/carbg.jpg')] bg-[url('assets/images/mobilecarbg.jpg')] bg-no-repeat bg-cover w-full h-[550px] flex flex-col items-center justify-center mb-[7rem]">
+          <p className="md:text-[60px] text-[24px] md:leading-[72px] leading-[28.8px] font-[600] text-[#FFFFFF]">
+            Frequently Asked Questions
+          </p>
+          <BreadcrumbComp item="faq" color="#ffffff" />
+        </header>
+      </div>
       <section
-        className="bg-primary w-full md:flex flex-col block justify-center p-[8%] items-center md:relative my-[13%]"
+        className="bg-primary w-full md:flex flex-col block justify-center p-[8%] items-center relative lg:my-[15%] md:my-[20%] my-[30%] top-"
         id="faq"
       >
-        <h1 className="w-full text-center md:text-[36px] text-[24px] text-[#ffffff] leading-[43.2px] font-[600] mb-8">
+        <h1 className="w-full text-center md:text-[36px] text-[24px] text-[#ffffff] leading-[43.2px] font-[600] mb-8 relative z-50">
           Frequently Asked Questions
         </h1>
-        <div className="lg:w-[50%] md:w-[60%] w-full">
+        <div className="lg:w-[50%] md:w-[60%] w-full relative z-50">
           {faqData?.map((faqs, index) => (
             <Accordion
               key={faqs.id}
@@ -85,14 +96,16 @@ export default function Faq() {
         <img
           src={line}
           alt="lines"
-          className=" absolute -bottom-[14%] right-[10%] md:block hidden"
+          className=" absolute md:-bottom-[14%] lg:right-[10%] md:right-[6%] md:w-auto w-[300px] -bottom-[6.5%]"
         />
         <img
           src={line}
           alt="lines"
-          className=" absolute -top-[14%] left-[10%] md:block hidden"
+          className=" absolute md:-top-[12%] lg:left-[10%] md:left-[6%]  md:w-auto w-[300px] -top-[6.5%]"
         />
       </section>
+      <Contact />
+      <Footer />
     </div>
   );
 }

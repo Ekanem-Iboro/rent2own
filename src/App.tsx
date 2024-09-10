@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ScrollToTop from "./components/reuseable/ScrollToTop";
 import AutoScrollToTop from "./components/reuseable/AutoScrollToTop";
 import IndexPage from "./pages/IndexPage";
@@ -13,29 +13,30 @@ import HowItWorks from "./pages/HowItWorks";
 import ContactUs from "./pages/ContactUs";
 import Faq from "./pages/Faq";
 import CarListing from "./pages/CarListing";
+import Term_Conditions from "./pages/Term_Conditions";
+// import { useEffect } from "react";
 
 function App() {
   return (
     <div className="bg-[#FAFAFA]">
-      <BrowserRouter>
-        <AutoScrollToTop />
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<IndexPage />} />
-          <Route path="/products/:userid" element={<CarsDetails />} />
-          <Route path="/carlisting" element={<CarListing />} />
-          <Route path="/howitworks" element={<HowItWorks />} />
-          <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/faq" element={<Faq />} />
-          <Route path="/sign-up" element={<Register />} />
-          <Route path="/sign-in" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-
-          <Route path="/*" element={<Index />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AutoScrollToTop />
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<IndexPage />} />
+        <Route path="/products/:userid" element={<CarsDetails />} />
+        <Route path="/carlisting" element={<CarListing />} />
+        <Route path="/howitworks" element={<HowItWorks />} />
+        <Route path="/contactus" element={<ContactUs />} />
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/terms&conditions" element={<Term_Conditions />} />
+        <Route path="/sign-up" element={<Register />} />
+        <Route path="/sign-in" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/*" element={<Index />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }

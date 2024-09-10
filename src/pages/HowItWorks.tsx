@@ -1,19 +1,28 @@
 import AboutSection from "@/components/AboutSection";
+import Banner from "@/components/Banner";
+import Footer from "@/components/Footer";
+import { BreadcrumbComp } from "@/components/reuseable/BreadCrumbs";
 import NavBar from "@/components/reuseable/NavBar";
 import { Link } from "react-router-dom";
 
 function HowItWorks() {
   return (
-    <div>
+    <div className="px-5">
       <NavBar />
+      <header className="md:bg-[url('assets/images/carbg.jpg')] bg-[url('assets/images/mobilecarbg.jpg')] bg-no-repeat bg-cover w-full h-[550px] flex flex-col items-center justify-center">
+        <p className="md:text-[60px] text-[24px] md:leading-[72px] leading-[28.8px] font-[600] text-[#FFFFFF]">
+          How It Works
+        </p>
+        <BreadcrumbComp item="How it works" color="#ffffff" />
+      </header>
       <AboutSection />
       <section
-        className="w-full bg-gray-50  px-3 lg:py-[4rem] py-10 how-it-works mb-[5%] "
+        className="w-full  px-3 lg:py-[4rem] py-10 lg:px-[12%] mb-[5%] "
         id="howitworks"
       >
-        <div className=" w-full lg:grid grid-cols-2  block gap-10 ">
+        <div className=" w-full lg:grid grid-cols-2  gap-y-9 block gap-10 ">
           {/*  */}
-          <div className="    w-full lg:h-[400px] h-[200px] lg:px-[17%]  pl-5 pr-7 py-[20px] rounded-md lg:mb-0 mb-6  flex  items-center justify-center">
+          <div className="    w-full lg:h-[400px] min-min-h-[200px] lg:px-[17%]  pl-5 pr-7 py-[20px] rounded-md lg:mb-0 mb-6  flex  items-center justify-center">
             <div className="flex flex-col gap-8">
               <h1 className="text-[32px] text-[#2D2D2D] font-[600] leading-[43.2px]">
                 5 Effective Steps To Use Car Rent-To-Own
@@ -30,7 +39,7 @@ function HowItWorks() {
           </div>
           {/*  */}
           {/*  */}
-          <div className="bg-[#ffffff]  w-full lg:h-[400px] h-[200px] lg:px-[17%]   pl-5 pr-7 py-[20px] rounded-md lg:mb-0 mb-6    flex  items-center justify-center">
+          <div className="bg-[#ffffff]  w-full lg:h-[400px] min-h-[200px] lg:px-[17%]   pl-5 pr-7 py-[20px] rounded-md lg:mb-0 mb-6    flex  items-center justify-center">
             {/* <h1
             className="lg:flex-[25%] text-center lg:text-[128px] text-[40px]  mr-4"
             style={{
@@ -56,7 +65,7 @@ function HowItWorks() {
           </div>
           {/*  */}
           {/*  */}
-          <div className="  bg-[#ffffff]  w-full  lg:h-[400px] h-[297px] lg:px-[17%]   pl-5 pr-5 lg:mb-0 mb-6 py-[20px] rounded-md   flex  items-center justify-center">
+          <div className="  bg-[#ffffff]  w-full  lg:h-[400px] min-h-[200px] lg:px-[17%]   pl-5 pr-5 lg:mb-0 mb-6 py-[20px] rounded-md   flex  items-center justify-center">
             {/* <h1
             className="lg:flex-[25%] text-center lg:text-[128px] text-[40px]  mr-4"
             style={{
@@ -92,7 +101,7 @@ function HowItWorks() {
           </div>
           {/*  */}
           {/*  */}
-          <div className="   bg-[#ffffff]  w-full  lg:h-[400px] h-[297px] lg:px-[17%]   pl-5 pr-5 lg:mb-0 mb-6 py-[20px] rounded-md    flex  items-center justify-center">
+          <div className="   bg-[#ffffff]  w-full  lg:h-[400px] min-h-[200px] lg:px-[17%]   pl-5 pr-5 lg:mb-0 mb-6 py-[20px] rounded-md    flex  items-center justify-center">
             {/* <h1
             className="lg:flex-[25%] text-center lg:text-[128px] text-[40px]  mr-4"
             style={{
@@ -126,7 +135,7 @@ function HowItWorks() {
             </div>
           </div>
           {/*  */}
-          <div className="   bg-[#ffffff]   w-full lg:h-[400px] h-[200px] lg:px-[17%]   pl-5 pr-5 lg:mb-0 mb-6 py-[20px] rounded-md   flex  items-center justify-center ">
+          <div className="   bg-[#ffffff]   w-full lg:h-[400px] min-h-[200px] lg:px-[17%]   pl-5 pr-5 lg:mb-0 mb-6 py-[20px] rounded-md   flex  items-center justify-center ">
             {/* <h1
             className="lg:flex-[25%] text-center lg:text-[128px] text-[40px]  mr-4 "
             style={{
@@ -189,6 +198,10 @@ function HowItWorks() {
           {/*  */}
         </div>
       </section>
+      <Banner />
+      <div className="lg:px-[7%] md:px-[2%] px-0">
+        <Footer />
+      </div>
     </div>
   );
 }

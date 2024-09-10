@@ -78,7 +78,13 @@ body {
 }
 
 /*   */
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 400px) {
+  .nav_b_text {
+    display: none;
+  }
+  .nav_b_link {
+    padding-top: 10px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -225,10 +231,21 @@ body {
       padding-right: 2%;
     }
   }
+  .tap_width {
+    width: 50%;
+  }
+}
+@media (width < 500px) {
+  .tap_width {
+    width: 100%;
+  }
 }
 @media (500px < width <= 749px) {
   .banner-par {
     padding: 0 6rem;
+  }
+  .tap_width {
+    width: 80%;
   }
 }
 @media (750px < width <= 1500px) {
@@ -267,11 +284,17 @@ body {
     padding-left: 5%;
     padding-right: 5%;
   }
+  .tap_width {
+    width: 45%;
+  }
 }
 @media (width > 1400px) {
   .product {
     padding-left: 15%;
     padding-right: 15%;
+  }
+  .tap_width {
+    width: 35%;
   }
 }
 @media screen and (min-width: 1200px) {

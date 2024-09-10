@@ -16,18 +16,21 @@ import FindSimilarCars from "@/components/FindSimilarCars";
 import DetailsBanner from "@/components/DetailsBanner";
 import Footer from "@/components/Footer";
 import AboutThisCar from "@/components/AboutThisCar";
+import { ContactAdressPhone } from "@/components/reuseable/ContactAdressPhone";
 
 const CarsDetails = () => {
   const { currentCar } = useCarStore();
   return (
-    <section className=" px-7 md:px-0">
+    <section>
       <NavBar />
-      <BreadcrumbComp item={currentCar?.model} />
-      <Slider />
-      <MultiSlides />
+      <div className=" px-7 md:px-[5%]">
+        <BreadcrumbComp item={currentCar?.model} color="#191919" />
+        <Slider />
+        <MultiSlides />
+      </div>
 
       <div
-        className="lg:flex  block w-full  lg:px-[7%] md:px-[8%] py-[4%] "
+        className="lg:flex  block w-full px-7 md:px-[5%]  py-[4%] "
         key={currentCar?.id}
       >
         <div className="block lg:hidden w-full px-5">
@@ -66,52 +69,8 @@ const CarsDetails = () => {
         <FindSimilarCars />
         <DetailsBanner />
       </div>
-      <div className="w-full md:flex block md:justify-between mx-7 contact-add  md:mt-0 mt-10">
-        <div className="md:text-center w-full">
-          <p className="text-[18px] text-[#191919] font-[600] leading-[21.6px] my-3 ">
-            Email
-          </p>
-          <p className="text-[14px] text-[#2D2D2D] font-[500] leading-[16.8px]">
-            Our friendly team is here to help.
-          </p>
-          <p className="md:text-[14px]  text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]  md:mt-5 mt-2">
-            hi@renttoown.com.au
-          </p>
-        </div>
+      <ContactAdressPhone />
 
-        <div className="md:text-center w-full md:mt-0 mt-8">
-          <p className="text-[18px] text-[#191919] font-[600] leading-[21.6px] my-3">
-            Office
-          </p>
-          <p className="text-[14px] text-[#2D2D2D] font-[500] leading-[16.8px]">
-            Come say hello at our office HQ.
-          </p>
-          <p className="md:text-[14px] text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]   md:mt-5 mt-2 lg:px-[30%] md:px-[20%] md:w-auto w-[40%]">
-            100 Smith Street Collingwood VIC 3066 AU
-          </p>
-        </div>
-
-        <div className="md:text-center w-full md:mt-0 mt-8">
-          <p className="text-[18px] text-[#191919] font-[600] leading-[21.6px] my-3">
-            Phone
-          </p>
-          <p className="text-[14px] text-[#2D2D2D] font-[500] leading-[16.8px]">
-            Mon-Fri from 8am to 5pm.
-          </p>
-          <p className="md:text-[14px] text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]  md:mt-5 mt-2">
-            +1 (555) 000-0000
-          </p>
-        </div>
-        {/* <ul className="flex gap-5 items-center my-8 ">
-          {contactLink?.map((item) => (
-            <li key={item.id} className="">
-              <Link to={item.path} className="underline">
-                <img src={item.icon} alt="" className="text-[#191919] font-[600]" />
-              </Link>
-            </li>
-          ))}
-        </ul> */}
-      </div>
       <Footer />
     </section>
   );

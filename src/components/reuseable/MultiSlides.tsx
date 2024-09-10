@@ -32,7 +32,7 @@ export function MultiSlides() {
           delay: 3000,
         }),
       ]}
-      className="w-full md:px-[8%]  px-2 mt-10  "
+      className="w-full  px-2 mt-10  "
     >
       <CarouselContent className=" w-full ">
         {currentCar?.images?.map((img, index) => (

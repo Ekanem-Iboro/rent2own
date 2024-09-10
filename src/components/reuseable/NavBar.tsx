@@ -60,7 +60,7 @@ const NavBar = () => {
       </div>
       {/*  */}
       {/* Mobile Nav Bar */}
-      <div className=" lg:hidden flex justify-between items-center  px-4 py-[1rem] text-[#FFFFFF]">
+      <div className=" lg:hidden flex justify-between items-center   py-[1rem] text-[#FFFFFF]">
         <div className="">
           <Link to="/" className="flex items-center" onClick={closeSidebar}>
             <img

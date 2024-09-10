@@ -41,7 +41,7 @@ const Login: React.FC = () => {
   // Destructure methods from useForm
   const { handleSubmit, reset } = methods;
 
-  const { mutate, isPending } = useSignInUser();
+  const { mutate, isPending, isError } = useSignInUser();
 
   // Form submission handler
   const signUpUser = async (data: SignInUser) => {
@@ -76,7 +76,11 @@ const Login: React.FC = () => {
           <p className="text-[#0A0B0A] text-[14px]  font-[500] w-full text-center leading-[16.8px] mt-2">
             Welcome back! Sign in to your account.
           </p>
-
+          {isError && (
+            <p className="text-red-400 text-[14px] bg-red-50 p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] mt-2">
+              Incorrect email or password
+            </p>
+          )}
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(signUpUser)}>
               <div className="mt-4">

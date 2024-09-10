@@ -5,10 +5,11 @@ import Sidebar from "@/layout/Sidebar";
 import Notification from "./Dashboard/Notification";
 import Order from "./Dashboard/Order";
 import Help from "./Dashboard/Help";
-import Profile from "./Dashboard/Profile";
 import PrivateRoute from "@/components/privateRoute";
 import HomeCarDetails from "./Dashboard/HomeCarDetails";
 import NotFound from "../NotFound";
+import Settings from "./Dashboard/Settings";
+import { TermsAndCondition } from "./Dashboard/TermsAndCondition";
 
 function Index() {
   return (
@@ -17,13 +18,37 @@ function Index() {
 
       <Routes>
         <Route path="/" element={<Sidebar />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/home_products/:id" element={<HomeCarDetails />} />
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute>
+                <Home />{" "}
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/home_products/:id"
+            element={
+              <PrivateRoute>
+                <HomeCarDetails />
+              </PrivateRoute>
+            }
+          />
+
           <Route
             path="/notification"
             element={
               <PrivateRoute>
                 <Notification />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/terms_conditions"
+            element={
+              <PrivateRoute>
+                <TermsAndCondition />
               </PrivateRoute>
             }
           />
@@ -44,10 +69,10 @@ function Index() {
             }
           />
           <Route
-            path="/profile"
+            path="/settings"
             element={
               <PrivateRoute>
-                <Profile />{" "}
+                <Settings />{" "}
               </PrivateRoute>
             }
           />

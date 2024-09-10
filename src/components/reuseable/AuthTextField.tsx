@@ -31,7 +31,7 @@ const FormInput: React.FC<FormInputProps> = ({
       <label
         htmlFor={name}
         className={clsx(
-          "block text-[16px] leading-[19.2px] font-[400] mb-[6px] capitalize text-[#0A0B0A]",
+          "block text-[16px] leading-[19.2px] font-[400] mb-[6px]  text-[#0A0B0A]",
           {
             "text-[#DA1E28]": errors[name],
           }

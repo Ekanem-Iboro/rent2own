@@ -10,6 +10,7 @@ import facebook from "../assets/icons/facebook.svg";
 // import cfacebook from "../assets/icons/c_facebook.svg";
 
 const Footer = () => {
+  const session_token = localStorage.getItem("session_token");
   return (
     <footer className="lg:px-[6rem]  py-9 w-full bg-grey-50 footerpad px-6">
       <div className="md:flex block justify-between items-center md:px-[2rem] p-0   ">
@@ -31,10 +32,10 @@ const Footer = () => {
             </p>
           </div>
           {/* desktop */}
-          <ul className="md:flex hidden gap-7 items-center mt-8 font-[700] leading-[16.8px] text-[14px] text-[#2D2D2D]">
+          <ul className="md:flex flex-wrap hidden gap-7 items-center mt-8 font-[700] leading-[16.8px] text-[14px] text-[#2D2D2D]">
             <li className="mb-7">
               <Link className="underline" to="/sign-up">
-                Register
+                Create an account
               </Link>
             </li>
             <li className="mb-7">
@@ -62,10 +63,29 @@ const Footer = () => {
                 FAQ
               </a>
             </li>
+            {session_token ? (
+              <li className="mb-7">
+                <a
+                  href="/terms_conditions"
+                  className=" transition-all mb-6 underline"
+                >
+                  Terms and Conditions
+                </a>
+              </li>
+            ) : (
+              <li className="mb-7">
+                <a
+                  href="/terms&conditions"
+                  className=" transition-all mb-6 underline"
+                >
+                  Terms and Conditions
+                </a>
+              </li>
+            )}
           </ul>
           {/* mobile */}
-          <ul className="md:hidden flex  items-start gap-5  mt-8 font-[700] leading-[16.8px] text-[14px] text-[#2D2D2D]">
-            <div className="flex-1">
+          <ul className="md:hidden flex   items-start gap-5  mt-8 font-[700] leading-[16.8px] text-[14px] text-[#2D2D2D]">
+            <div className="flex-1 ">
               <li className="mb-4">
                 <Link to="/sign-up" className="underline">
                   Sign up
@@ -98,6 +118,25 @@ const Footer = () => {
                   FAQ
                 </a>
               </li>
+              {session_token ? (
+                <li className="mb-7">
+                  <a
+                    href="/terms_conditions"
+                    className=" transition-all mb-6 underline"
+                  >
+                    Terms and Conditions
+                  </a>
+                </li>
+              ) : (
+                <li className="mb-7">
+                  <a
+                    href="/terms&conditions"
+                    className=" transition-all mb-6 underline"
+                  >
+                    Terms and Conditions
+                  </a>
+                </li>
+              )}
             </div>
           </ul>
         </div>

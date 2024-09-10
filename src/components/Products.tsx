@@ -72,9 +72,9 @@ const Products = () => {
 
                   <hr className=" border border-[#E6E6E6] mx-2 md:mx-5 my-4 " />
                   <div className="md:px-5 px-2 ">
-                    <div className=" grid grid-cols-3 items-center justify-start gap-3 product-box">
+                    <div className=" grid grid-cols-3 items-center justify-start gap-3 product-box  ">
                       {/*  */}
-                      <div className="w-full   mb-4">
+                      <div className="w-full   mb-1">
                         {/*  */}
                         <div className="  items-center mr-2 ">
                           <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
@@ -86,7 +86,7 @@ const Products = () => {
                         </p>
                       </div>
                       {/*  */}
-                      <div className="w-full   mb-4">
+                      <div className="w-full   mb-1">
                         {/*  */}
                         <div className="  items-center mr-2 ">
                           <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
@@ -98,7 +98,7 @@ const Products = () => {
                         </p>
                       </div>
                       {/*  */}
-                      <div className="w-full   mb-4">
+                      <div className="w-full   mb-1">
                         {/*  */}
                         <div className="  items-center mr-2 ">
                           <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
@@ -109,10 +109,10 @@ const Products = () => {
                           {item.fuel}
                         </p>
                       </div>
-                    </div>
-                    {/*  */}
-                    <div className=" product-box grid grid-cols-[40%_40%] items-center gap-3">
-                      <div className="w-full   mb-4">
+
+                      {/*  */}
+
+                      <div className="w-full   mb-1">
                         {/*  */}
                         <div className="  items-center mr-2 ">
                           <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
@@ -124,7 +124,7 @@ const Products = () => {
                         </p>
                       </div>
                       {/*  */}
-                      <div className="w-full  mb-4">
+                      <div className="w-full  mb-1">
                         {/*  */}
                         <div className="  items-center mr-2 ">
                           <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">

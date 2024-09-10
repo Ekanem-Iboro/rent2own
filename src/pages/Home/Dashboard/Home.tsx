@@ -1,8 +1,8 @@
-import model from "../../../assets/icons/model.svg";
-import engine from "../../../assets/icons/engine.svg";
-import passangers from "../../../assets/icons/passangers.svg";
-import max_power from "../../../assets/icons/max_power.svg";
-import location from "../../../assets/icons/location.svg";
+// import model from "../../../assets/icons/model.svg";
+// import engine from "../../../assets/icons/engine.svg";
+// import passangers from "../../../assets/icons/passangers.svg";
+// import max_power from "../../../assets/icons/max_power.svg";
+// import location from "../../../assets/icons/location.svg";
 import { Link } from "react-router-dom";
 import BlurFade from "@/components/magicui/blur-fade";
 import CurrencyFormatter from "@/components/reuseable/currencyFormat";
@@ -15,14 +15,16 @@ import SearchCarsByYear from "@/components/filter/YearSearch";
 import ColorSearch from "@/components/filter/ColorSearch";
 import FuelSearch from "@/components/filter/FuelSearch";
 import { useCars } from "@/hooks/query";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 import { Car, Filters } from "@/api/types";
-import { Search } from "lucide-react";
+// import { Search } from "lucide-react";
 import { PaginationCar } from "@/components/reuseable/CarPegnation";
 
 const Home = () => {
   const { setCurrentCar } = useCarStore();
   const { data, isLoading: isCarLoading } = useCars();
+
+  const [activeButton, setActiveButton] = useState("highest");
 
   const [filteredCars, setFilteredCars] = useState<Car[]>([]);
   const [isFiltering, setIsFiltering] = useState(true);
@@ -32,36 +34,42 @@ const Home = () => {
   const lastItemIndex = currentPage * itemPerPage;
   const firstItemIndex = lastItemIndex - itemPerPage;
   const currentCars = filteredCars?.slice(firstItemIndex, lastItemIndex);
-  const { register, watch } = useForm();
-  const searchQuery = watch("search", ""); // Watch the search input field
+  //   const { register, watch } = useForm();
+  //   const searchQuery = watch("search", ""); // Watch the search input field
 
   useEffect(() => {
     if (data && !isCarLoading) {
-      setFilteredCars(data);
+      if (activeButton === "highest") {
+        const sortedData = [...data];
+        const Hsort = sortedData.sort(
+          (a, b) => Number(b.weekly) - Number(a.weekly)
+        );
+        setFilteredCars(Hsort);
+      }
       setIsFiltering(false);
     }
-  }, [data, isCarLoading]);
+  }, [data, isCarLoading, activeButton]);
 
-  useEffect(() => {
-    if (searchQuery && data) {
-      const lowercasedQuery = searchQuery.toLowerCase();
-      const filteredData = data.filter((car) =>
-        [
-          car.make,
-          car.model,
-          car.color,
-          car.fuel,
-          car.year.toString(),
-          car.price.toString(),
-        ]
-          .map((field) => field.toLowerCase())
-          .some((field) => field.includes(lowercasedQuery))
-      );
-      setFilteredCars(filteredData);
-    } else if (data) {
-      setFilteredCars(data);
-    }
-  }, [searchQuery, data]);
+  //   useEffect(() => {
+  //     if (searchQuery && data) {
+  //       const lowercasedQuery = searchQuery.toLowerCase();
+  //       const filteredData = data.filter((car) =>
+  //         [
+  //           car.make,
+  //           car.model,
+  //           car.color,
+  //           car.fuel,
+  //           car.year.toString(),
+  //           car.price.toString(),
+  //         ]
+  //           .map((field) => field.toLowerCase())
+  //           .some((field) => field.includes(lowercasedQuery))
+  //       );
+  //       setFilteredCars(filteredData);
+  //     } else if (data) {
+  //       setFilteredCars(data);
+  //     }
+  //   }, [searchQuery, data]);
 
   const handleProductClick = (product: Car) => {
     setCurrentCar(product);
@@ -226,6 +234,33 @@ const Home = () => {
     setFilteredCars(filteredData);
   };
 
+  const handleButtonClick = (sortBy: string) => {
+    setActiveButton(sortBy);
+    const sortedData = [...filteredCars]; // Create a copy to sort
+
+    switch (sortBy) {
+      case "highest":
+        sortedData.sort((a, b) => Number(b.weekly) - Number(a.weekly));
+        break;
+      case "lowest":
+        sortedData.sort((a, b) => Number(a.weekly) - Number(b.weekly));
+        break;
+      case "latest":
+        sortedData.sort(
+          (a, b) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+
+        break;
+      default:
+        break;
+    }
+
+    setFilteredCars(sortedData); // Update the filteredCars state
+  };
+
+  // Sync filteredData with filteredCars on initial load
+
   // const port = window.location.port;
   // const hostname = window.location.hostname;
 
@@ -238,8 +273,8 @@ const Home = () => {
 
   return (
     <>
-      <div className="md:flex block gap-x-8 md:mt-[2%] md:my-0  w-[100%] bg-gray-50 md:p-[1%] p-5 rounded-3xl">
-        <div className="md:block hidden text-white lg:flex-[30%] md:flex-[50%] lg:mt-0  mt-[5rem]">
+      <div className="md:flex block gap-x-8 md:my-0 md:px-0 px-[3%] overflow-hidden mb-[5rem]">
+        <div className=" text-white lg:flex-[30%] md:flex-[50%] md:w-auto w-[85%] lg:mt-0  mt-[2rem]">
           <h1 className="mt-2 mb-7 px-2 text-[#151413] text-[20px] font-[500] leading-[24px] ">
             Advanced search
           </h1>
@@ -253,175 +288,204 @@ const Home = () => {
         </div>
 
         <div className=" w-full lg:mt-0 mt-[5rem]">
-          <div className="md:flex  block tems-center justify-between mt-2 mb-9 px-8">
+          <div className="md:flex  block tems-center justify-between gap-8 mt-2 mb-9 md:px-8 ">
             <h1 className="px-2 text-[#151413] text-[20px] font-[500] leading-[24px]  ">
               Car Listing
             </h1>
-            <div className="lg:min-w-[40%] md:min-w-[70%] min-w-full md:mt-0 mt-4 border p-1 border-[#D0D5DD] rounded-lg overflow-hidden relative ">
-              <input
+            <div className=" mt-6 md:mt-auto px-2">
+              <span className="text-[14px] font-[400] leading-[16.8px] mr-5">
+                Sort by:
+              </span>
+              <button
+                className={`text-[14px] font-[400] leading-[16.8px] p-[8px] ${
+                  activeButton === "highest"
+                    ? "text-white bg-[#016AB3] rounded-lg"
+                    : "text-black"
+                }`}
+                onClick={() => handleButtonClick("highest")}
+              >
+                Highest price
+              </button>
+
+              <button
+                className={`text-[14px] font-[400] leading-[16.8px] p-[8px] ${
+                  activeButton === "lowest"
+                    ? "text-white bg-[#016AB3]  rounded-lg"
+                    : "text-black"
+                }`}
+                onClick={() => handleButtonClick("lowest")}
+              >
+                Lowest price
+              </button>
+
+              <button
+                className={`text-[14px] font-[400] leading-[16.8px] p-[8px] ${
+                  activeButton === "latest"
+                    ? "text-white bg-[#016AB3]  rounded-lg"
+                    : "text-black"
+                }`}
+                onClick={() => handleButtonClick("latest")}
+              >
+                Latest
+              </button>
+              {/* <input
                 type="text"
                 {...register("search")}
                 placeholder="Search here...."
                 className=" w-full  p-1 outline-none  bg-slate-50 focus:outline-none  pl-[2.5rem]"
               />
-              <Search className="text-[#BDBDBD] absolute left-3 top-2" />
+              <Search className="text-[#BDBDBD] absolute left-3 top-2" /> */}
             </div>
           </div>
-          {isCarLoading ? (
-            <div className="w-full text-center">Loading...</div>
-          ) : isFiltering ? (
-            <div className="w-full text-center"></div>
-          ) : filteredCars.length === 0 ? (
-            <div className="text-center text-[#151413] text-[18px] font-semibold">
-              Search not found
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 homeprod gap-3 w-full">
-              {currentCars.map((item, index) => (
-                <BlurFade key={item.id} delay={0.02} duration={0.5} inView>
-                  <Link
-                    to={`/home_products/${item?.model}`}
-                    // state={{ productData: item }}
-                  >
-                    <div
-                      className={`lg:w-[96%] w-full min-h-[380px] bg-white rounded-[12px] overflow-hidden ${
-                        item.id > 8 ? "hidden " : ""
-                      }   md:mb-0 mb-4`}
-                      key={item.id}
-                      onClick={() => handleProductClick(item)}
+          <div className="bg-[#ffffff] py-[1rem] rounded-[30px]">
+            <h1 className="font-[500] text-[18px] leadind-[21.6px] md:ml-11  my-9 w-full text-center md:text-start">
+              {filteredCars?.length} Cars available
+            </h1>
+            <hr className=" border border-[#E6E6E6]  my-6 " />
+
+            {isCarLoading ? (
+              <div className="w-full text-center">Loading...</div>
+            ) : isFiltering ? (
+              <div className="w-full text-center"></div>
+            ) : filteredCars.length === 0 ? (
+              <div className="text-center text-[#151413] text-[18px] font-semibold">
+                Search not found
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 homeprod gap-8 w-full">
+                {currentCars.map((item, index) => (
+                  <BlurFade key={item.id} delay={0.02} duration={0.5} inView>
+                    <Link
+                      to={`/home_products/${item?.model}`}
+                      // state={{ productData: item }}
                     >
-                      <div className="w-full h-[245px] flex justify-center">
-                        <img
-                          src={`https://rent2ownauto.com.au/${item.image_path}`}
-                          alt=""
-                          className="w-full h-[245px] object-cover cursor-pointer transition-all duration-500 ease-in-out hover:scale-[1.1]"
+                      <div
+                        className={` w-full min-h-[400px]  rounded-[9px] overflow-hidden border border-[#E6E6E6] ${
+                          item.id > 8 ? "hidden " : ""
+                        }   md:mb-0 mb-4`}
+                        key={item.id}
+                        onClick={() => handleProductClick(item)}
+                      >
+                        <div className="w-full h-[220px] flex justify-center">
+                          <img
+                            src={`https://rent2ownauto.com.au/${item.image_path}`}
+                            alt=""
+                            className="w-full h-[220px] object-cover cursor-pointer transition-all duration-500 ease-in-out hover:scale-[1.1]"
+                          />
+                        </div>
+                        <h1 className="my-4 px-2 md:px-5 text-[#151413] text-[14px] h-[40px] lg:h-[30px] font-[600] leading-[19.8px]">
+                          {item.model} {item.year}
+                        </h1>
+
+                        <hr className=" border border-[#E6E6E6] mx-2 md:mx-5 my-4 " />
+                        <div className="md:px-5 px-2 ">
+                          <div className=" grid grid-cols-3 items-center justify-start gap-3 product-box ">
+                            {/*  */}
+                            <div className="w-full   mb-1">
+                              {/*  */}
+                              <div className="  items-center mr-2 ">
+                                <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+                                  Color
+                                </p>
+                              </div>
+                              <p className="text-[#424242] font-[400] leading-[16.8px] text-[14px] mt-2">
+                                {item.color}
+                              </p>
+                            </div>
+                            {/*  */}
+                            <div className="w-full   mb-1">
+                              {/*  */}
+                              <div className="  items-center mr-2 ">
+                                <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+                                  Make
+                                </p>
+                              </div>
+                              <p className="text-[#424242] font-[400] leading-[16.8px] text-[14px] mt-2">
+                                {item.make}
+                              </p>
+                            </div>
+                            {/*  */}
+                            <div className="w-full   mb-1">
+                              {/*  */}
+                              <div className="  items-center mr-2 ">
+                                <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+                                  Fuel Type
+                                </p>
+                              </div>
+                              <p className="text-[#424242] font-[400] leading-[16.8px] text-[14px] mt-2">
+                                {item.fuel}
+                              </p>
+                            </div>
+                            {/*  */}
+                            <div className="w-full   mb-1">
+                              {/*  */}
+                              <div className="  items-center mr-2 ">
+                                <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+                                  Engine
+                                </p>
+                              </div>
+                              <p className="text-[#424242] font-[400] leading-[16.8px] text-[14px] mt-2">
+                                {item.engine}
+                              </p>
+                            </div>
+                            {/*  */}
+                            <div className="w-full  mb-1">
+                              {/*  */}
+                              <div className="  items-center mr-2 ">
+                                <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
+                                  Transmission
+                                </p>
+                              </div>
+                              <p className="text-[#424242] font-[400] leading-[16.8px] text-[14px] mt-2">
+                                {/* {item.transmition} */}6 Speed Auto
+                              </p>
+                            </div>
+                          </div>
+                          {/*  */}
+                        </div>
+
+                        <hr className=" border border-[#E6E6E6] mx-2 md:mx-5 my-4 " />
+
+                        <div className="flex justify-between items-center md:px-5 px-2 pb-4">
+                          <div className="flex items-center">
+                            <p className="font-[500] text-[12px] leading-[14.4px] mr-1">
+                              From
+                            </p>
+                            <p className="text-secondary-light text-[18px] font-[600] leading-[19.2px]">
+                              AU{" "}
+                              <CurrencyFormatter
+                                amount={parseFloat(item.weekly)}
+                              />
+                            </p>
+                          </div>
+                          {/* <button className=" text-[16px] text-primary px-3 py-1 rounded-[10px]   font-[400] transition-all duration-500 ease-out hover:opacity-70">
+                      View more
+                    </button> */}
+                        </div>
+                        <BorderBeam
+                          size={200}
+                          duration={6}
+                          delay={4 + index * 2}
+                          className=""
                         />
                       </div>
-                      <h1 className="my-4 px-2 md:px-5 text-[#151413] text-[14px] h-[40px] lg:h-[30px] font-[600] leading-[19.8px]">
-                        {item.model} {item.year}
-                      </h1>
-                      <div className="md:px-5 px-2 ">
-                        <div className=" md:grid grid-cols-[25%_55%_15%] block items-center justify-start gap-3 product-box">
-                          {/*  */}
-                          <div className="w-full flex items-center  mb-4">
-                            {/*  */}
-                            <div className="flex  items-center mr-2 ">
-                              <img
-                                src={model}
-                                alt=""
-                                className="w-[20px] h-[20px]"
-                              />
-                              {/* <p className="text-[#898483] font-light text-[10px]">
-                        Make
-                      </p> */}
-                            </div>
-                            <p className="text-[#151413] text-[12px]">
-                              {item.make}
-                            </p>
-                          </div>
-                          {/*  */}
-                          <div className="w-full flex items-center  mb-4 ">
-                            {/*  */}
-                            <div className="flex  items-center mr-2">
-                              <img
-                                src={engine}
-                                alt=""
-                                className="w-[20px] h-[20px]"
-                              />
-                              {/* <p className="text-[#898483] font-light text-[10px]">
-                        Engine type
-                      </p> */}
-                            </div>
-                            <p className="text-[#151413] text-[12px]">
-                              {item.engine}
-                            </p>
-                          </div>
-                          {/*  */}
-                          <div className="w-full flex items-center  mb-4">
-                            {/*  */}
-                            <div className="flex  items-center mr-2">
-                              <img
-                                src={passangers}
-                                alt=""
-                                className="w-[20px] h-[20px]"
-                              />
-                              {/* <p className="text-[#898483] font-light text-[10px]">
-                        Passangers
-                      </p> */}
-                            </div>
-                            <p className="text-[#151413] text-[12px]">
-                              {item.seating}
-                            </p>
-                          </div>
-                        </div>
-                        {/*  */}
-                        <div className=" product-box md:grid grid-cols-[60%_30%] block items-center gap-3">
-                          <div className="w-full flex items-center  mb-4">
-                            {/*  */}
-                            <div className="flex  items-center mr-2 col-span-2">
-                              <img
-                                src={max_power}
-                                alt=""
-                                className="w-[20px] h-[20px]"
-                              />
-                              {/* <p className="text-[#898483] font-light text-[10px]">
-                        Max power
-                      </p> */}
-                            </div>
-                            <p className="text-[#151413] text-[12px]">
-                              {item.maxpower}HP
-                            </p>
-                          </div>
-                          {/*  */}
-                          <div className="w-full flex items-center  mb-4">
-                            {/*  */}
-                            <div className="flex  items-center mr-2">
-                              <img
-                                src={location}
-                                alt=""
-                                className="w-[20px] h-[20px]"
-                              />
-                              {/* <p className="text-[#898483] font-light text-[10px]">
-                        Location
-                      </p> */}
-                            </div>
-                            <p className="text-[#151413] text-[12px]">
-                              {item.location}
-                            </p>
-                          </div>
-                        </div>
-                        {/*  */}
-                      </div>
-                      <div className="flex justify-between items-center md:px-5 px-2 pb-4">
-                        <p className="text-secondary-light text-[18px] font-[600] leading-[19.2px]">
-                          AU{" "}
-                          <CurrencyFormatter amount={parseFloat(item.price)} />
-                        </p>
-                        <button className=" text-[16px] text-primary px-3 py-1 rounded-[10px]   font-[400] transition-all duration-500 ease-out hover:opacity-70">
-                          View more
-                        </button>
-                      </div>
-                      <BorderBeam
-                        size={200}
-                        duration={6}
-                        delay={4 + index * 2}
-                        className="lg:mr-2"
-                      />
-                    </div>
-                  </Link>
-                </BlurFade>
-              ))}
+                    </Link>
+                  </BlurFade>
+                ))}
+              </div>
+            )}
+            <hr className=" border border-[#E6E6E6]  my-6 " />
+
+            <div className="mt-11">
+              <PaginationCar
+                totalItems={filteredCars.length}
+                itemPerPage={itemPerPage}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
-          )}
+          </div>
         </div>
-      </div>
-      <div className="mt-11">
-        <PaginationCar
-          totalItems={filteredCars.length}
-          itemPerPage={itemPerPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
       </div>
     </>
   );

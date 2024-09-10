@@ -17,7 +17,7 @@ const AboutSection = () => {
       <img
         src={about}
         alt=""
-        className="md:w-[50%] w-full h-[513px] leading-[28.8px] tracking-[-2] text-[#2D2D2D] object-cover mt-8 md:mt-0"
+        className="md:w-[50%] w-full  leading-[28.8px] tracking-[-2] text-[#2D2D2D]  mt-8 md:mt-0"
       />
     </div>
   );

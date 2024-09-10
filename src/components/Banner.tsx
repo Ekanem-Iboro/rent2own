@@ -4,10 +4,10 @@ import contract from "../assets/icons/contract.svg";
 import mentainance from "../assets/icons/mentainance.svg";
 const Banner = () => {
   return (
-    <section className="relative bg-gray-50 w-full  lg:px-[13%]  lg:pt-[1rem] lg:pb-3 py-10 md:flex justify-between block gap-11 mb-[5%] px-4 banner ">
-      <div className="lg:pl-[10%]  pl-0 lg:mt-[2rem] lg:basis-1/2 min-h-[500px] banner-div">
-        <h1 className="lg:text-[36px] text-[24px] lg:leading-[43.2px] leading-[28.8px] text-[#2B2928] font-[600]">
-          What You Need to Consider Before Choosing Rent-To-Own
+    <section className="relative bg-gray-50 w-full  lg:px-[4%]  lg:pt-[0.5rem] lg:pb-3 py-10 md:flex justify-between block gap-11 mb-[5%] px-4 banner ">
+      <div className="lg:pl-[10%] md:pl-[7%]   pl-0 lg:mt-[2rem] lg:basis-1/2 min-h-[500px]">
+        <h1 className="md:text-[36px] text-[22px] md:leading-[43.2px] leading-[28.8px] text-[#2B2928] font-[600] lg:w-[50%] md:w-[70%] w-full">
+          Rent-To-Own Consideration
         </h1>
         <div className="">
           <img src={cost} alt="" className="mt-6" />

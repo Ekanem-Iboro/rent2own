@@ -109,3 +109,21 @@ export interface resetpsw {
   password: string;
   reset_password_token: string;
 }
+export interface Changepsw {
+  password: string;
+  oldpassword: string;
+}
+
+export interface IProfile {
+  email: string;
+  firstname: string;
+  gender: string;
+  lastname: string;
+  location: string;
+  phone: string;
+  profile_picture: string;
+  reset_token: string;
+  reset_token_expires: string;
+  postalcode: string;
+  kyc: string;
+}

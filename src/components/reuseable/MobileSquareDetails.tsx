@@ -48,9 +48,19 @@ const MobileSquareDetails = () => {
         </p>
       </div>
       {/*  */}
-      <div className="w-full text-center px-7">
+      <div className="w-full flex justify-between items-center mb-4">
+        <div className="  items-center mr-2 ">
+          <p className="text-[#7F7F7F] font-[500] text-[14px] leading-[16.8px]">
+            Duration
+          </p>
+        </div>
+        <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
+          104 weeks
+        </p>
+      </div>
+      <div className="w-full text-center ">
         <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
-          <a href="/">I want this car</a>
+          <a href="/orders">I want this car</a>
         </button>
       </div>
       <p className="text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-7  ">

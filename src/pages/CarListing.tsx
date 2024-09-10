@@ -18,6 +18,7 @@ import { BreadcrumbComp } from "@/components/reuseable/BreadCrumbs";
 import NavBar from "@/components/reuseable/NavBar";
 import Footer from "@/components/Footer";
 import DetailsBanner from "@/components/DetailsBanner";
+import { ContactAdressPhone } from "@/components/reuseable/ContactAdressPhone";
 
 const CarListing = () => {
   const { setCurrentCar } = useCarStore();
@@ -273,7 +274,7 @@ const CarListing = () => {
   return (
     <>
       <NavBar />
-      <BreadcrumbComp item="Car listing" />
+      <BreadcrumbComp item="Car listing" color="#191919" />
       <div className="md:flex block gap-x-8 md:my-0  md:mx-[7rem]  md:p-[1%] p-5 overflow-hidden mb-[5rem]">
         <div className=" text-white lg:flex-[30%] md:flex-[50%] md:w-auto w-[85%] lg:mt-0  mt-[2rem]">
           <h1 className="mt-2 mb-7 px-2 text-[#151413] text-[20px] font-[500] leading-[24px] ">
@@ -380,9 +381,9 @@ const CarListing = () => {
 
                         <hr className=" border border-[#E6E6E6] mx-2 md:mx-5 my-4 " />
                         <div className="md:px-5 px-2 ">
-                          <div className=" grid grid-cols-3 items-center justify-start gap-3 product-box">
+                          <div className=" grid grid-cols-3 items-center justify-start gap-3 product-box  ">
                             {/*  */}
-                            <div className="w-full   mb-4">
+                            <div className="w-full   mb-1">
                               {/*  */}
                               <div className="  items-center mr-2 ">
                                 <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
@@ -394,7 +395,7 @@ const CarListing = () => {
                               </p>
                             </div>
                             {/*  */}
-                            <div className="w-full   mb-4">
+                            <div className="w-full   mb-1">
                               {/*  */}
                               <div className="  items-center mr-2 ">
                                 <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
@@ -406,7 +407,7 @@ const CarListing = () => {
                               </p>
                             </div>
                             {/*  */}
-                            <div className="w-full   mb-4">
+                            <div className="w-full   mb-1">
                               {/*  */}
                               <div className="  items-center mr-2 ">
                                 <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
@@ -417,10 +418,8 @@ const CarListing = () => {
                                 {item.fuel}
                               </p>
                             </div>
-                          </div>
-                          {/*  */}
-                          <div className=" product-box grid grid-cols-[40%_40%] items-center gap-3">
-                            <div className="w-full   mb-4">
+                            {/*  */}
+                            <div className="w-full   mb-1">
                               {/*  */}
                               <div className="  items-center mr-2 ">
                                 <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
@@ -432,7 +431,7 @@ const CarListing = () => {
                               </p>
                             </div>
                             {/*  */}
-                            <div className="w-full  mb-4">
+                            <div className="w-full  mb-1">
                               {/*  */}
                               <div className="  items-center mr-2 ">
                                 <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">
@@ -446,6 +445,7 @@ const CarListing = () => {
                           </div>
                           {/*  */}
                         </div>
+
                         <hr className=" border border-[#E6E6E6] mx-2 md:mx-5 my-4 " />
 
                         <div className="flex justify-between items-center md:px-5 px-2 pb-4">
@@ -490,54 +490,7 @@ const CarListing = () => {
         </div>
       </div>
       <DetailsBanner />
-      <div className="bg-[#ffffff] md:py-10 py-4">
-        <div className="w-full md:flex block md:justify-between  contact-add   ">
-          <div className="md:text-center w-full">
-            <p className="text-[18px] text-[#191919] font-[600] leading-[21.6px] my-3 ">
-              Email
-            </p>
-            <p className="text-[14px] text-[#2D2D2D] font-[500] leading-[16.8px]">
-              Our friendly team is here to help.
-            </p>
-            <p className="md:text-[14px]  text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]  md:mt-5 mt-2">
-              hi@renttoown.com.au
-            </p>
-          </div>
-
-          <div className="md:text-center w-full md:mt-0 mt-8">
-            <p className="text-[18px] text-[#191919] font-[600] leading-[21.6px] my-3">
-              Office
-            </p>
-            <p className="text-[14px] text-[#2D2D2D] font-[500] leading-[16.8px]">
-              Come say hello at our office HQ.
-            </p>
-            <p className="md:text-[14px] text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]   md:mt-5 mt-2 lg:px-[30%] md:px-[20%] md:w-auto w-[40%]">
-              100 Smith Street Collingwood VIC 3066 AU
-            </p>
-          </div>
-
-          <div className="md:text-center w-full md:mt-0 mt-8">
-            <p className="text-[18px] text-[#191919] font-[600] leading-[21.6px] my-3">
-              Phone
-            </p>
-            <p className="text-[14px] text-[#2D2D2D] font-[500] leading-[16.8px]">
-              Mon-Fri from 8am to 5pm.
-            </p>
-            <p className="md:text-[14px] text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]  md:mt-5 mt-2">
-              +1 (555) 000-0000
-            </p>
-          </div>
-          {/* <ul className="flex gap-5 items-center my-8 ">
-          {contactLink?.map((item) => (
-            <li key={item.id} className="">
-              <Link to={item.path} className="underline">
-                <img src={item.icon} alt="" className="text-[#191919] font-[600]" />
-              </Link>
-            </li>
-          ))}
-        </ul> */}
-        </div>
-      </div>
+      <ContactAdressPhone />
       <Footer />
     </>
   );
