@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import ScrollToTop from "./components/reuseable/ScrollToTop";
 import AutoScrollToTop from "./components/reuseable/AutoScrollToTop";
 import IndexPage from "./pages/IndexPage";
@@ -14,9 +14,22 @@ import ContactUs from "./pages/ContactUs";
 import Faq from "./pages/Faq";
 import CarListing from "./pages/CarListing";
 import Term_Conditions from "./pages/Term_Conditions";
-// import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
+  const navigate = useNavigate();
+  const [hasRedirected, setHasRedirected] = useState(false);
+
+  useEffect(() => {
+    const session_token = localStorage.getItem("session_token");
+
+    if (session_token && !hasRedirected) {
+      // Redirect to /home only if not redirected before
+      navigate("/home", { replace: true });
+      setHasRedirected(true); // Set hasRedirected to true to prevent future redirects
+    }
+  }, [navigate, hasRedirected]); // Include hasRedirected in the dependency array
+
   return (
     <div className="bg-[#FAFAFA]">
       <AutoScrollToTop />

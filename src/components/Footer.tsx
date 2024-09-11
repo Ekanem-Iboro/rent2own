@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import footerlogo from "../assets/images/logo.png";
 import apple from "../assets/images/download-apple-store.png";
 import googleplay from "../assets/images/get-it-on-google-play.png";
@@ -11,7 +11,6 @@ import facebook from "../assets/icons/facebook.svg";
 
 const Footer = () => {
   const session_token = localStorage.getItem("session_token");
-  const location = useLocation();
   return (
     <footer className="lg:px-[6rem]  py-9 w-full bg-grey-50 footerpad px-6">
       <div className="md:flex block justify-between items-center md:px-[2rem] p-0   ">
@@ -48,25 +47,20 @@ const Footer = () => {
                 </li>
               </>
             )}
-            {location.pathname === "/" && (
-              <>
-                <li className="mb-7">
-                  <Link className="underline" to="/sign-up">
-                    Create an account
-                  </Link>
-                </li>
-                <li className="mb-7">
-                  <Link className="underline" to="/sign-in">
-                    Sign in
-                  </Link>
-                </li>
-              </>
+
+            {session_token ? (
+              <li className="mb-7">
+                <Link to="/home" className=" transition-all mb-6 underline">
+                  Home
+                </Link>
+              </li>
+            ) : (
+              <li className="mb-7">
+                <Link to="/" className=" transition-all mb-6 underline">
+                  Home
+                </Link>
+              </li>
             )}
-            <li className="mb-7">
-              <Link className="underline" to="/">
-                Home
-              </Link>
-            </li>
             <li className="mb-7">
               <Link to="/howitworks" className=" transition-all mb-6 underline">
                 How it works
@@ -123,24 +117,11 @@ const Footer = () => {
                 </li>
               </div>
             )}
-            {location.pathname === "/" && (
-              <div className="flex-1 ">
-                <li className="mb-4">
-                  <Link to="/sign-up" className="underline">
-                    Create an account
-                  </Link>
-                </li>
-                <li className="mb-4">
-                  <Link to="/sign-in" className="underline">
-                    Sign in
-                  </Link>
-                </li>
-              </div>
-            )}
+
             <div className="flex-1">
               {session_token && (
                 <li className="mb-4">
-                  <Link to="/" className="underline">
+                  <Link to="/home" className="underline">
                     Home
                   </Link>
                 </li>
