@@ -1,4 +1,8 @@
+import { useGetContact } from "@/hooks/query";
+
 export const ContactAdressPhone = () => {
+  const { data: contactData } = useGetContact();
+  console.log(contactData);
   return (
     <div className="bg-[#ffffff] md:py-10 py-4  p-8">
       <div className="w-full md:flex block md:justify-between  contact-add   ">
@@ -10,7 +14,7 @@ export const ContactAdressPhone = () => {
             Our friendly team is here to help.
           </p>
           <p className="md:text-[14px]  text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]  md:mt-5 mt-2">
-            hi@renttoown.com.au
+            {contactData?.contact_email}
           </p>
         </div>
 
@@ -22,7 +26,7 @@ export const ContactAdressPhone = () => {
             Come say hello at our office HQ.
           </p>
           <p className="md:text-[14px] text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]   md:mt-5 mt-2 lg:px-[30%] md:px-[20%] md:w-auto w-[40%]">
-            100 Smith Street Collingwood VIC 3066 AU
+            {contactData?.contact_address}
           </p>
         </div>
 
@@ -34,7 +38,7 @@ export const ContactAdressPhone = () => {
             Mon-Fri from 8am to 5pm.
           </p>
           <p className="md:text-[14px] text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]  md:mt-5 mt-2">
-            +1 (555) 000-0000
+            {contactData?.contact_phone}
           </p>
         </div>
         {/* <ul className="flex gap-5 items-center my-8 ">

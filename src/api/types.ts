@@ -127,3 +127,11 @@ export interface IProfile {
   postalcode: string;
   kyc: string;
 }
+
+export interface ContactInfo {
+  footer_copyright: string;
+  contact_address: string;
+  contact_email: string;
+  contact_phone: string;
+  contact_fax: string;
+}

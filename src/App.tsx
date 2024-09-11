@@ -25,7 +25,7 @@ function App() {
 
     if (session_token && !hasRedirected) {
       // Redirect to /home only if not redirected before
-      navigate("/home", { replace: true });
+      navigate("/home");
       setHasRedirected(true); // Set hasRedirected to true to prevent future redirects
     }
   }, [navigate, hasRedirected]); // Include hasRedirected in the dependency array

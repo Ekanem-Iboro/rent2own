@@ -1,5 +1,12 @@
 import { privateApi, publicApi } from "./axios";
-import { Car, CreateUser, forgotpsw, resetpsw, SignInUser } from "./types";
+import {
+  Car,
+  ContactInfo,
+  CreateUser,
+  forgotpsw,
+  resetpsw,
+  SignInUser,
+} from "./types";
 
 export const getCars = async (): Promise<Car[]> => {
   const res = await publicApi.get("/get_cars.php");
@@ -24,5 +31,9 @@ export const resetPsw = async (data: resetpsw) => {
 };
 export const getProfile = async (id: number) => {
   const res = await publicApi.get(`/get_user.php?user_id=${id}`);
+  return res.data; // Assuming you want to return the response data directly
+};
+export const getContact = async (): Promise<ContactInfo> => {
+  const res = await publicApi.get("/about_settings.php ");
   return res.data; // Assuming you want to return the response data directly
 };
