@@ -30,7 +30,7 @@ const CarSummary = () => {
             </p>
           </div>
           <p className="text-[#2D2D2D] font-[400] leading-[16.8px] text-[14px] mt-2">
-            {currentCar?.transmition}
+            {currentCar?.transmission}
           </p>
         </div>
         {/*  */}
