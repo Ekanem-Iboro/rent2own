@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import footerlogo from "../assets/images/logo.png";
 import apple from "../assets/images/download-apple-store.png";
 import googleplay from "../assets/images/get-it-on-google-play.png";
@@ -11,6 +11,7 @@ import facebook from "../assets/icons/facebook.svg";
 
 const Footer = () => {
   const session_token = localStorage.getItem("session_token");
+  const location = useLocation();
   return (
     <footer className="lg:px-[6rem]  py-9 w-full bg-grey-50 footerpad px-6">
       <div className="md:flex block justify-between items-center md:px-[2rem] p-0   ">
@@ -33,16 +34,34 @@ const Footer = () => {
           </div>
           {/* desktop */}
           <ul className="md:flex flex-wrap hidden gap-7 items-center mt-8 font-[700] leading-[16.8px] text-[14px] text-[#2D2D2D]">
-            <li className="mb-7">
-              <Link className="underline" to="/sign-up">
-                Create an account
-              </Link>
-            </li>
-            <li className="mb-7">
-              <Link className="underline" to="/sign-in">
-                Sign in
-              </Link>
-            </li>
+            {!session_token && (
+              <>
+                <li className="mb-7">
+                  <Link className="underline" to="/sign-up">
+                    Create an account
+                  </Link>
+                </li>
+                <li className="mb-7">
+                  <Link className="underline" to="/sign-in">
+                    Sign in
+                  </Link>
+                </li>
+              </>
+            )}
+            {location.pathname === "/" && (
+              <>
+                <li className="mb-7">
+                  <Link className="underline" to="/sign-up">
+                    Create an account
+                  </Link>
+                </li>
+                <li className="mb-7">
+                  <Link className="underline" to="/sign-in">
+                    Sign in
+                  </Link>
+                </li>
+              </>
+            )}
             <li className="mb-7">
               <Link className="underline" to="/">
                 Home
@@ -85,24 +104,52 @@ const Footer = () => {
           </ul>
           {/* mobile */}
           <ul className="md:hidden flex   items-start gap-5  mt-8 font-[700] leading-[16.8px] text-[14px] text-[#2D2D2D]">
-            <div className="flex-1 ">
-              <li className="mb-4">
-                <Link to="/sign-up" className="underline">
-                  Sign up
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link to="/sign-in" className="underline">
-                  Sign in
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link to="/" className="underline">
-                  Home
-                </Link>
-              </li>
-            </div>
+            {!session_token && (
+              <div className="flex-1 ">
+                <li className="mb-4">
+                  <Link to="/sign-up" className="underline">
+                    Crrate an account
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="/sign-in" className="underline">
+                    Sign in
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="/" className="underline">
+                    Home
+                  </Link>
+                </li>
+              </div>
+            )}
+            {location.pathname === "/" && (
+              <div className="flex-1 ">
+                <li className="mb-4">
+                  <Link to="/sign-up" className="underline">
+                    Crrate an account
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="/sign-in" className="underline">
+                    Sign in
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="/" className="underline">
+                    Home
+                  </Link>
+                </li>
+              </div>
+            )}
             <div className="flex-1">
+              {session_token && (
+                <li className="mb-4">
+                  <Link to="/" className="underline">
+                    Home
+                  </Link>
+                </li>
+              )}
               <li className="mb-4">
                 <Link to="/howitworks" className="underline">
                   How it works

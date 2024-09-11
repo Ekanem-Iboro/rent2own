@@ -64,8 +64,9 @@ const Sidebar = () => {
           </Link>
         </div>
         <div className="flex items-center gap-9">
-          <BellIcon />
-
+          <NavLink to="/notification">
+            <BellIcon />
+          </NavLink>
           <div className="flex items-center gap-3">
             {" "}
             <NavLink to="/settings">

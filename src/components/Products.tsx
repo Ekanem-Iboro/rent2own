@@ -132,7 +132,7 @@ const Products = () => {
                           </p>
                         </div>
                         <p className="text-[#424242] font-[400] leading-[16.8px] text-[14px] mt-2">
-                          {/* {item.transmition} */}6 Speed Auto
+                          {item.transmission}
                         </p>
                       </div>
                     </div>

@@ -10,7 +10,7 @@ export interface Car {
   location: string;
   maxpower: string;
   condition: string;
-  transmition: string;
+  transmission: string;
   fuel: string;
   color: string;
   user_id: number;
