@@ -108,7 +108,7 @@ const Footer = () => {
               <div className="flex-1 ">
                 <li className="mb-4">
                   <Link to="/sign-up" className="underline">
-                    Crrate an account
+                    Create an account
                   </Link>
                 </li>
                 <li className="mb-4">
@@ -127,17 +127,12 @@ const Footer = () => {
               <div className="flex-1 ">
                 <li className="mb-4">
                   <Link to="/sign-up" className="underline">
-                    Crrate an account
+                    Create an account
                   </Link>
                 </li>
                 <li className="mb-4">
                   <Link to="/sign-in" className="underline">
                     Sign in
-                  </Link>
-                </li>
-                <li className="mb-4">
-                  <Link to="/" className="underline">
-                    Home
                   </Link>
                 </li>
               </div>
