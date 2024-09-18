@@ -143,5 +143,5 @@ export interface IFaq {
 export interface IChangePassword {
   oldPassword: string;
   newPassword: string;
-  user_id: number;
+  user_Id: number;
 }

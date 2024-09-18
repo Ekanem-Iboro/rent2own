@@ -9,10 +9,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthTextFeild from "@/components/reuseable/AuthTextField";
 // import { ChevronLeft } from "lucide-react";
-import { IChangePassword } from "@/api/types";
 import ProfilePicture from "../ProfileImageUploader";
 import { useChangePassword } from "@/hooks/mutation";
 import Loader from "../reuseable/Loader";
+import { IChangePassword } from "@/api/types";
 
 // Define the Zod schema with additional validation
 const ChangePasswordSchema = z
@@ -65,7 +65,6 @@ const ChangePassword: React.FC = () => {
   const ChangeUserPassword = async (data: {
     oldPassword: string;
     newPassword: string;
-    confirmPassword: string;
   }) => {
     const userId = localStorage.getItem("user_id");
 
@@ -74,7 +73,7 @@ const ChangePassword: React.FC = () => {
       // Construct the final data object with user_id
       const changePasswordData: IChangePassword = {
         ...data,
-        user_id: parseInt(userId),
+        user_Id: parseInt(userId),
       };
 
       // Trigger the mutation with the combined data
