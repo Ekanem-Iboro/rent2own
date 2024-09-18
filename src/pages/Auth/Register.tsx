@@ -18,7 +18,14 @@ const RegisterSchema = z
     firstname: z.string().min(1, "First name is required"),
     lastname: z.string().min(1, "Last name is required"),
     email: z.string().email("Invalid email address"),
-    phone: z.string().min(11, "Phone number is required"),
+    phone: z
+      .string()
+      .min(7, "Phone number is required")
+      .max(15, "Phone number must be less than or equal to 15 digits")
+      .refine(
+        (val) => /^[\d\s\-()+]+$/.test(val),
+        "Phone number can only contain digits, spaces, dashes, parentheses, and plus sign"
+      ),
     gender: z.string().nonempty("Gender is required"),
     password: z
       .string()
@@ -61,7 +68,7 @@ const Register: React.FC = () => {
   // Form submission handler
   const signUpUser = async (data: CreateUser) => {
     mutate(data);
-    
+
     reset();
   };
 

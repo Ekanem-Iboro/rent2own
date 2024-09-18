@@ -1,4 +1,10 @@
-import { forgotPsw, registerUser, resetPsw, signInUser } from "@/api";
+import {
+  changePassword,
+  forgotPsw,
+  registerUser,
+  resetPsw,
+  signInUser,
+} from "@/api";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -78,6 +84,18 @@ export const useResetPsw = () => {
     onError: (error) => {
       const resMessage = error.message;
       toast.error(resMessage);
+    },
+  });
+};
+
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: changePassword,
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 };

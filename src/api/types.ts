@@ -135,3 +135,13 @@ export interface ContactInfo {
   contact_phone: string;
   contact_fax: string;
 }
+export interface IFaq {
+  faq_title: string;
+  faq_content: string;
+  faq_category_id: number;
+}
+export interface IChangePassword {
+  oldPassword: string;
+  newPassword: string;
+  user_id: number;
+}

@@ -33,7 +33,7 @@ const Contact = () => {
   const { handleSubmit, register } = methods;
 
   const contactMsg = async (data: ContactInput) => {
-    console.log(data);
+    return data;
   };
 
   return (

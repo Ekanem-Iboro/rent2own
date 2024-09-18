@@ -1,5 +1,5 @@
-import { getCars, getContact, getProfile } from "@/api";
-import { Car, ContactInfo } from "@/api/types";
+import { getCars, getContact, getFAQ, getProfile } from "@/api";
+import { Car, ContactInfo, IFaq } from "@/api/types";
 import { useQuery } from "@tanstack/react-query";
 
 export const useCars = () => {
@@ -19,5 +19,12 @@ export const useGetContact = () => {
   return useQuery<ContactInfo>({
     queryFn: getContact,
     queryKey: ["contact"],
+  });
+};
+
+export const useGetFaq = () => {
+  return useQuery<IFaq>({
+    queryFn: getFAQ,
+    queryKey: ["faq"],
   });
 };

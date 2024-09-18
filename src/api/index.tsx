@@ -4,6 +4,8 @@ import {
   ContactInfo,
   CreateUser,
   forgotpsw,
+  IChangePassword,
+  IFaq,
   resetpsw,
   SignInUser,
 } from "./types";
@@ -36,4 +38,13 @@ export const getProfile = async (id: number) => {
 export const getContact = async (): Promise<ContactInfo> => {
   const res = await publicApi.get("/about_settings.php ");
   return res.data; // Assuming you want to return the response data directly
+};
+export const getFAQ = async (): Promise<IFaq> => {
+  const res = await publicApi.get("/faq.php ");
+  return res.data; // Assuming you want to return the response data directly
+};
+
+export const changePassword = async (data: IChangePassword) => {
+  const res = await privateApi.put(`/change_password.php`, data);
+  return res.data;
 };

@@ -2,7 +2,7 @@ import { useGetContact } from "@/hooks/query";
 
 export const ContactAdressPhone = () => {
   const { data: contactData } = useGetContact();
-  console.log(contactData);
+
   return (
     <div className="bg-[#ffffff] md:py-10 py-4  p-8">
       <div className="w-full md:flex block md:justify-between  contact-add   ">
