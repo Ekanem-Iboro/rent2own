@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
-import eye from "../../assets/icons/eye.svg";
-import hide from "../../assets/icons/hide.svg";
+import logo from "@/assets/images/logo.png";
+import eye from "@/assets/icons/eye.svg";
+import hide from "@/assets/icons/hide.svg";
+import confetti from "@/assets/images/confetti.png";
 import { z } from "zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,6 +39,9 @@ const RegisterSchema = z
     //   "Password must contain at least one special character"
     // ),
     confirmPassword: z.string().min(5, "Please confirm your password"),
+    postalcode: z
+      .string()
+      .min(5, "Postal code must contain at least 5 character(s)"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords must match",
@@ -68,7 +72,7 @@ const Register: React.FC = () => {
   // Form submission handler
   const signUpUser = async (data: CreateUser) => {
     mutate(data);
-
+    console.log(data);
     reset();
   };
 
@@ -81,130 +85,166 @@ const Register: React.FC = () => {
             className="text-[#655F5F] border border-[#655F5F] w-[30px] h-[30px] rounded-lg  "
           />
         </Link>
-        <div className=" lg:w-[40%] md:w-[70%] w-full mx-auto">
-          <div className="w-full flex justify-center">
-            <Link to="/" className="flex items-center">
-              <img
-                src={logo}
-                alt="My Balance Logo"
-                className="cursor-pointer w-[150px] h-[80px]"
-              />
-              {/* <p className="text-primary-light ml-2 text-[18px]">rent2own</p> */}
-            </Link>
+        <div className={`  w-full  ${isSuccess || isError ? "mt-[17%]" : ""}`}>
+          <div className=" lg:w-[35%] md:w-[50%] w-full mx-auto">
+            <div className={`${isSuccess ? "hidden" : "block"}`}>
+              <div className="w-full flex justify-center">
+                <Link to="/" className="flex items-center">
+                  <img
+                    src={logo}
+                    alt="My Balance Logo"
+                    className="cursor-pointer w-[150px] h-[80px]"
+                  />
+                  {/* <p className="text-primary-light ml-2 text-[18px]">rent2own</p> */}
+                </Link>
+              </div>
+              <h1 className="md:text-[30px] text-[24px] font-[700] leading-[36px]  text-[#0A0B0A] w-full text-center">
+                Create account
+              </h1>
+              <p className="text-[#0A0B0A] text-[14px]  font-[500] w-full text-center leading-[16.8px] mt-2">
+                Join thousands of users on Rent2own today!
+              </p>
+            </div>
+            {isSuccess && (
+              <div className=" lg:py-11 lg:px-[1rem] md:px-[2rem] px-4 py-6 rounded-2xl mt-4 ">
+                <div className="flex items-center justify-center gap-2 ">
+                  <p className="text-[30px] leading-[36px] font-[700] text-[#19D282]">
+                    You're In!
+                  </p>{" "}
+                  <img src={confetti} alt="" />
+                </div>
+                <p className="text-[#0A0B0A] text-[16px]  p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] my-4">
+                  Welcome aboard! Explore all the amazing things we have in
+                  store for you.
+                </p>
+                <button className="p-3 w-full bg-[#016AB3] text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center rounded-2xl">
+                  Continue
+                </button>
+              </div>
+            )}
+            {isError && (
+              <div className=" p-4  py-8 rounded-2xl   mt-2  ">
+                <p className="text-red-400 text-[16px]  p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] my-4">
+                  Failed to create an account ,
+                  <a href="/sign-up" className="underline text-blue-600">
+                    {" "}
+                    Try again!
+                  </a>
+                </p>
+              </div>
+            )}
+            <FormProvider {...methods}>
+              <form
+                onSubmit={handleSubmit(signUpUser)}
+                className={`${isSuccess || isError ? "hidden" : "block"}`}
+              >
+                <div className="mt-4">
+                  <AuthTextFeild
+                    name="firstname"
+                    label="First Name"
+                    placeholder="e.g John"
+                    variant="long"
+                  />
+                </div>
+                <div className="mt-4">
+                  <AuthTextFeild
+                    name="lastname"
+                    label="Last Name"
+                    placeholder="Doe"
+                    variant="long"
+                  />
+                </div>
+                <div className="mt-4">
+                  <AuthTextFeild
+                    name="email"
+                    label="Email"
+                    placeholder="e.g@example.com"
+                  />
+                </div>
+                <div className="mt-4">
+                  <AuthTextFeild
+                    name="phone"
+                    label="Phone Number"
+                    placeholder="+555(234)777890"
+                  />
+                </div>
+                <div className="mt-4">
+                  <AuthTextFeild
+                    name="postalcode"
+                    label="Postal Code"
+                    placeholder="24681"
+                  />
+                </div>
+                <div className="mt-4">
+                  <label
+                    htmlFor="gender"
+                    className="block text-sm mb-[6px] capitalize text-[#0A0B0A]"
+                  >
+                    Select Gender:
+                  </label>
+                  <select
+                    id="gender"
+                    {...register("gender")}
+                    className={`block w-full border-2 border-[#CCCBCB] rounded-md p-2 outline-none focus:border-[#CCCBCB] bg-transparent text-[#0A0B0A] disabled:opacity-75 disabled:hover:cursor-not-allowed ${
+                      errors.gender ? "border-2 border-red-500" : " "
+                    }`}
+                  >
+                    <option value="" className="text-[#868686]">
+                      Select a gender
+                    </option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                  {errors.gender && (
+                    <p className="text-red-500 text-[12px]">
+                      {errors.gender.message}
+                    </p>
+                  )}
+                </div>
+                <div className="relative mt-4">
+                  <AuthTextFeild
+                    name="password"
+                    label="Password"
+                    placeholder="************"
+                    type={passwordShown ? "text" : "password"}
+                  />
+                  <img
+                    src={passwordShown ? hide : eye}
+                    alt="show password"
+                    className="absolute top-9 right-3 hover:cursor-pointer w-[20px] h-5"
+                    onClick={() => setPasswordShown(!passwordShown)}
+                  />
+                </div>
+                <div className="relative mt-4">
+                  <AuthTextFeild
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    placeholder="Re-enter password"
+                    type={confirmPasswordShown ? "text" : "password"}
+                  />
+                  <img
+                    src={confirmPasswordShown ? hide : eye}
+                    alt="show password"
+                    className="absolute top-9 right-3 hover:cursor-pointer w-[20px] h-5"
+                    onClick={() =>
+                      setConfirmPasswordShown(!confirmPasswordShown)
+                    }
+                  />
+                </div>
+                <button className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6 border-none  flex justify-center items-center ">
+                  {isPending ? <Loader size={30} /> : "Sign up"}
+                </button>
+              </form>
+            </FormProvider>
+            <div className={`${isSuccess || isError ? "hidden" : "block"}`}>
+              <p className="text-[#2D2D2D] text-[14px] lg:w-[60%] md:w-[70%] w- full mx-auto font-500 leading-[16.8px]  text-center mt-5 bg-[#ffffff] rounded-[18px] p-3 ">
+                Existing user?{" "}
+                <Link to="/sign-in" className="text-primary font-[600] ">
+                  Sign in
+                </Link>
+              </p>
+            </div>
           </div>
-          <h1 className="md:text-[30px] text-[24px] font-[700] leading-[36px]  text-[#0A0B0A] w-full text-center">
-            Sign Up
-          </h1>
-          <p className="text-[#0A0B0A] text-[14px]  font-[500] w-full text-center leading-[16.8px] mt-2">
-            Join thousands of users on Rent2own today!
-          </p>
-          {isSuccess && (
-            <p className="text-green-400 text-[14px] bg-green-50 p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] mt-2">
-              Account created successfully
-            </p>
-          )}
-          {isError && (
-            <p className="text-red-400 text-[14px] bg-red-50 p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] mt-2">
-              Fail to create account, Try again!
-            </p>
-          )}
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(signUpUser)}>
-              <div className="mt-4">
-                <AuthTextFeild
-                  name="firstname"
-                  label="First Name"
-                  placeholder="e.g John"
-                  variant="long"
-                />
-              </div>
-              <div className="mt-4">
-                <AuthTextFeild
-                  name="lastname"
-                  label="Last Name"
-                  placeholder="Doe"
-                  variant="long"
-                />
-              </div>
-              <div className="mt-4">
-                <AuthTextFeild
-                  name="email"
-                  label="Email"
-                  placeholder="e.g@example.com"
-                />
-              </div>
-              <div className="mt-4">
-                <AuthTextFeild
-                  name="phone"
-                  label="Phone Number"
-                  placeholder="(288)8367770"
-                />
-              </div>
-              <div className="mt-4">
-                <label
-                  htmlFor="gender"
-                  className="block text-sm mb-[6px] capitalize text-[#0A0B0A]"
-                >
-                  Select Gender:
-                </label>
-                <select
-                  id="gender"
-                  {...register("gender")}
-                  className={`block w-full border-2 border-[#CCCBCB] rounded-md p-2 outline-none focus:border-[#CCCBCB] bg-transparent text-[#0A0B0A] disabled:opacity-75 disabled:hover:cursor-not-allowed ${
-                    errors.gender ? "border-2 border-red-500" : " "
-                  }`}
-                >
-                  <option value="" className="text-[#868686]">
-                    Select a gender
-                  </option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-                {errors.gender && (
-                  <p className="text-red-500 text-[12px]">
-                    {errors.gender.message}
-                  </p>
-                )}
-              </div>
-              <div className="relative mt-4">
-                <AuthTextFeild
-                  name="password"
-                  label="Password"
-                  placeholder="************"
-                  type={passwordShown ? "text" : "password"}
-                />
-                <img
-                  src={passwordShown ? hide : eye}
-                  alt="show password"
-                  className="absolute top-9 right-3 hover:cursor-pointer w-[20px] h-5"
-                  onClick={() => setPasswordShown(!passwordShown)}
-                />
-              </div>
-              <div className="relative mt-4">
-                <AuthTextFeild
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  placeholder="Re-enter password"
-                  type={confirmPasswordShown ? "text" : "password"}
-                />
-                <img
-                  src={confirmPasswordShown ? hide : eye}
-                  alt="show password"
-                  className="absolute top-9 right-3 hover:cursor-pointer w-[20px] h-5"
-                  onClick={() => setConfirmPasswordShown(!confirmPasswordShown)}
-                />
-              </div>
-              <button className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6 border-none  flex justify-center items-center ">
-                {isPending ? <Loader size={30} /> : "Sign up"}
-              </button>
-            </form>
-          </FormProvider>
-          <p className="text-[#2D2D2D] text-[14px] lg:w-[60%] md:w-[70%] w- full mx-auto font-500 leading-[16.8px]  md:text-center mt-5 bg-[#ffffff] rounded-[18px] p-3 ">
-            Existing user?{" "}
-            <Link to="/sign-in" className="text-primary font-[600] ">
-              Sign in
-            </Link>
-          </p>
         </div>
       </div>
     </div>

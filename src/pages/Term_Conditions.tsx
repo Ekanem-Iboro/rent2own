@@ -14,7 +14,12 @@ export default function Term_Conditions() {
           <p className="md:text-[60px] text-[24px] md:leading-[72px] leading-[28.8px] font-[600] text-[#FFFFFF]">
             Terms & Conditions
           </p>
-          <BreadcrumbComp item="Terms & Conditions" color="#ffffff" />
+          <BreadcrumbComp
+            item="Terms & Conditions"
+            path="/"
+            sepCol="#ffffff"
+            color="#ffffff"
+          />
         </header>
         <div className="md:px-16 px-3">
           <img src={tnc} alt="" className="w-full md:block hidden" />

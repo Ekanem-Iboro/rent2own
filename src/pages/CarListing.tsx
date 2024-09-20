@@ -275,10 +275,10 @@ const CarListing = () => {
     <>
       <NavBar />
       <div className=" md:mx-[7rem]   p-5 ">
-        <BreadcrumbComp item="Car listing" color="#191919" />
+        <BreadcrumbComp item="Car listing" path="/" color="#191919" sepCol="" />
       </div>
       <div className="md:flex block gap-x-8 md:my-0  md:mx-[7rem]  md:p-[1%] p-5 overflow-hidden mb-[5rem]">
-        <div className=" text-white lg:flex-[30%] md:flex-[50%] md:w-auto w-[85%] lg:mt-0  mt-[2rem]">
+        <div className=" text-white lg:flex-[30%] md:flex-[50%] md:w-auto w-full lg:mt-0  mt-[2rem]">
           <h1 className="mt-2 mb-7 px-2 text-[#151413] text-[20px] font-[500] leading-[24px] ">
             Advanced search
           </h1>

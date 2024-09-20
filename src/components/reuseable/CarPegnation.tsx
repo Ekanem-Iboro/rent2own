@@ -34,7 +34,7 @@ export function PaginationCar({
     <Pagination>
       <PaginationContent>
         <PaginationItem className="text-[14px] font-[500] leading-[16.8px] mr-5">
-          {itemPerPage} of {pages}
+          {totalItems} of {pages}
         </PaginationItem>
         <PaginationItem>
           <PaginationPrevious

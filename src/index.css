@@ -80,7 +80,7 @@ body {
 /*   */
 @media screen and (max-width: 400px) {
   .nav_b_text {
-    display: none;
+    font-size: 12px;
   }
   .nav_b_link {
     padding-top: 10px;

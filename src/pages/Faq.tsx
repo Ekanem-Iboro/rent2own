@@ -9,7 +9,7 @@ import { BreadcrumbComp } from "@/components/reuseable/BreadCrumbs";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { useGetFaq } from "@/hooks/query";
-import { IFaq } from "@/api/types";
+// import { IFaq } from "@/api/types";
 
 export default function Faq() {
   // State to manage which accordion is currently expanded
@@ -31,7 +31,12 @@ export default function Faq() {
           <p className="md:text-[60px] text-[24px] md:leading-[72px] leading-[28.8px] font-[600] text-[#FFFFFF]">
             Frequently Asked Questions
           </p>
-          <BreadcrumbComp item="faq" color="#ffffff" />
+          <BreadcrumbComp
+            item="faq"
+            color="#ffffff"
+            path="/"
+            sepCol="#ffffff"
+          />
         </header>
       </div>
       <section
@@ -42,60 +47,65 @@ export default function Faq() {
           Frequently Asked Questions
         </h1>
         <div className="lg:w-[50%] md:w-[60%] w-full relative z-50">
-          {faqData?.map((faqs: IFaq, index: number) => (
-            <Accordion
-              key={index}
-              expanded={expanded === index}
-              onChange={handleChange(index)}
-              sx={{
-                boxShadow: "none",
-                backgroundColor: "#016AB3",
-                "&:not(:last-child)": {
-                  borderBottom: "1px solid white",
-                },
-                "&:before": {
-                  display: "none",
-                },
-              }}
-            >
-              <AccordionSummary
-                expandIcon={
-                  <ExpandMoreIcon
-                    sx={{
-                      color: "white",
-                      marginBottom: "30px",
-                    }}
-                  />
-                }
-                aria-controls={`panel${index}-content`}
-                id={`panel${index}-header`}
+          {faqData?.map(
+            (
+              faqs: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+              index: number
+            ) => (
+              <Accordion
+                key={index}
+                expanded={expanded === index}
+                onChange={handleChange(index)}
                 sx={{
-                  color: "white",
-                  paddingLeft: "0",
-                  paddingTop: "30px",
-                  "& .MuiAccordionSummary-content": {
-                    margin: "0",
-                    marginBottom: "30px",
+                  boxShadow: "none",
+                  backgroundColor: "#016AB3",
+                  "&:not(:last-child)": {
+                    borderBottom: "1px solid white",
+                  },
+                  "&:before": {
+                    display: "none",
                   },
                 }}
-                className="text-[18px] font-[500] leading-[21.8px]"
               >
-                {faqs.faq_title}
-              </AccordionSummary>
-              <AccordionDetails
-                sx={{
-                  backgroundColor: "#016AB3",
-                  color: "white",
-                  paddingLeft: "0",
-                  marginTop: "10px",
-                  paddingRight: "40px",
-                }}
-                className="text-[16px] font-[400] leading-[17.8px]"
-              >
-                {faqs.faq_content}
-              </AccordionDetails>
-            </Accordion>
-          ))}
+                <AccordionSummary
+                  expandIcon={
+                    <ExpandMoreIcon
+                      sx={{
+                        color: "white",
+                        marginBottom: "30px",
+                      }}
+                    />
+                  }
+                  aria-controls={`panel${index}-content`}
+                  id={`panel${index}-header`}
+                  sx={{
+                    color: "white",
+                    paddingLeft: "0",
+                    paddingTop: "30px",
+                    "& .MuiAccordionSummary-content": {
+                      margin: "0",
+                      marginBottom: "30px",
+                    },
+                  }}
+                  className="text-[18px] font-[500] leading-[21.8px]"
+                >
+                  {faqs.faq_title}
+                </AccordionSummary>
+                <AccordionDetails
+                  sx={{
+                    backgroundColor: "#016AB3",
+                    color: "white",
+                    paddingLeft: "0",
+                    marginTop: "10px",
+                    paddingRight: "40px",
+                  }}
+                  className="text-[16px] font-[400] leading-[17.8px]"
+                >
+                  {faqs.faq_content}
+                </AccordionDetails>
+              </Accordion>
+            )
+          )}
         </div>
         <img
           src={line}

@@ -1,5 +1,4 @@
 import CurrencyFormatter from "../reuseable/currencyFormat";
-import { Link } from "react-router-dom";
 import useCarStore from "@/store/ProductStore";
 
 const MobileSquareDetails = () => {
@@ -60,16 +59,9 @@ const MobileSquareDetails = () => {
       </div>
       <div className="w-full text-center ">
         <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
-          <a href="/orders">I want this car</a>
+          <a href="/terms_conditions">I want this car</a>
         </button>
       </div>
-      <p className="text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-7  ">
-        <Link to="/sign-up" className="text-primary">
-          {" "}
-          create an account now{" "}
-        </Link>
-        in order to rent this car.
-      </p>
     </div>
   );
 };

@@ -274,7 +274,7 @@ const Home = () => {
   return (
     <>
       <div className="md:flex block gap-x-8 md:my-0 md:px-0 px-[3%] overflow-hidden mb-[5rem]">
-        <div className=" text-white lg:flex-[30%] md:flex-[50%] md:w-auto w-[85%] lg:mt-0  mt-[2rem]">
+        <div className=" text-white lg:flex-[30%] md:flex-[50%] md:w-auto w-full lg:mt-0  mt-[2rem]">
           <h1 className="mt-2 mb-7 px-2 text-[#151413] text-[20px] font-[500] leading-[24px] ">
             Advanced search
           </h1>

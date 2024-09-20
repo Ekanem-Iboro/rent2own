@@ -18,6 +18,8 @@ export interface Car {
   image_path: string;
   images: string[];
   weekly: string;
+  duration: string;
+  deposit: string;
 }
 
 export interface Filters {
@@ -93,6 +95,8 @@ export interface FuelFilters {
 export interface CreateUser {
   firstname: string;
   lastname: string;
+  phone: string;
+  postalcode: string;
   email: string;
   password: string;
   gender: string;
@@ -139,9 +143,20 @@ export interface IFaq {
   faq_title: string;
   faq_content: string;
   faq_category_id: number;
+  faq_id: number;
 }
 export interface IChangePassword {
   oldPassword: string;
   newPassword: string;
   user_Id: number;
+}
+
+export interface RentCarData {
+  car_id: string | number;
+  duration: string | number; // or number, depending on how it's stored
+  total_price: string | number; // or number
+  deposit: string | number; // or number
+  termsandconditions: boolean;
+  user_id: number | null;
+  weekly: string | number;
 }

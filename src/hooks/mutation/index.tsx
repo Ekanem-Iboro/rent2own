@@ -1,17 +1,20 @@
 import {
+  agreementId,
   changePassword,
   forgotPsw,
   registerUser,
+  rentCar,
   resetPsw,
   signInUser,
 } from "@/api";
+import { RentCarData } from "@/api/types";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export const useRegisterUser = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return useMutation({
     mutationFn: registerUser,
@@ -21,7 +24,7 @@ export const useRegisterUser = () => {
       }
       toast.success(data.data.message);
       setTimeout(() => {
-        navigate("/sign-in");
+        // navigate("/sign-in");
       }, 1500);
     },
     onError: (error) => {
@@ -96,6 +99,34 @@ export const useChangePassword = () => {
     },
     onError: (error) => {
       toast.error(error.message);
+    },
+  });
+};
+
+export const useAgreementId = () => {
+  return useMutation({
+    mutationFn: agreementId,
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// Update mutation function to work with rentCar and handle submissionData
+export const useRentCar = () => {
+  return useMutation({
+    mutationFn: (data: RentCarData) => rentCar(data), // Pass data to rentCar
+    onSuccess: (data) => {
+      // localStorage.setItem("agreement_id", data.agreement_id);
+
+      toast.success(data.message); // Show success message
+    },
+    onError: (error) => {
+      toast.error(error.message); // Show error message
     },
   });
 };

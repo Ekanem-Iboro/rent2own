@@ -77,14 +77,7 @@ const Footer = () => {
               </Link>
             </li>
             {session_token ? (
-              <li className="mb-7">
-                <Link
-                  to="/terms_conditions"
-                  className=" transition-all mb-6 underline"
-                >
-                  Terms and Conditions
-                </Link>
-              </li>
+              <p></p>
             ) : (
               <li className="mb-7">
                 <Link

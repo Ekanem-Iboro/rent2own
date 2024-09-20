@@ -15,7 +15,12 @@ const HomeCarDetails = () => {
   const { currentCar } = useCarStore();
   return (
     <section className=" px-7 md:px-[1%]">
-      <BreadcrumbComp item={currentCar?.model} color="#191919" />
+      <BreadcrumbComp
+        item={currentCar?.model}
+        path="/home"
+        sepCol=""
+        color="#191919"
+      />
       <Slider />
       <MultiSlides />
 

@@ -10,17 +10,21 @@ import {
 export function BreadcrumbComp({
   item,
   color,
+  path,
+  sepCol,
 }: {
   item: string | undefined;
   color: string;
+  path: string;
+  sepCol: string;
 }) {
   return (
-    <Breadcrumb className="py-[2%] my-3">
+    <Breadcrumb className="my-5">
       <BreadcrumbList>
         <BreadcrumbItem className="text-primary text-[14px] leading-[16.8px] font-[400]">
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          <BreadcrumbLink href={path}>Home</BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
+        <BreadcrumbSeparator className={`text-[${sepCol}]`} />
         <BreadcrumbItem>
           <BreadcrumbPage
             className={`text-[${color}] text-[14px] leading-[16.8px] font-[600]`}

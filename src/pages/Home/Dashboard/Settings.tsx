@@ -8,16 +8,16 @@ const Settings = () => {
   const [activeTab, setActiveTab] = useState("profile");
 
   return (
-    <div className="px-2 md:mt-[-2rem]">
-      <BreadcrumbComp item="Settings" color="#191919" />
-      <h1 className=" mt-[-1rem] mb-7  text-[#151413] text-[20px] font-[500] leading-[24px] ">
+    <div className="px-2">
+      <BreadcrumbComp item="Settings" color="#191919" path="/home" sepCol="" />
+      <h1 className=" mt-[1rem] mb-7  text-[#151413] text-[20px] font-[500] leading-[24px] ">
         Settings
       </h1>
-      <div className="tap_width  border border-[#E4E7EC] flex  items-center text-center rounded-l-lg overflow-hidden bg-[#ffffff]">
+      <div className=" w-fit  border border-[#E4E7EC] flex  items-center rounded-l-lg overflow-hidden bg-[#ffffff]">
         <button
           className={`${
             activeTab === "profile" ? "text-[#1D2739] bg-[#D6EEFF]" : ""
-          } w-full p-2 px-4 text-[14px] leading-[16.8px] font-[500] transition-all duration-300 delay-100 ease-in`}
+          } w-fit p-2 px-4 text-[14px] leading-[16.8px] font-[500] transition-all duration-300 delay-100 ease-in`}
           onClick={() => setActiveTab("profile")}
         >
           Profile
@@ -26,7 +26,7 @@ const Settings = () => {
         <button
           className={`${
             activeTab === "changepassword" ? "text-[#1D2739] bg-[#D6EEFF]" : ""
-          } w-full p-2 px-4  text-[14px] leading-[16.8px] font-[500] transition-all duration-300 delay-100 ease-in`}
+          } w-fit p-2 px-4  text-[14px] leading-[16.8px] font-[500] transition-all duration-300 delay-100 ease-in`}
           onClick={() => setActiveTab("changepassword")}
         >
           Change Password
@@ -36,7 +36,7 @@ const Settings = () => {
         <button
           className={`${
             activeTab === "notifications" ? "text-[#1D2739] bg-[#D6EEFF]" : ""
-          } w-full p-2 px-4  text-[14px] leading-[16.8px] font-[500] transition-all duration-300 delay-100 ease-in`}
+          } w-fit p-2 px-4  text-[14px] leading-[16.8px] font-[500] transition-all duration-300 delay-100 ease-in`}
           onClick={() => setActiveTab("notifications")}
         >
           Notifications

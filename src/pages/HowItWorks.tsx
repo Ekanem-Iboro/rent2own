@@ -13,7 +13,12 @@ function HowItWorks() {
         <p className="md:text-[60px] text-[24px] md:leading-[72px] leading-[28.8px] font-[600] text-[#FFFFFF]">
           How It Works
         </p>
-        <BreadcrumbComp item="How it works" color="#ffffff" />
+        <BreadcrumbComp
+          item="How it works"
+          path="/"
+          sepCol="#ffffff"
+          color="#ffffff"
+        />
       </header>
       <AboutSection />
       <section

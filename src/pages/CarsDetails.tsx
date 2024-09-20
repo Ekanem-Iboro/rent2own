@@ -24,7 +24,12 @@ const CarsDetails = () => {
     <section>
       <NavBar />
       <div className=" px-7 md:px-[5%]">
-        <BreadcrumbComp item={currentCar?.model} color="#191919" />
+        <BreadcrumbComp
+          item={currentCar?.model}
+          path="/"
+          sepCol=""
+          color="#191919"
+        />
         <Slider />
         <MultiSlides />
       </div>
