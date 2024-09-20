@@ -51,7 +51,6 @@ function App() {
         <Route path="/sign-in" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-
         <Route path="/*" element={<Index />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
