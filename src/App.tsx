@@ -1,7 +1,6 @@
 import {
   Route,
   Routes,
-  // useNavigate,
   // useNavigate
 } from "react-router-dom";
 import ScrollToTop from "./components/reuseable/ScrollToTop";
