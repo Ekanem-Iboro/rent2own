@@ -1,5 +1,5 @@
 import {
-  agreementId,
+  // agreementId,
   changePassword,
   forgotPsw,
   registerUser,
@@ -103,17 +103,17 @@ export const useChangePassword = () => {
   });
 };
 
-export const useAgreementId = () => {
-  return useMutation({
-    mutationFn: agreementId,
-    onSuccess: (data) => {
-      toast.success(data.message);
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
-};
+// export const useAgreementId = () => {
+//   return useMutation({
+//     mutationFn: agreementId,
+//     onSuccess: (data) => {
+//       toast.success(data.message);
+//     },
+//     onError: (error) => {
+//       toast.error(error.message);
+//     },
+//   });
+// };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Update mutation function to work with rentCar and handle submissionData

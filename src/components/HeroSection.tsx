@@ -12,7 +12,7 @@ const Header = () => {
       {/*  */}
       <header className="  bg-[url('assets/images/net.png')] md:min-h-[700px] w-full min-h-[333px] lg:pb-0 pb-[1rem] mb-[3rem]">
         <div className="lg:flex block items-center   md:px-[2%]  pl-0 px-4 w-full md:min-h-[700px] header-div">
-          <div className=" min-h-full pt-3 flex-[55%] lg:flex-[30%] mb-[2rem] headertxt px-9 header-text">
+          <div className=" min-h-full pt-3 flex-[56%] lg:flex-[45%] mb-[2rem] headertxt px-9 header-text">
             <div className=" md:text-start text-center ">
               <p className="text-[12px] text-primary leading-[14.4px] font-[500]">
                 Trusted by over 50k users in Australia

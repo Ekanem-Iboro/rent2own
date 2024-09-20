@@ -11,6 +11,7 @@ export interface Car {
   maxpower: string;
   condition: string;
   transmission: string;
+  bond: string | number;
   fuel: string;
   color: string;
   user_id: number;
@@ -159,4 +160,5 @@ export interface RentCarData {
   termsandconditions: boolean;
   user_id: number | null;
   weekly: string | number;
+  user_email: string;
 }

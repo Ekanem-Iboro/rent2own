@@ -27,7 +27,8 @@ const HomeCarDetails = () => {
       <div className="lg:flex  block w-full    py-[4%] " key={currentCar?.id}>
         <div className="block lg:hidden w-full px-5">
           <p className=" w-full md:text-[30px] text-[25px] text-[#2B2928] text-wrap leading-[36px] font-[600] mb-9 ">
-            {currentCar?.year} {currentCar?.make}
+            {currentCar?.year}
+            {currentCar?.make}
             <br />
             <span className="flex items-center gap-2 text-[14px] font-[400] leading-[16.8px] mt-3">
               <img src={location} alt="" /> {currentCar?.location}

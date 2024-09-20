@@ -1,11 +1,12 @@
 import TextFeildCalculate from "../components/reuseable/TextFieldCalculate";
 import CurrencyFormatter from "./reuseable/currencyFormat";
-import { Link } from "react-router-dom";
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import RangeSlider from "./reuseable/RangeSlider";
 import useCarStore from "@/store/ProductStore";
+import { Link } from "react-router-dom";
 
 const calculateSchema = z.object({
   amount: z.string().min(1, "Car amount is required"),
@@ -21,7 +22,7 @@ const CarPaymentCalculator = () => {
     resolver: zodResolver(calculateSchema),
   });
 
-  // const sessionToken = localStorage.getItem("session_token");
+  const sessionToken = localStorage.getItem("session_token");
   // useForm() destructuring or methods destructuring. Here methods = useForm()
   const { handleSubmit, setValue, reset } = methods;
   const { currentCar } = useCarStore();
@@ -58,7 +59,7 @@ const CarPaymentCalculator = () => {
             </p>
           </div>
           <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
-            4 weeks
+            {currentCar?.bond} weeks
           </p>
         </div>
         {/*  */}
@@ -70,10 +71,9 @@ const CarPaymentCalculator = () => {
             </p>
           </div>
           <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
-            1 week
+            {currentCar?.deposit}
           </p>
         </div>
-        {/*  */}
         {/*  */}
         <div className="w-full flex justify-between items-center mb-4">
           <div className="  items-center mr-2 ">
@@ -82,20 +82,16 @@ const CarPaymentCalculator = () => {
             </p>
           </div>
           <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
-            104 weeks
+            {currentCar?.duration} weeks
           </p>
         </div>
-        {/*  */}
-
-        <div className="w-full text-center px-7">
-          <Link to="/terms_conditions">
-            <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
-              I want this car
-            </button>
-          </Link>
+        <div className="w-full text-center ">
+          <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
+            <a href="/terms_conditions">I want this car</a>
+          </button>
         </div>
-        {/* <p
-          className={` text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-7  ${
+        <p
+          className={` text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-4  ${
             sessionToken ? "hidden" : "block"
           } `}
         >
@@ -104,7 +100,7 @@ const CarPaymentCalculator = () => {
             create an account now{" "}
           </Link>
           in order to rent this car.
-        </p> */}
+        </p>
       </div>
       {/* Calculator */}
       <div className="relative  md:w-[420px] md:min-h-[522px] bg-primary rounded-[10px] mt-[5rem] p-5">

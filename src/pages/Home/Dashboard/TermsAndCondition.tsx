@@ -1,6 +1,10 @@
 import { RentCarData } from "@/api/types";
 import Loader from "@/components/reuseable/Loader";
-import { useAgreementId, useRentCar } from "@/hooks/mutation";
+import {
+  //  useAgreementId,
+  useRentCar,
+} from "@/hooks/mutation";
+import { useGetUserProfile } from "@/hooks/query";
 import useCarStore from "@/store/ProductStore";
 import { useForm } from "react-hook-form";
 
@@ -11,8 +15,11 @@ interface TermAndConForm {
 export const TermsAndCondition = () => {
   const { currentCar } = useCarStore();
   const { mutate: rentCarMutation, isPending } = useRentCar();
-  const { mutate: userAgreement } = useAgreementId();
+  const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
+  const { data: profile } = useGetUserProfile(userId);
+  // const { mutate: userAgreement } = useAgreementId();
   const { register, handleSubmit, reset } = useForm<TermAndConForm>();
+
   // const userAgreementId = localStorage.getItem("agreement_id");
 
   const onSubmit = (data: TermAndConForm) => {
@@ -25,28 +32,23 @@ export const TermsAndCondition = () => {
         weekly: currentCar.weekly,
         termsandconditions: data.termsandconditions,
         user_id: currentCar.user_id ? Number(currentCar.user_id) : null,
+        user_email: profile.email,
       };
 
       rentCarMutation(submissionData, {
         onSuccess: (response) => {
-          // Assuming response contains the agreement ID
-          const agreementId = response.agreement_id; // Adjust based on your API response structure
-          // Reset the form after successful mutation
-          reset();
-          // Check if agreementId is available
-          if (agreementId) {
-            console.log("loagindg agrement sent");
-            userAgreement({ agreement_id: agreementId });
+          // Destructure the response
+          if (response) {
+            // Send the entire response data to the userAgreement mutation
+            window.open(response.payment_url, "_self");
           }
-          // Clear local storage after mutation
-          //  localStorage.removeItem("agreement_id");
         },
+        //
         onError: (error) => {
           console.error("Error renting the car:", error);
         },
       });
-    } else {
-      console.error("No car selected");
+      reset();
     }
   };
 

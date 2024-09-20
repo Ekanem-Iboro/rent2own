@@ -46,15 +46,15 @@ export const getFAQ = async (): Promise<any> => {
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const rentCar = async (data: RentCarData) => {
-  const res = await publicApi.post("/rent_car.php", data); // Use POST and pass the data
+  const res = await publicApi.post("/rent_car_testing.php", data); // Use POST and pass the data
   return res.data; // Return the response data
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const agreementId = async (data: any) => {
-  const res = await publicApi.post("pay_installment.php", data); // Use POST and pass the data
-  return res.data; // Return the response data
-};
+// export const agreementId = async (data: any) => {
+//   const res = await publicApi.post("pay_installmental.php", data); // Use POST and pass the data
+//   return res.data; // Return the response data
+// };
 export const changePassword = async (data: IChangePassword) => {
   const res = await privateApi.put(`/change_password.php`, data);
   return res.data;
