@@ -61,9 +61,11 @@ const MobileSquareDetails = () => {
         </p>
       </div>
       <div className="w-full text-center ">
-        <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
-          <a href="/terms_conditions">I want this car</a>
-        </button>
+        <Link to="/terms_conditions">
+          <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
+            I want this car
+          </button>
+        </Link>
       </div>
       <p
         className={` text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-4  ${

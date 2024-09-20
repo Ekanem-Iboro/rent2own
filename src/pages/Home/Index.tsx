@@ -10,6 +10,8 @@ import HomeCarDetails from "./Dashboard/HomeCarDetails";
 import NotFound from "../NotFound";
 import Settings from "./Dashboard/Settings";
 import { TermsAndCondition } from "./Dashboard/TermsAndCondition";
+import PaymentSuccess from "./Dashboard/PaymentSuccess";
+import TransactionFailed from "./Dashboard/PaymentFailed";
 
 function Index() {
   return (
@@ -77,6 +79,8 @@ function Index() {
             }
           />
         </Route>
+        <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+        <Route path="/paymentfailed" element={<TransactionFailed />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
