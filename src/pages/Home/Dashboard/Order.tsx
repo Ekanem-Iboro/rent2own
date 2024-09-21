@@ -138,6 +138,7 @@ const Order = () => {
             <UploadCarMentainance
               onUpload={handleUpload}
               setUploaded={() => {}}
+              setUploadedComplete={() => {}}
             />
           </div>
         </div>

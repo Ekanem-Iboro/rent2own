@@ -121,7 +121,7 @@ const Register: React.FC = () => {
                   to={"/uploadKYC"}
                   className=" w-full bg-[#016AB3] rounded-2xl"
                 >
-                  <button className="p-3 w-full bg-[#016AB3] text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center ">
+                  <button className="p-3 w-full bg-[#016AB3]  rounded-2xl text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center ">
                     Continue
                   </button>
                 </Link>
@@ -131,10 +131,10 @@ const Register: React.FC = () => {
               <div className=" p-4  py-8 rounded-2xl   mt-2  ">
                 <p className="text-red-400 text-[16px]  p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] my-4">
                   Failed to create an account ,
-                  <a href="/sign-up" className="underline text-blue-600">
+                  <Link to="/sign-up" className="underline text-blue-600">
                     {" "}
                     Try again!
-                  </a>
+                  </Link>
                 </p>
               </div>
             )}
