@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import successIcon from "@/assets/icons/celebrationicon.svg";
-import shake from "@/assets/Icons/shake.svg";
+import shake from "@/assets/icons/shake.svg";
 
 const PaymentSuccess = () => {
   return (

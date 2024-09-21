@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import notS from "@/assets/Icons/notS.svg";
+import notS from "@/assets/icons/notS.svg";
 const TransactionFailed = () => {
   const navigate = useNavigate();
   return (
