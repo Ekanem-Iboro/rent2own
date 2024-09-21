@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export const UploadKYC = () => {
   const [uploaded, setUploaded] = useState<boolean>(true);
+  const [uploadedComplete, setUploadedComplete] = useState<boolean>(false);
   const handleUpload = (file: File) => {
     console.log("Uploaded file:", file);
     setUploaded(false);
@@ -42,6 +43,7 @@ export const UploadKYC = () => {
           <UploadCarMentainance
             onUpload={handleUpload}
             setUploaded={setUploaded}
+            setUploadedComplete={setUploadedComplete}
           />
           {uploaded && (
             <Link
@@ -49,6 +51,14 @@ export const UploadKYC = () => {
               className=" flex items-center justify-center border border-[#D1D1D1] font-[600] text-[18px] leading-[21.6px] text-[#191919] rounded-xl w-fit py-2 px-5 mx-auto -mt-16"
             >
               Skip
+            </Link>
+          )}
+          {uploadedComplete && (
+            <Link
+              to={"/sign-in"}
+              className=" flex items-center justify-center border bg-primary border-[#D1D1D1] font-[600] text-[18px] leading-[21.6px] text-[#FAFAFA] rounded-xl w-full py-2 px-5 mx-auto -mt-16"
+            >
+              Continue
             </Link>
           )}
         </div>
