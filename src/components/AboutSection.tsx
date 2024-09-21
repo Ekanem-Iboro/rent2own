@@ -6,7 +6,7 @@ const AboutSection = () => {
         <h2 className="text-[16px] leading-[19.2px] font-[500] text-primary h-[19px]">
           WHAT IS RENT-TO-OWN?
         </h2>
-        <p className="text-[24px] font-[500]">
+        <p className="text-[24px] text-[#2D2D2D] font-[500]">
           Rent-to-own (RTO) is a flexible option that allows individuals to
           lease a vehicle with the option to purchase it after a certain period.
           This method is beneficial for those who may not qualify for

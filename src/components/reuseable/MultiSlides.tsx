@@ -38,13 +38,13 @@ export function MultiSlides() {
         {currentCar?.images?.map((img, index) => (
           <CarouselItem
             key={index}
-            className=" w-full md:basis-1/4 rounded-md overflow-hidden"
+            className=" w-full md:basis-1/5 basis-1/3 rounded-md overflow-hidden"
           >
             <div className="">
               <img
                 src={`https://rent2ownauto.com.au/${img}`}
                 alt=""
-                className=" md:h-[200px] md:w-[450px] h-[250px] w-full object-cover "
+                className=" md:h-[200px] md:w-[450px] w-[250px] h-[100px]  object-cover "
               />
             </div>
           </CarouselItem>
