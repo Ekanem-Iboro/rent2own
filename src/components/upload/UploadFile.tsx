@@ -39,7 +39,7 @@ const UploadFile: React.FC<Uploaffunctons> = ({
             htmlFor="file-upload"
             className="text-[14px] font-[400] leading-[16.8px] text-gray-600 mb-2"
           >
-            <span className="font-[600] md:text-[#0999FE] text-[#016AB3] cursor-pointer">
+            <span className="font-[600] text-[#016AB3] cursor-pointer">
               Click to Upload{" "}
             </span>{" "}
             or drag and drop
@@ -66,7 +66,7 @@ const UploadFile: React.FC<Uploaffunctons> = ({
 
       <label
         htmlFor="file-upload"
-        className="mt-6 md:bg-[#0999FE] bg-[#016AB3] text-[#FFFFFF] rounded-[6px] text-[14px] font-[400] leading-[16.8px] p-2 w-fit cursor-pointer "
+        className="mt-6  bg-[#016AB3] text-[#FFFFFF] rounded-[6px] text-[14px] font-[400] leading-[16.8px] p-2 w-fit cursor-pointer "
       >
         {" "}
         Browse Files

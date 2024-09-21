@@ -117,9 +117,14 @@ const Register: React.FC = () => {
                   Welcome aboard! Explore all the amazing things we have in
                   store for you.
                 </p>
-                <button className="p-3 w-full bg-[#016AB3] text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center rounded-2xl">
-                  Continue
-                </button>
+                <Link
+                  to={"/uploadKYC"}
+                  className=" w-full bg-[#016AB3] rounded-2xl"
+                >
+                  <button className="p-3 w-full bg-[#016AB3] text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center ">
+                    Continue
+                  </button>
+                </Link>
               </div>
             )}
             {isError && (

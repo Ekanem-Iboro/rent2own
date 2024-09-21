@@ -32,7 +32,7 @@ export function MultiSlides() {
           delay: 3000,
         }),
       ]}
-      className="w-full  px-2 mt-10  "
+      className="w-full  pl-2 mt-5  "
     >
       <CarouselContent className=" w-full ">
         {currentCar?.images?.map((img, index) => (
@@ -44,7 +44,7 @@ export function MultiSlides() {
               <img
                 src={`https://rent2ownauto.com.au/${img}`}
                 alt=""
-                className=" md:h-[200px] md:w-[450px] w-[250px] h-[100px]  object-cover "
+                className=" md:h-[200px] md:w-[450px] w-[250px] h-[80px]  object-cover "
               />
             </div>
           </CarouselItem>

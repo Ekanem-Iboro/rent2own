@@ -18,6 +18,7 @@ import ContactUs from "./pages/ContactUs";
 import Faq from "./pages/Faq";
 import CarListing from "./pages/CarListing";
 import Term_Conditions from "./pages/Term_Conditions";
+import { UploadKYC } from "./pages/Auth/UploadKYC";
 // import { useEffect, useState } from "react";
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
         <Route path="/sign-in" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/uploadkyc" element={<UploadKYC />} />
         <Route path="/*" element={<Index />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -5,9 +5,13 @@ import UploadLoading from "./upload/UploadLoading";
 
 interface UploaderProps {
   onUpload: (file: File) => void;
+  setUploaded: (upload: boolean) => void;
 }
 
-const UploadCarMentainance: React.FC<UploaderProps> = ({ onUpload }) => {
+const UploadCarMentainance: React.FC<UploaderProps> = ({
+  onUpload,
+  setUploaded,
+}) => {
   const [file, setFile] = useState<File | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
@@ -69,6 +73,7 @@ const UploadCarMentainance: React.FC<UploaderProps> = ({ onUpload }) => {
     setFile(null);
     setUploadSuccess(false);
     setUploadProgress(null); // Reset progress
+    setUploaded(true);
   };
 
   const simulateUpload = () => {

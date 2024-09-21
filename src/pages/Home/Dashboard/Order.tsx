@@ -135,7 +135,10 @@ const Order = () => {
             Upload Car Maintenance Invoice
           </p>
           <div className=" mt-4 ">
-            <UploadCarMentainance onUpload={handleUpload} />
+            <UploadCarMentainance
+              onUpload={handleUpload}
+              setUploaded={() => {}}
+            />
           </div>
         </div>
       </section>
