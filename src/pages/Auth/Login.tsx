@@ -110,7 +110,7 @@ const Login: React.FC = () => {
               </div>
 
               <button className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6 border-none  flex justify-center items-center ">
-                {isPending ? <Loader size={30} /> : "Sign in"}
+                {isPending ? <Loader size={20} /> : "Sign in"}
               </button>
             </form>
           </FormProvider>

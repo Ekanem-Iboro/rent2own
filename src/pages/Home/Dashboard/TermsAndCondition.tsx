@@ -86,7 +86,7 @@ export const TermsAndCondition = () => {
           >
             {/* : isSuccess ? "Pay now" */}
             {
-              isPending ? <Loader /> : "Continue"
+              isPending ? <Loader size={20} /> : "Continue to pay"
               // Replace with your own loading state or error handling mechanism
             }{" "}
           </button>

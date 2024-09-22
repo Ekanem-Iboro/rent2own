@@ -6,7 +6,7 @@ interface LoaderProps {
   color?: string;
 }
 
-const Loader: React.FC<LoaderProps> = ({ size = 30, color = "#ffffff" }) => {
+const Loader: React.FC<LoaderProps> = ({ size = 20, color = "#ffffff" }) => {
   const style = {
     width: `${size}px`,
     height: `${size}px`,
@@ -14,7 +14,7 @@ const Loader: React.FC<LoaderProps> = ({ size = 30, color = "#ffffff" }) => {
     borderTop: `4px solid transparent`,
     borderRadius: "50%",
     animation: "spin 1s linear infinite",
-    fontWeight: "600",
+    fontWeight: "400",
   };
 
   return <div style={style}></div>;

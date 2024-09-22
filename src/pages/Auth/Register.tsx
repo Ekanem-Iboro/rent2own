@@ -237,7 +237,7 @@ const Register: React.FC = () => {
                   />
                 </div>
                 <button className="w-full bg-primary py-2 px-[4rem] rounded-[11px] text-white mt-6 border-none  flex justify-center items-center ">
-                  {isPending ? <Loader size={30} /> : "Sign up"}
+                  {isPending ? <Loader size={20} /> : "Sign up"}
                 </button>
               </form>
             </FormProvider>
