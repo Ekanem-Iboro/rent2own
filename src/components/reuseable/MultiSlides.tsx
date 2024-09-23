@@ -42,7 +42,7 @@ export function MultiSlides() {
           >
             <div className="">
               <img
-                src={`../${img}`}
+                src={`https://rent2ownauto.com.au/${img}`}
                 alt=""
                 className=" md:h-[200px] md:w-[450px] w-[250px] h-[80px]  object-cover "
               />
