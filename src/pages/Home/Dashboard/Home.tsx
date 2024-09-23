@@ -361,7 +361,7 @@ const Home = () => {
                     >
                       <div
                         className={` w-full min-h-[400px]  rounded-[9px] overflow-hidden border border-[#E6E6E6] ${
-                          item.id > 8 ? "hidden " : ""
+                          index > 8 ? "hidden " : ""
                         }   md:mb-0 mb-4`}
                         key={item.id}
                         onClick={() => handleProductClick(item)}

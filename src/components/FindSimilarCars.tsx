@@ -49,14 +49,14 @@ const FindSimilarCars = () => {
             </div>
           ) : (
             <div className="lg:flex md:space-x-4 md:grid grid-cols-2 block  items-center">
-              {similarCars?.map((item) => (
+              {similarCars?.map((item, index) => (
                 <Link
                   to={`/products/${item.model}`}
                   // state={{ productData: item }}
                 >
                   <div
                     className={`lg:w-[350px] md:w-[300px] w-full min-h-[380px] bg-white rounded-[12px] overflow-hidden md:flex-shrink-0 md:mb-10 md:mt-0 mt-5${
-                      item.id > 8 ? "hidden " : ""
+                      index > 8 ? "hidden " : ""
                     }   md:mb-0 mb-4`}
                     key={item.id}
                     onClick={() => handleProductClick(item)}
