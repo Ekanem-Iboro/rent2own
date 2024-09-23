@@ -18,7 +18,7 @@ const PaymentSuccess = () => {
 
           <div className="shadow-md text-center mt-9 rounded-md p-6 bg-primary ">
             <Link
-              to="/home"
+              to="/order"
               className="font-medium text-lg text-[#ffffff] underline"
             >
               Return to dashboard
