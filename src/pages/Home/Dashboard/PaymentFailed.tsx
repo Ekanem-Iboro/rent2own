@@ -1,44 +1,32 @@
-import { useNavigate } from "react-router-dom";
-import notS from "@/assets/icons/notS.svg";
-const TransactionFailed = () => {
-  const navigate = useNavigate();
+import { Link } from "react-router-dom";
+import failedpayment from "@/assets/icons/paymentfail.svg";
+
+const PaymentFailed = () => {
   return (
-    <div className="flex items-center justify-center h-screen ">
-      <div className=" w-[400px] h-[323px] p-6 bg-white rounded-xl shadow flex-col justify-start items-center gap-8 inline-flex">
-        <div className="Content self-stretch h-[199px] p-[0px] flex-col justify-start items-start gap-[20px] flex">
-          <div className="Content self-stretch h-[199px] p-[0px] flex-col justify-start items-center gap-4 flex">
-            <img className="Icons8Error641 w-16 h-16" src={notS} />
-            <div className="TextAndSupportingText self-stretch h-[119px] p-[0px] flex-col justify-start items-center gap-2 flex">
-              <div className="Text self-stretch text-center text-red-600 text-[29px] font-medium">
-                Payment Failed!
-              </div>
-              <button className="SupportingText self-stretch text-center text-zinc-800 text-[16px] font-normal leading-normal">
-                Unfortunately, your payment was not successful! Click the button
-                below to return to the home page.
-              </button>
-            </div>
-          </div>
+    <div className="flex justify-center h-screen lg:w-[25%] md:w-[35%] w-full m-auto ">
+      <div className=" lg:py-11 lg:px-[1rem] md:px-[2rem] px-4 py-6 rounded-2xl mt-[5rem] ">
+        <div className="flex flex-col items-center justify-center gap-2  mt-10">
+          <img src={failedpayment} alt="" />
+          <p className="text-[30px] leading-[36px] font-[700] text-[#DD1D30]">
+            Payment Error
+          </p>{" "}
         </div>
-        <button
-          onClick={() => {
-            navigate("/home");
-            localStorage.removeItem("car-store");
-          }}
-          className="Frame34643 p-[0px] flex-col justify-start items-start gap-[12px] flex"
-        >
-          <div className=" w-[352px] p-[0px] justify-start items-start gap-[12px] inline-flex">
-            <div className="Button grow shrink basis-0 h-[44px] p-[0px] rounded-lg justify-start items-start flex">
-              <div className="ButtonBase grow shrink basis-0 h-[44px] px-[18px] py-[10px] bg-red-600 rounded-lg shadow  border-red-600 justify-center items-center gap-2 flex">
-                <div className="Text text-white text-[18px] font-medium">
-                  Return to dashboard
-                </div>
-              </div>
-            </div>
-          </div>
-        </button>
+        <p className="text-[#0A0B0A] text-[16px]  px-11 rounded-2xl  font-[500] w-full text-center leading-[16.8px] my-4">
+          Unfortunately, we are not able to process your payment right now.
+        </p>
+        <Link to={"/home"} className=" w-full bg-[#016AB3] rounded-2xl">
+          <button
+            className="p-3 w-full bg-[#016AB3]  rounded-2xl text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center "
+            onClick={() => {
+              localStorage.removeItem("car-store");
+            }}
+          >
+            Try again
+          </button>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default TransactionFailed;
+export default PaymentFailed;

@@ -19,8 +19,8 @@ const Order = () => {
       <p className="text-[16px] leading-[19.2px] font-[600] text-[#191919] bg-[#D6EEFF] px-2 py-3 w-fit my-5 rounded-sm">
         0i30 GO PD MY19 4D Hatchback
       </p>
-      <section className="md:mr-[5%] ">
-        <div className=" md:bg-[url('assets/images/orderDesktop.png')] bg-[url('assets/images/orderMobile.png')] md:rounded-t-[35px] rounded-t-xl bg-no-repeat bg-cover md:min-h-[324px] w-full min-h-[745px] mt-11  py-11 md:px-14 px-4">
+      <section className="lg:mr-[5%] ">
+        <div className=" md:bg-[url('assets/images/orderDesktop.png')] bg-[url('assets/images/orderMobile.png')] md:rounded-t-[35px] rounded-t-xl bg-no-repeat bg-cover md:min-h-[324px] w-full min-h-[745px] mt-11  py-11 lg:px-14 px-4">
           <div className="w-full md:flex flex-col block items-center justify-center">
             <p className="md:text-[30px] text-[24px] md:leading-[30px] leading-[28.8px] font-[600] text-[#FFFFFF]">
               Car Payment Breakdown

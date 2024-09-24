@@ -2,7 +2,7 @@ import ScrollToTop from "@/components/reuseable/ScrollToTop";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Dashboard/Home";
 import Sidebar from "@/layout/Sidebar";
-import Notification from "./Dashboard/Notification";
+import NotificationPanel from "./Dashboard/Notification";
 import Order from "./Dashboard/Order";
 import Help from "./Dashboard/Help";
 import PrivateRoute from "@/components/privateRoute";
@@ -41,7 +41,7 @@ function Index() {
             path="/notification"
             element={
               <PrivateRoute>
-                <Notification />
+                <NotificationPanel />
               </PrivateRoute>
             }
           />

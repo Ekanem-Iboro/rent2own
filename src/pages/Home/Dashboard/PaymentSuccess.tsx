@@ -1,33 +1,24 @@
 import { Link } from "react-router-dom";
-import successIcon from "@/assets/icons/celebrationicon.svg";
-import shake from "@/assets/icons/shake.svg";
+import confetti from "@/assets/images/confetti.png";
 
 const PaymentSuccess = () => {
   return (
-    <div className="flex flex-col-reverse md:flex-row w-screen h-screen">
-      <div className="flex-[0.6] text-center md:text-left p-5 lg:p-0 flex items-center justify-center">
-        <div className="max-w-lg shadow-xl p-5 bg-slate-100">
-          <img src={successIcon} className="mx-auto" alt="" />
-          <h2 className="text-3xl md:text-5xl font-bold">
-            Payment Successful!
-          </h2>
-          <p className="md:text-lg mt-2 text-center">
-            <strong>Great news! </strong>Your recent transaction of{" "}
-            <strong>AU $200</strong> has been successful.
-          </p>
-
-          <div className="shadow-md text-center mt-9 rounded-md p-6 bg-primary ">
-            <Link
-              to="/order"
-              className="font-medium text-lg text-[#ffffff] underline"
-            >
-              Return to dashboard
-            </Link>
-          </div>
+    <div className="flex justify-center h-screen lg:w-[25%] md:w-[35%] w-full m-auto ">
+      <div className=" lg:py-11 lg:px-[1rem] md:px-[2rem] px-4 py-6 rounded-2xl mt-[5rem] ">
+        <div className="flex flex-col items-center justify-center gap-2 ">
+          <img src={confetti} alt="" width={80} />
+          <p className="text-[30px] leading-[36px] font-[700] text-[#19D282]">
+            Payment Successful
+          </p>{" "}
         </div>
-      </div>
-      <div className="bg-primary flex items-center justify-center flex-[0.4]">
-        <img src={shake} className="w-full object-fit" alt="" />
+        <p className="text-[#0A0B0A] text-[16px]  p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] my-4">
+          Weldone! Your payment of $280.00 was successful.
+        </p>
+        <Link to={"/orders"} className=" w-full bg-[#016AB3] rounded-2xl">
+          <button className="p-3 w-full bg-[#016AB3]  rounded-2xl text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center ">
+            Return to home
+          </button>
+        </Link>
       </div>
     </div>
   );
