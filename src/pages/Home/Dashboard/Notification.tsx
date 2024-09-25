@@ -1,7 +1,7 @@
 import { BreadcrumbComp } from "@/components/reuseable/BreadCrumbs";
 import { ArrowLeft, MailCheckIcon, Trash2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-
+import noti from "@/assets/icons/notificationtabicon.svg";
 interface Notification {
   id: number;
   title: string;
@@ -65,131 +65,140 @@ const NotificationPanel: React.FC = () => {
         Notifications
       </p>
       <div className="md:flex w-full bg-[#ffffff] pb-[6rem]">
-        {/* Left Panel - List of Notifications */}
-        <div
-          className={`md:w-1/2 md:border-r-4 md:px-[4rem] px-2  ${
-            MobileNotification ? "md:block hidden" : "block"
-          }`}
-        >
-          <p className="my-5 font-[600] text-[16px] leading-[19.2px] text-[#DD1D30] md:mt-[5rem] md:pt-0 pt-11">
-            {newMessages.length} new message
-          </p>
-          <div className="md:overflow-auto no-scrollbar md:h-screen">
-            <div className="my-[2rem] ">
-              <ul className="space-y-4 ">
-                {notifications.map((notification) => (
-                  <li
-                    key={notification.id}
-                    onClick={() => {
-                      setSelectedNotification(notification);
-                      setMobileNotification(true);
-                    }} // Set selected notification
-                    className={`cursor-pointer border-b pb-[1rem] mb-6 ${
-                      selectedNotification?.id === notification.id
-                        ? "text-[#7F7F7F]" // Change text color if selected
-                        : ""
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <h3
-                        className={`font-[600] text-[16px] leading-[19.2px] ${
-                          selectedNotification?.id === notification.id
-                            ? "text-[#7F7F7F]" // Change text color if selected
-                            : "text-[#191919] "
-                        }`}
-                      >
-                        {notification.title}
-                      </h3>
-                      <p
-                        className={`text-[14px] leading-[16.8px] font-[400] mb-3 ${
-                          selectedNotification?.id === notification.id
-                            ? "text-[#7F7F7F]" // Change text color if selected
-                            : "text-[#6B6B6B]"
-                        }`}
-                      >
-                        {notification.date}
-                      </p>
-                    </div>
-                    <p
-                      className={`text-[14px] leading-[16.8px] font-[400] text-[#6B6B6B] mb-3 ${
-                        selectedNotification?.id === notification.id
-                          ? "text-[#7F7F7F]" // Change text color if selected
-                          : "text-[#6B6B6B]"
-                      }`}
-                    >
-                      {notification.sub_title}
-                    </p>
-                    <p
-                      className={`text-[14px] leading-[16.8px] font-[400] text-[#6B6B6B] ${
-                        selectedNotification?.id === notification.id
-                          ? "text-[#7F7F7F]" // Change text color if selected
-                          : "text-[#6B6B6B]"
-                      }`}
-                    >
-                      {truncateMessage(notification.message, 20)}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        {notifications.length == 0 ? (
+          <div className="w-full flex items-center justify-center md:h-[700px] h-[400px]">
+            <img src={noti} alt="" width={200} />
           </div>
-        </div>
-        {/* Right Panel - Notification Details */}
-        <div
-          className={`md:w-1/2 px-[1rem] my-[5rem]  ${
-            MobileNotification == false ? "md:block hidden" : "block"
-          }`}
-        >
-          <ArrowLeft
-            className={`mb-[3rem] mt-4 ${
-              MobileNotification ? "md:hidden block " : "hidden"
-            }`}
-            onClick={() => setMobileNotification(false)}
-          />
+        ) : (
+          <>
+            <div
+              className={`md:w-1/2 md:border-r-4 md:px-[4rem] px-2  ${
+                MobileNotification ? "md:block hidden" : "block"
+              }`}
+            >
+              <p className="my-5 font-[600] text-[16px] leading-[19.2px] text-[#DD1D30] md:mt-[5rem] md:pt-0 pt-11">
+                {newMessages.length} new message
+              </p>
+              <div className="md:overflow-auto no-scrollbar md:h-screen">
+                <div className="my-[2rem] ">
+                  <ul className="space-y-4 ">
+                    {notifications.map((notification) => (
+                      <li
+                        key={notification.id}
+                        onClick={() => {
+                          setSelectedNotification(notification);
+                          setMobileNotification(true);
+                        }} // Set selected notification
+                        className={`cursor-pointer border-b pb-[1rem] mb-6 ${
+                          selectedNotification?.id === notification.id
+                            ? "text-[#7F7F7F]" // Change text color if selected
+                            : ""
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <h3
+                            className={`font-[600] text-[16px] leading-[19.2px] ${
+                              selectedNotification?.id === notification.id
+                                ? "text-[#7F7F7F]" // Change text color if selected
+                                : "text-[#191919] "
+                            }`}
+                          >
+                            {notification.title}
+                          </h3>
+                          <p
+                            className={`text-[14px] leading-[16.8px] font-[400] mb-3 ${
+                              selectedNotification?.id === notification.id
+                                ? "text-[#7F7F7F]" // Change text color if selected
+                                : "text-[#6B6B6B]"
+                            }`}
+                          >
+                            {notification.date}
+                          </p>
+                        </div>
+                        <p
+                          className={`text-[14px] leading-[16.8px] font-[400] text-[#6B6B6B] mb-3 ${
+                            selectedNotification?.id === notification.id
+                              ? "text-[#7F7F7F]" // Change text color if selected
+                              : "text-[#6B6B6B]"
+                          }`}
+                        >
+                          {notification.sub_title}
+                        </p>
+                        <p
+                          className={`text-[14px] leading-[16.8px] font-[400] text-[#6B6B6B] ${
+                            selectedNotification?.id === notification.id
+                              ? "text-[#7F7F7F]" // Change text color if selected
+                              : "text-[#6B6B6B]"
+                          }`}
+                        >
+                          {truncateMessage(notification.message, 20)}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
 
-          {selectedNotification ? (
-            <>
-              <div className="flex justify-between">
-                <h2 className="font-[600] text-[16px] leading-[19.2px] text-[#424242]">
-                  {selectedNotification.title}
-                </h2>
-                <span className="font-[400] text-[14px] text-[#6B6B6B] leading-[16.8px]">
-                  {selectedNotification.date}
-                </span>
-              </div>
-              <p
-                className={`text-[14px] leading-[16.8px] font-[400] text-[#6B6B6B] 
-                     my-5
-                `}
-              >
-                {selectedNotification.sub_title}
-              </p>
-              <p className="`text-[14px] leading-[1p.8px] font-[400] text-[#6B6B6B]">
-                {selectedNotification.message}
-              </p>
-              <div className="mt-6 flex items-center gap-2">
-                <button
-                  className="text-[#DD1D30] mr-4 text-[14px] font-[500] leading-[16.8px] flex items-center gap-1"
-                  onClick={() => handleDelete(selectedNotification.id)}
-                >
-                  <Trash2 size={18} />
-                  Delete message
-                </button>
-                <button
-                  className="text-[#191919] mr-4 text-[14px] font-[500] leading-[16.8px] flex items-center gap-1"
-                  onClick={() => handleMarkAsUnread(selectedNotification.id)}
-                >
-                  <MailCheckIcon size={18} />
-                  Mark as unread
-                </button>
-              </div>
-            </>
-          ) : (
-            <p className="text-gray-500">
-              Select a notification to view details
-            </p>
-          )}
-        </div>
+            <div
+              className={`md:w-1/2 px-[1rem] my-[5rem]  ${
+                MobileNotification == false ? "md:block hidden" : "block"
+              }`}
+            >
+              <ArrowLeft
+                className={`mb-[3rem] mt-4 ${
+                  MobileNotification ? "md:hidden block " : "hidden"
+                }`}
+                onClick={() => setMobileNotification(false)}
+              />
+
+              {selectedNotification ? (
+                <>
+                  <div className="flex justify-between">
+                    <h2 className="font-[600] text-[16px] leading-[19.2px] text-[#424242]">
+                      {selectedNotification.title}
+                    </h2>
+                    <span className="font-[400] text-[14px] text-[#6B6B6B] leading-[16.8px]">
+                      {selectedNotification.date}
+                    </span>
+                  </div>
+                  <p
+                    className={`text-[14px] leading-[16.8px] font-[400] text-[#6B6B6B]
+                       my-5
+                  `}
+                  >
+                    {selectedNotification.sub_title}
+                  </p>
+                  <p className="`text-[14px] leading-[1p.8px] font-[400] text-[#6B6B6B]">
+                    {selectedNotification.message}
+                  </p>
+                  <div className="mt-6 flex items-center gap-2">
+                    <button
+                      className="text-[#DD1D30] mr-4 text-[14px] font-[500] leading-[16.8px] flex items-center gap-1"
+                      onClick={() => handleDelete(selectedNotification.id)}
+                    >
+                      <Trash2 size={18} />
+                      Delete message
+                    </button>
+                    <button
+                      className="text-[#191919] mr-4 text-[14px] font-[500] leading-[16.8px] flex items-center gap-1"
+                      onClick={() =>
+                        handleMarkAsUnread(selectedNotification.id)
+                      }
+                    >
+                      <MailCheckIcon size={18} />
+                      Mark as unread
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <p className="text-gray-500">
+                  Select a notification to view details
+                </p>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
