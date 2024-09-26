@@ -76,18 +76,15 @@ const Footer = () => {
                 FAQ
               </Link>
             </li>
-            {session_token ? (
-              <p></p>
-            ) : (
-              <li className="mb-7">
-                <Link
-                  to="/termsandconditions"
-                  className=" transition-all mb-6 underline"
-                >
-                  Terms and Conditions
-                </Link>
-              </li>
-            )}
+
+            <li className="mb-7">
+              <Link
+                to="/termsandconditions"
+                className=" transition-all mb-6 underline"
+              >
+                Terms and Conditions
+              </Link>
+            </li>
           </ul>
           {/* mobile */}
           <ul className="md:hidden flex   items-start gap-5  mt-8 font-[700] leading-[16.8px] text-[14px] text-[#2D2D2D]">
@@ -125,7 +122,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="mb-4">
-                <Link to="/contact" className="underline">
+                <Link to="/contactus" className="underline">
                   Contact us
                 </Link>
               </li>
@@ -134,25 +131,15 @@ const Footer = () => {
                   FAQ
                 </Link>
               </li>
-              {session_token ? (
-                <li className="mb-7">
-                  <Link
-                    to="/terms_conditions"
-                    className=" transition-all mb-6 underline"
-                  >
-                    Terms and Conditions
-                  </Link>
-                </li>
-              ) : (
-                <li className="mb-7">
-                  <Link
-                    to="/termsandconditions"
-                    className=" transition-all mb-6 underline"
-                  >
-                    Terms and Conditions
-                  </Link>
-                </li>
-              )}
+
+              <li className="mb-7">
+                <Link
+                  to="/termsandconditions"
+                  className=" transition-all mb-6 underline"
+                >
+                  Terms and Conditions
+                </Link>
+              </li>
             </div>
           </ul>
         </div>

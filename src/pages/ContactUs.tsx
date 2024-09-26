@@ -12,12 +12,7 @@ const ContactUs = () => {
         <p className="md:text-[60px] text-[24px] md:leading-[72px] leading-[28.8px] font-[600] text-[#FFFFFF]">
           Contact Us
         </p>
-        <BreadcrumbComp
-          item="Contact us"
-          path="/"
-          sepCol="#ffffff"
-          color="#ffffff"
-        />
+        <BreadcrumbComp item="Contact us" sepCol="#ffffff" color="#ffffff" />
       </header>
       <div className="">
         <Contact />

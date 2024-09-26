@@ -9,18 +9,24 @@ module.exports = {
   prefix: "",
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-to-r": "linear-gradient(to right, #f72585, #7209b7)",
-      },
       animation: {
+        "spin-slow": "spin 2s linear infinite",
+        "spin-reverse": "spin-reverse 1.5s linear infinite",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
       },
       keyframes: {
+        "spin-reverse": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(-360deg)" },
+        },
         "border-beam": {
           "100%": {
             "offset-distance": "100%",
           },
         },
+      },
+      backgroundImage: {
+        "gradient-to-r": "linear-gradient(to right, #f72585, #7209b7)",
       },
       fontFamily: {
         HelveticalNeue: ["Manrope", "sans-serif"],

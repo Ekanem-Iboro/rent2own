@@ -19,6 +19,7 @@ import NavBar from "@/components/reuseable/NavBar";
 import Footer from "@/components/Footer";
 import DetailsBanner from "@/components/DetailsBanner";
 import { ContactAdressPhone } from "@/components/reuseable/ContactAdressPhone";
+import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
 
 const CarListing = () => {
   const { setCurrentCar } = useCarStore();
@@ -273,9 +274,11 @@ const CarListing = () => {
 
   return (
     <>
+      {isCarLoading && SpinnerOverlay}
+
       <NavBar />
       <div className=" md:mx-[7rem]   p-5 ">
-        <BreadcrumbComp item="Car listing" path="/" color="#191919" sepCol="" />
+        <BreadcrumbComp item="Car listing" color="#191919" sepCol="" />
       </div>
       <div className="md:flex block gap-x-8 md:my-0  md:mx-[7rem]  md:p-[1%] p-5 overflow-hidden mb-[5rem]">
         <div className=" text-white lg:flex-[30%] md:flex-[50%] md:w-auto w-full lg:mt-0  mt-[2rem]">

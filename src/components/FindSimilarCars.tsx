@@ -58,7 +58,7 @@ const FindSimilarCars = () => {
                     className={`lg:w-[350px] md:w-[300px] w-full min-h-[380px] bg-white rounded-[12px] overflow-hidden md:flex-shrink-0 md:mb-10 md:mt-0 mt-5${
                       index > 8 ? "hidden " : ""
                     }   md:mb-0 mb-4`}
-                    key={item.id}
+                    key={index}
                     onClick={() => handleProductClick(item)}
                   >
                     <div className="w-full h-[220px] flex justify-center">

@@ -10,19 +10,22 @@ import {
 export function BreadcrumbComp({
   item,
   color,
-  path,
+
   sepCol,
 }: {
   item: string | undefined;
   color: string;
-  path: string;
+
   sepCol: string;
 }) {
+  const session_token = localStorage.getItem("session_token");
   return (
     <Breadcrumb className="my-5">
       <BreadcrumbList>
         <BreadcrumbItem className="text-primary text-[14px] leading-[16.8px] font-[400]">
-          <BreadcrumbLink href={path}>Home</BreadcrumbLink>
+          <BreadcrumbLink href={`${session_token ? "/home" : "/"}`}>
+            Home
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className={`text-[${sepCol}]`} />
         <BreadcrumbItem>

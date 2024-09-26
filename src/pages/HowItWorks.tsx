@@ -15,7 +15,7 @@ function HowItWorks() {
         </p>
         <BreadcrumbComp
           item="How it works"
-          path="/"
+        
           sepCol="#ffffff"
           color="#ffffff"
         />

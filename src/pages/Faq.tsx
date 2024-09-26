@@ -34,7 +34,7 @@ export default function Faq() {
           <BreadcrumbComp
             item="faq"
             color="#ffffff"
-            path="/"
+         
             sepCol="#ffffff"
           />
         </header>

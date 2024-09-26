@@ -2,16 +2,43 @@ import { BreadcrumbComp } from "@/components/reuseable/BreadCrumbs";
 import paymentIcon from "@/assets/icons/payment.svg";
 import UploadCarMentainance from "@/components/UploadCarMentainance";
 import HistoryPaymentNotification from "@/components/HistoryPaymentNotification";
+import { useGetOrderDashboard } from "@/hooks/query";
+import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
+import { useEffect } from "react";
+// import { useQueryClient } from "@tanstack/react-query";
 
 const Order = () => {
+  // const queryClient = useQueryClient(); //To refresh the user data
+
   const handleUpload = (file: File) => {
     console.log("Uploaded file:", file);
     // Handle file upload logic here
   };
 
+  const userId = localStorage.getItem("user_id");
+  // Soft refresh: Refetches the data when the component mounts
+  const {
+    data: CarOrderBreakDown,
+    isLoading: isOrderLoading,
+    refetch,
+  } = useGetOrderDashboard(Number(userId));
+
+  console.log(CarOrderBreakDown);
+  useEffect(() => {
+    refetch(); // This will trigger a data re-fetch when the component mounts
+  }, [refetch]);
+
+  // useEffect(() => {
+  //   queryClient.invalidateQueries({
+  //     queryKey: ["order"],
+  //     refetchType: "all", // refetch both active and inactive queries
+  //   });
+  // });
+
   return (
     <div className="md:mx-0 mx-3">
-      <BreadcrumbComp item="My Order" color="#191919" path="/home" sepCol="" />
+      {isOrderLoading && <SpinnerOverlay />}
+      <BreadcrumbComp item="My Order" color="#191919" sepCol="" />
       <p className=" font-[600] text-[24px] leading-[28.8px] text-[#0A0B0A]">
         Car Rental Order
       </p>

@@ -8,7 +8,7 @@ const NavBar = () => {
   const showSidebar = () => {
     setSidebar((prevbar) => !prevbar);
   };
-
+  const sessionstoken = localStorage.getItem("session_token");
   const closeSidebar = () => {
     setSidebar(false);
   };
@@ -51,7 +51,7 @@ const NavBar = () => {
 
         <div className="flex  items-center justify-between gap-10">
           <p className="cursor-pointer font-[600] text-primary border border-primary leading-[21.6px] py-2 px-[2rem] rounded-xl text-[18px]">
-            <Link to="/sign-in">Sign in</Link>
+            <Link to={`${sessionstoken ? "/home" : "/sign-in"}`}>Sign in</Link>
           </p>
           <button className="bg-primary  font-[600] py-3 px-[4rem] rounded-xl text-[18px] text-[#FAFAFA] ">
             <Link to="/sign-up">Create an account</Link>
@@ -118,7 +118,7 @@ const NavBar = () => {
         <hr className=" lg:hidden block my-2 " />
 
         <div className="flex flex-col items-center justify-center gap-6 p-5">
-          <Link to="/sign-in" className="w-full">
+          <Link to={`${sessionstoken ? "/home" : "/sign-in"}`}>
             <p
               className="cursor-pointer text-primary py-3 px-[4rem] text-center rounded-[10px] font-[600] border border-primary w-full mt-3"
               onClick={closeSidebar}

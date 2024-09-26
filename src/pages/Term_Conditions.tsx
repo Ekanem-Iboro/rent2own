@@ -16,7 +16,6 @@ export default function Term_Conditions() {
           </p>
           <BreadcrumbComp
             item="Terms & Conditions"
-            path="/"
             sepCol="#ffffff"
             color="#ffffff"
           />

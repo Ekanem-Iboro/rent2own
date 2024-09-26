@@ -1,6 +1,7 @@
 import {
   Route,
   Routes,
+  // useNavigate,
   // useNavigate
 } from "react-router-dom";
 import ScrollToTop from "./components/reuseable/ScrollToTop";
@@ -19,6 +20,7 @@ import Faq from "./pages/Faq";
 import CarListing from "./pages/CarListing";
 import Term_Conditions from "./pages/Term_Conditions";
 import { UploadKYC } from "./pages/Auth/UploadKYC";
+// import { useEffect, useState } from "react";
 // import { useEffect, useState } from "react";
 
 function App() {
@@ -45,7 +47,7 @@ function App() {
         <Route path="/carlisting" element={<CarListing />} />
         <Route path="/howitworks" element={<HowItWorks />} />
         <Route path="/contactus" element={<ContactUs />} />
-        <Route path="/faq" element={<Faq />} />
+
         <Route path="/faq" element={<Faq />} />
         <Route path="/termsandconditions" element={<Term_Conditions />} />
         <Route path="/sign-up" element={<Register />} />

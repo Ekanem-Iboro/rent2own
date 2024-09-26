@@ -59,3 +59,8 @@ export const changePassword = async (data: IChangePassword) => {
   const res = await privateApi.put(`/change_password.php`, data);
   return res.data;
 };
+
+export const getOrderDashboard = async (id: number) => {
+  const res = await publicApi.get(`/get_dashboarddata.php?user_id=${id}`);
+  return res.data; // Assuming you want to return the response data directly
+};

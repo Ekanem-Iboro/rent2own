@@ -12,6 +12,7 @@ import { ChevronLeft } from "lucide-react";
 import { CreateUser } from "@/api/types";
 import { useRegisterUser } from "@/hooks/mutation";
 import Loader from "@/components/reuseable/Loader";
+import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
 
 // Define the Zod schema with additional validation
 const RegisterSchema = z
@@ -76,6 +77,8 @@ const Register: React.FC = () => {
 
   return (
     <div className="bg-gray-50  w-full px-4 min-h-screen">
+      {isPending && <SpinnerOverlay />}
+
       <div className="  w-full  rounded-[18px]   flex  lg:px-[20%] md:px-[9%] px-3 md:pt-[2%] pt-0">
         <Link to={"/"} className="md:block hidden mt-[3rem]">
           <ChevronLeft

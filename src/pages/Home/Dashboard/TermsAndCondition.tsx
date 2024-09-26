@@ -1,5 +1,6 @@
 import { RentCarData } from "@/api/types";
 import Loader from "@/components/reuseable/Loader";
+import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
 import {
   //  useAgreementId,
   useRentCar,
@@ -18,7 +19,7 @@ export const TermsAndCondition = () => {
   const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
   const { data: profile } = useGetUserProfile(userId);
   // const { mutate: userAgreement } = useAgreementId();
-  const { register, handleSubmit, reset } = useForm<TermAndConForm>();
+  const { register, handleSubmit } = useForm<TermAndConForm>();
 
   // const userAgreementId = localStorage.getItem("agreement_id");
 
@@ -40,7 +41,7 @@ export const TermsAndCondition = () => {
           // Destructure the response
           if (response) {
             // Send the entire response data to the userAgreement mutation
-            window.open(response.payment_url, "_self");
+            window.open(response.payment_url);
           }
         },
         //
@@ -48,12 +49,13 @@ export const TermsAndCondition = () => {
           console.error("Error renting the car:", error);
         },
       });
-      reset();
     }
   };
 
   return (
     <div className="md:mb-[8rem] mb-[2rem]">
+      {isPending && <SpinnerOverlay />}
+
       <h1 className="font-[600] text-[30px] leadind-[36px]  my-5 w-full text-center md:text-start md:px-16 px-3 mt-9">
         Terms & Conditions
       </h1>
@@ -86,7 +88,7 @@ export const TermsAndCondition = () => {
           >
             {/* : isSuccess ? "Pay now" */}
             {
-              isPending ? <Loader size={20} /> : "Continue to pay"
+              isPending ? <Loader size={25} /> : "Continue to pay"
               // Replace with your own loading state or error handling mechanism
             }{" "}
           </button>

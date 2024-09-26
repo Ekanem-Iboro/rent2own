@@ -1,4 +1,10 @@
-import { getCars, getContact, getFAQ, getProfile } from "@/api";
+import {
+  getCars,
+  getContact,
+  getFAQ,
+  getOrderDashboard,
+  getProfile,
+} from "@/api";
 import { Car, ContactInfo } from "@/api/types";
 import { useQuery } from "@tanstack/react-query";
 
@@ -15,6 +21,7 @@ export const useGetUserProfile = (id: number) => {
     enabled: !!id, // Only run the query if the id exists
   });
 };
+
 export const useGetContact = () => {
   return useQuery<ContactInfo>({
     queryFn: getContact,
@@ -27,5 +34,13 @@ export const useGetFaq = () => {
   return useQuery<any>({
     queryFn: getFAQ,
     queryKey: ["faq"],
+  });
+};
+
+export const useGetOrderDashboard = (id: number) => {
+  return useQuery({
+    queryKey: ["order", id],
+    queryFn: () => getOrderDashboard(id),
+    enabled: !!id, // Only run the query if the id exists
   });
 };

@@ -11,6 +11,7 @@ import { ChevronLeft } from "lucide-react";
 import { useSignInUser } from "@/hooks/mutation";
 import { SignInUser } from "@/api/types";
 import Loader from "@/components/reuseable/Loader";
+import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
 
 // Define the Zod schema with additional validation
 const LoginSchema = z.object({
@@ -52,6 +53,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="bg-gray-50  w-full px-4 min-h-screen">
+      {isPending && <SpinnerOverlay />}
       <div className="  w-full  rounded-[18px]   flex  lg:px-[20%] md:px-[9%] px-3  md:pt-[10%] pt-[5%]">
         <Link to={"/"} className="md:block hidden mt-[3rem]">
           <ChevronLeft

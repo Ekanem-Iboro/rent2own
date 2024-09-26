@@ -9,7 +9,7 @@ const Settings = () => {
 
   return (
     <div className="px-2">
-      <BreadcrumbComp item="Settings" color="#191919" path="/home" sepCol="" />
+      <BreadcrumbComp item="Settings" color="#191919" sepCol="" />
       <h1 className=" mt-[1rem] mb-7  text-[#151413] text-[20px] font-[500] leading-[24px] ">
         Settings
       </h1>
