@@ -4,7 +4,7 @@ import UploadCarMentainance from "@/components/UploadCarMentainance";
 import HistoryPaymentNotification from "@/components/HistoryPaymentNotification";
 import { useGetOrderDashboard } from "@/hooks/query";
 import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 // import { useQueryClient } from "@tanstack/react-query";
 
 const Order = () => {
@@ -20,13 +20,29 @@ const Order = () => {
   const {
     data: CarOrderBreakDown,
     isLoading: isOrderLoading,
-    refetch,
+    // refetch,
   } = useGetOrderDashboard(Number(userId));
 
-  console.log(CarOrderBreakDown);
-  useEffect(() => {
-    refetch(); // This will trigger a data re-fetch when the component mounts
-  }, [refetch]);
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const tottalAmountPaid = CarOrderBreakDown?.summary_data?.total_amount_paid;
+  const tottalAmountLeft = CarOrderBreakDown?.summary_data?.total_balance_left;
+  const weeklyPayment = CarOrderBreakDown?.cars.find(
+    ({ weekly }: any) => weekly
+  )?.weekly;
+  const carName = CarOrderBreakDown?.cars.find(
+    (item: any) => item.model
+  )?.model;
+  //
+  // if (CarOrderBreakDown && CarOrderBreakDown.cars) {
+  //   const foundCar = CarOrderBreakDown.cars.find(({ model }: any) => model);
+  //   if (foundCar) {
+  //     carName = foundCar.model;
+  //   }
+  // }
+  //
+  // useEffect(() => {
+  //   refetch(); // This will trigger a data re-fetch when the component mounts
+  // }, [refetch]);
 
   // useEffect(() => {
   //   queryClient.invalidateQueries({
@@ -44,7 +60,7 @@ const Order = () => {
       </p>
 
       <p className="text-[16px] leading-[19.2px] font-[600] text-[#191919] bg-[#D6EEFF] px-2 py-3 w-fit my-5 rounded-sm">
-        0i30 GO PD MY19 4D Hatchback
+        {carName}
       </p>
       <section className="lg:mr-[5%] ">
         <div className=" md:bg-[url('assets/images/orderDesktop.png')] bg-[url('assets/images/orderMobile.png')] md:rounded-t-[35px] rounded-t-xl bg-no-repeat bg-cover md:min-h-[324px] w-full min-h-[745px] mt-11  py-11 lg:px-14 px-4">
@@ -78,7 +94,7 @@ const Order = () => {
                   Total Amount Paid
                 </p>
                 <p className="md:text-[36px]  text-[30px] md:leading-[43.2px] leading-[36px] font-[600] text-[#FFFFFF] mt-3">
-                  $0{" "}
+                  ${tottalAmountPaid || 0}
                   <span className="md:text-[20px] text-[16px]  md:leading-[24px] leading-[19.2px] font-[500]">
                     .00
                   </span>
@@ -98,7 +114,7 @@ const Order = () => {
                   Weekly Payment
                 </p>
                 <p className="md:text-[36px]  text-[30px] md:leading-[43.2px] leading-[36px] font-[600] text-[#FFFFFF] mt-3">
-                  $0{" "}
+                  ${weeklyPayment || 0}
                   <span className="md:text-[20px] text-[16px]  md:leading-[24px] leading-[19.2px] font-[500]">
                     .00
                   </span>
@@ -117,7 +133,7 @@ const Order = () => {
                   Total Balance Left
                 </p>
                 <p className="md:text-[36px]  text-[30px] md:leading-[43.2px] leading-[36px] font-[600] text-[#FFFFFF] mt-3">
-                  $0{" "}
+                  ${tottalAmountLeft || 0}
                   <span className="md:text-[20px] text-[16px]  md:leading-[24px] leading-[19.2px] font-[500]">
                     .00
                   </span>

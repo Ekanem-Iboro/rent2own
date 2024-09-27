@@ -32,7 +32,7 @@ export const TermsAndCondition = () => {
         deposit: currentCar.deposit,
         weekly: currentCar.weekly,
         termsandconditions: data.termsandconditions,
-        user_id: currentCar.user_id ? Number(currentCar.user_id) : null,
+        user_id: Number(userId),
         user_email: profile.email,
       };
 
