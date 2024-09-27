@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import UploadCarMentainance from "@/components/UploadCarMentainance";
 import { useState } from "react";
 
-export const UploadKYC = () => {
+const UploadKYC = () => {
   const [uploaded, setUploaded] = useState<boolean>(true);
   const [uploadedComplete, setUploadedComplete] = useState<boolean>(false);
   const handleUpload = (file: File) => {
@@ -66,3 +66,4 @@ export const UploadKYC = () => {
     </div>
   );
 };
+export default UploadKYC;

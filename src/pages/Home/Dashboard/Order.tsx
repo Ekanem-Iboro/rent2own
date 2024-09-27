@@ -23,6 +23,9 @@ const Order = () => {
     // refetch,
   } = useGetOrderDashboard(Number(userId));
 
+  const installments = CarOrderBreakDown?.installments;
+  console.log(installments);
+
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const tottalAmountPaid = CarOrderBreakDown?.summary_data?.total_amount_paid;
   const tottalAmountLeft = CarOrderBreakDown?.summary_data?.total_balance_left;
@@ -171,7 +174,7 @@ const Order = () => {
         {/*  */}
         {/* payment history */}
         {/*  */}
-        <HistoryPaymentNotification />
+        <HistoryPaymentNotification installments={installments} />
         {/*  */}
         <div>
           <p className="font-[600] text-[20px] leading-[24px] text-[#0A0B0A] mt-9">

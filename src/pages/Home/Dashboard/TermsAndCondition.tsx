@@ -12,8 +12,7 @@ import { useForm } from "react-hook-form";
 interface TermAndConForm {
   termsandconditions: boolean;
 }
-
-export const TermsAndCondition = () => {
+const TermsAndCondition = () => {
   const { currentCar } = useCarStore();
   const { mutate: rentCarMutation, isPending } = useRentCar();
   const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
@@ -97,7 +96,7 @@ export const TermsAndCondition = () => {
     </div>
   );
 };
-
+export default TermsAndCondition;
 const termsAndConditions = [
   {
     id: "MAKING_CONTRACT",
