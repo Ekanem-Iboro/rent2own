@@ -40,7 +40,7 @@ const TermsAndCondition = () => {
           // Destructure the response
           if (response) {
             // Send the entire response data to the userAgreement mutation
-            window.open(response.payment_url);
+            window.open(response.payment_url, "_self");
           }
         },
         //
