@@ -230,11 +230,15 @@ const Order = () => {
 
           <div className="flex items-center justify-center gap-x-10 mt-14 w-full">
             <button
-              className="px-12 py-3 text-[18px] leading-[21.6px] font-[600] text-[#FAFAFA] bg-[#0999FE] rounded-md hover:bg-[#0998fecc] md:w-[30%] w-full"
+              className={`px-12 py-3 text-[18px] leading-[21.6px] font-[600] text-[#FAFAFA] bg-[#0999FE] rounded-md md:w-[30%] w-full ${
+                isError
+                  ? "text-red-700 cursor-not-allowed"
+                  : "hover:bg-[#0998fecc] cursor-pointer  "
+              }`}
               onClick={onPayNow}
-              disabled={Nextpaymentpending}
+              disabled={Nextpaymentpending || isError}
             >
-              Pay Now
+              {isError ? "No Agreement Found" : "Pay Now"}
             </button>
           </div>
         </div>
