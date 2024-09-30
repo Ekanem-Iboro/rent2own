@@ -30,10 +30,13 @@ export interface Car {
   v_peformance: string | null;
   v_technology: string | null;
   fuel_eff: string | null;
-
   safety_features: string | null;
-
   stor_cargo: string | null;
+  price_2: string | null;
+  weekly_2: string | null;
+  bond_2: string | null;
+  deposit_2: string | null;
+  duration_2: string | null;
 }
 
 export interface Filters {

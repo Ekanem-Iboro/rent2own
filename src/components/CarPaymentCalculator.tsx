@@ -1,36 +1,36 @@
-import TextFeildCalculate from "../components/reuseable/TextFieldCalculate";
+// import TextFeildCalculate from "../components/reuseable/TextFieldCalculate";
 import CurrencyFormatter from "./reuseable/currencyFormat";
 
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
-import RangeSlider from "./reuseable/RangeSlider";
+// import { z } from "zod";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { FormProvider, useForm } from "react-hook-form";
+// import RangeSlider from "./reuseable/RangeSlider";
 import useCarStore from "@/store/ProductStore";
 import { Link } from "react-router-dom";
 
-const calculateSchema = z.object({
-  amount: z.string().min(1, "Car amount is required"),
-  initialpayment: z.string().min(1, "Initial payment cannot be negative"),
-  weeklypayment: z.string().min(1, "Weekly payment is required"),
-  range: z.string().optional(),
-});
+// const calculateSchema = z.object({
+//   amount: z.string().min(1, "Car amount is required"),
+//   initialpayment: z.string().min(1, "Initial payment cannot be negative"),
+//   weeklypayment: z.string().min(1, "Weekly payment is required"),
+//   range: z.string().optional(),
+// });
 
 // type definition for login form
-export type claculatePaymet = z.TypeOf<typeof calculateSchema>;
+// export type claculatePaymet = z.TypeOf<typeof calculateSchema>;
 const CarPaymentCalculator = () => {
-  const methods = useForm<claculatePaymet>({
-    resolver: zodResolver(calculateSchema),
-  });
+  // const methods = useForm<claculatePaymet>({
+  //   resolver: zodResolver(calculateSchema),
+  // });
 
   const sessionToken = localStorage.getItem("session_token");
   // useForm() destructuring or methods destructuring. Here methods = useForm()
-  const { handleSubmit, setValue, reset } = methods;
+  // const { handleSubmit, setValue, reset } = methods;
   const { currentCar } = useCarStore();
 
-  const Calculate = (data: claculatePaymet) => {
-    console.log(data);
-    reset();
-  };
+  // const Calculate = (data: claculatePaymet) => {
+  //   console.log(data);
+  //   reset();
+  // };
   return (
     <>
       <div className="   md:w-[420px]  bg-white rounded-[10px] overflow-hidden lg:block hidden p-7">
@@ -104,8 +104,83 @@ const CarPaymentCalculator = () => {
           in order to rent this car.
         </p>
       </div>
+
+      {/* payment2 */}
+      <div className="   md:w-[420px]  bg-white rounded-[10px] overflow-hidden lg:block hidden p-7 mt-16">
+        {/*  */}
+        <h1 className="text-[#191919] text-[20px] leading-[24px] font-[500] mb-5">
+          Payment Structure
+        </h1>
+        <div className="w-full  flex justify-between items-center mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[14px] leading-[16.8px]">
+              Weekly rent
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
+            AU{" "}
+            <CurrencyFormatter
+              amount={parseFloat(currentCar?.weekly_2 || "0")}
+            />
+          </p>
+        </div>
+        {/*  */}
+        <div className="w-full flex justify-between items-center mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[14px] leading-[16.8px]">
+              Bond
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
+            {currentCar?.bond_2} weeks
+          </p>
+        </div>
+        {/*  */}
+        <div className="w-full  flex justify-between items-center mb-4">
+          {/*  */}
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[14px] leading-[16.8px]">
+              Deposit
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
+            {currentCar?.deposit_2}
+          </p>
+        </div>
+        {/*  */}
+        <div className="w-full flex justify-between items-center mb-4">
+          <div className="  items-center mr-2 ">
+            <p className="text-[#7F7F7F] font-[500] text-[14px] leading-[16.8px]">
+              Duration
+            </p>
+          </div>
+          <p className="text-[#2D2D2D] font-[600] leading-[21.6px] text-[18px] mt-2">
+            {currentCar?.duration_2} weeks
+          </p>
+        </div>
+        <div className="w-full text-center ">
+          <Link to="/terms_conditions">
+            <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
+              I want this car
+            </button>
+          </Link>
+        </div>
+        <p
+          className={` text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-4  ${
+            sessionToken ? "hidden" : "block"
+          } `}
+        >
+          <Link to="/sign-up" className="text-primary">
+            {" "}
+            create an account now{" "}
+          </Link>
+          in order to rent this car.
+        </p>
+      </div>
       {/* Calculator */}
-      <div className="relative  md:w-[420px] md:min-h-[522px] bg-primary rounded-[10px] mt-[5rem] p-5">
+      {/* <div className="relative  md:w-[420px] md:min-h-[522px] bg-primary rounded-[10px] mt-[5rem] p-5">
         <h1 className="text-[#FAFAFA] font-[500] text-[24px] leading-[28.8px]">
           Car Payment Calculator
         </h1>
@@ -153,7 +228,7 @@ const CarPaymentCalculator = () => {
             </p>
           </form>
         </FormProvider>
-      </div>
+      </div> */}
     </>
   );
 };
