@@ -126,7 +126,7 @@ const Order = () => {
       </p>
 
       <p className="text-[16px] leading-[19.2px] font-[600] text-[#191919] bg-[#D6EEFF] px-2 py-3 w-fit my-5 rounded-sm">
-        {carName}
+        {isError ? "" : `${carName || ""}`}
       </p>
       <section className="lg:mr-[5%] ">
         <div className=" md:bg-[url('assets/images/orderDesktop.png')] bg-[url('assets/images/orderMobile.png')] md:rounded-t-[35px] rounded-t-xl bg-no-repeat bg-cover md:min-h-[324px] w-full min-h-[745px] mt-11  py-11 lg:px-14 px-4">
