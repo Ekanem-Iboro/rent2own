@@ -4,7 +4,7 @@ import { ArrowDown } from "lucide-react";
 // import { NotificationPagination } from "./reuseable/NotificationPegnation";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const HistoryPaymentNotification = ({ installments }: any) => {
+const HistoryPaymentNotification = ({ installments, isError }: any) => {
   // const [currentPage, setCurrentPage] = useState(1);
   // const [itemPerPage] = useState(10);
   // const [sortField, setSortField] = useState<
@@ -49,7 +49,7 @@ const HistoryPaymentNotification = ({ installments }: any) => {
           Payment History
         </p>
         <div className="w-full md:min-h-[150px] min-h-[250px] mt-5 bg-[#ffffff] rounded-lg shadow-md">
-          {installments?.length > 0 ? (
+          {installments?.length > 0 && !isError ? (
             <div className="overflow-x-auto no-scrollbar">
               <div className="w-full min-w-[900px] ">
                 <table className="w-full text-left table-auto">
@@ -116,7 +116,7 @@ const HistoryPaymentNotification = ({ installments }: any) => {
                         </td>
                         <td className="py-6 px-4  text-[14px] leading-[16.8px] font-[500] text-[#191919]">
                           <span
-                            className={`text-[#027A48] bg-[#ECFDF3] p-1 w-fit rounded-xl capitalize ${
+                            className={`text-[#027A48] bg-[#ECFDF3] p-1 w-fit rounded-lg capitalize ${
                               payment.status === "Cancelled"
                                 ? "text-[#B42318] bg-[#FEF3F2]"
                                 : ""
@@ -124,7 +124,13 @@ const HistoryPaymentNotification = ({ installments }: any) => {
                               payment.status === "Refunded"
                                 ? "text-[#2D2D2D] bg-[#F2F4F7]"
                                 : ""
-                            }`}
+                            }
+                            ${
+                              payment.status === "pending"
+                                ? "text-[#ffffff] bg-[#f7cb77]"
+                                : ""
+                            }    
+                            `}
                           >
                             {payment.status}
                           </span>

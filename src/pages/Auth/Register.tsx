@@ -171,14 +171,14 @@ const Register: React.FC = () => {
                   <AuthTextFeild
                     name="phone"
                     label="Phone Number"
-                    placeholder="+555(234)777890"
+                    placeholder="0468319716"
                   />
                 </div>
                 <div className="mt-4">
                   <AuthTextFeild
                     name="postalcode"
                     label="Postal Code"
-                    placeholder="24681"
+                    placeholder="1234"
                   />
                 </div>
                 <div className="mt-4">

@@ -67,7 +67,7 @@ const Footer = () => {
               </Link>
             </li>
             <li className="mb-7">
-              <Link to="/contact" className=" transition-all mb-6 underline">
+              <Link to="/contactus" className=" transition-all mb-6 underline">
                 Contact us
               </Link>
             </li>

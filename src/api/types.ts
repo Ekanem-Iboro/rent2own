@@ -21,6 +21,19 @@ export interface Car {
   weekly: string;
   duration: string;
   deposit: string;
+  car_title: string;
+  sold: string;
+  status: string;
+  ext_features: string | null;
+  int_features: string | null;
+  v_dimension: string | null;
+  v_peformance: string | null;
+  v_technology: string | null;
+  fuel_eff: string | null;
+
+  safety_features: string | null;
+
+  stor_cargo: string | null;
 }
 
 export interface Filters {
@@ -54,13 +67,14 @@ export interface Filters {
 }
 
 export interface PriceFilter {
-  priceMin?: string;
-  priceMax?: string;
-  searchAbove2M?: boolean;
-  between1Mand2M?: boolean;
-  between500Kand999K?: boolean;
-  lessthan500K?: boolean;
+  priceMin?: string; // Minimum price filter value
+  priceMax?: string; // Maximum price filter value
+  searchAbove50K?: boolean; // Filter for prices above 50,000
+  between10Kand50K?: boolean; // Filter for prices between 10,000 and 50,000
+  between1Kand30K?: boolean; // Filter for prices between 1,000 and 30,000
+  lessthan30K?: boolean; // Filter for prices less than 30,000
 }
+
 export interface BrandFilters {
   brand?: string;
   honda?: boolean;

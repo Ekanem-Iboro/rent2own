@@ -2,9 +2,10 @@ import { BreadcrumbComp } from "@/components/reuseable/BreadCrumbs";
 import paymentIcon from "@/assets/icons/payment.svg";
 import UploadCarMentainance from "@/components/UploadCarMentainance";
 import HistoryPaymentNotification from "@/components/HistoryPaymentNotification";
-import { useGetOrderDashboard } from "@/hooks/query";
+import { useGetOrderDashboard, useGetUserProfile } from "@/hooks/query";
 import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
-// import { useEffect } from "react";
+import { usePayInstallment } from "@/hooks/mutation";
+import { useEffect } from "react";
 // import { useQueryClient } from "@tanstack/react-query";
 
 const Order = () => {
@@ -20,32 +21,93 @@ const Order = () => {
   const {
     data: CarOrderBreakDown,
     isLoading: isOrderLoading,
-    // refetch,
+    refetch,
+    isError,
   } = useGetOrderDashboard(Number(userId));
+  const { data: profile } = useGetUserProfile(Number(userId));
+  const { mutate: nextInstallmentPayment, isPending: Nextpaymentpending } =
+    usePayInstallment();
 
   const installments = CarOrderBreakDown?.installments;
-  console.log(installments);
+
+  //Pay next Installment
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const tottalAmountPaid = CarOrderBreakDown?.summary_data?.total_amount_paid;
   const tottalAmountLeft = CarOrderBreakDown?.summary_data?.total_balance_left;
+  //
   const weeklyPayment = CarOrderBreakDown?.cars.find(
     ({ weekly }: any) => weekly
   )?.weekly;
   const carName = CarOrderBreakDown?.cars.find(
     (item: any) => item.model
   )?.model;
-  //
-  // if (CarOrderBreakDown && CarOrderBreakDown.cars) {
-  //   const foundCar = CarOrderBreakDown.cars.find(({ model }: any) => model);
-  //   if (foundCar) {
-  //     carName = foundCar.model;
-  //   }
-  // }
-  //
-  // useEffect(() => {
-  //   refetch(); // This will trigger a data re-fetch when the component mounts
-  // }, [refetch]);
+
+  // const installmentNumber = CarOrderBreakDown?.installments.find(
+  //   (item: any) => item.installment_number
+  // )?.installment_number;
+  const installmentStatus = CarOrderBreakDown?.installments.find(
+    (item: any) => item.status
+  )?.status;
+
+  const AgreementId = CarOrderBreakDown?.agreement.agreementid; // Declare AgreementId with an initial value
+  const AgreementUserId = CarOrderBreakDown?.agreement.user_id;
+  const AgreementCarId = CarOrderBreakDown?.agreement.car_id;
+  // g
+  const paymentDate = CarOrderBreakDown?.installments.find(
+    (item: any) => item.payment_date
+  )?.payment_date;
+  const dueDate = CarOrderBreakDown?.installments.find(
+    (item: any) => item.due_date
+  )?.due_date;
+  const nextDueDate = CarOrderBreakDown?.installments.find(
+    (item: any) => item.next_due_date
+  )?.next_due_date;
+
+  // console.log(
+  //   carName,
+  //   weeklyPayment,
+  //   AgreementId,
+  //   installmentNumber,
+  //   paymentDate,
+  //   AgreementUserId,
+  //   profile
+  // );
+
+  const lastInstallment = CarOrderBreakDown?.installments.slice(-1)[0]; // Get the last installment
+
+  const onPayNow = () => {
+    const installmentPayment = {
+      agreement_id: AgreementId || "",
+      installment_number: lastInstallment?.installment_number || "", // Use last installment number
+      user_id: AgreementUserId || 0,
+      user_email: profile.email,
+      user_name: `${profile.firstname} ${profile.lastname}` || "",
+      user_phone: profile.phone || "",
+      payment_date: paymentDate || 0,
+      due_date: dueDate || 0,
+      car_id: AgreementCarId || 0,
+      lastInstallmentstatus: installmentStatus || "",
+      next_due_date: nextDueDate,
+      amount: weeklyPayment || 0,
+    };
+    nextInstallmentPayment(installmentPayment, {
+      onSuccess: (response) => {
+        // Destructure the response
+        if (response) {
+          // Send the entire response data to the userAgreement mutation
+          window.open(response.payment_url, "_self");
+        }
+      },
+      //
+      onError: (error) => {
+        console.error("Error renting the car:", error);
+      },
+    });
+  };
+  useEffect(() => {
+    refetch(); // This will trigger a data re-fetch when the component mounts
+  }, [refetch]);
 
   // useEffect(() => {
   //   queryClient.invalidateQueries({
@@ -57,6 +119,7 @@ const Order = () => {
   return (
     <div className="md:mx-0 mx-3">
       {isOrderLoading && <SpinnerOverlay />}
+      {Nextpaymentpending && <SpinnerOverlay />}
       <BreadcrumbComp item="My Order" color="#191919" sepCol="" />
       <p className=" font-[600] text-[24px] leading-[28.8px] text-[#0A0B0A]">
         Car Rental Order
@@ -97,7 +160,7 @@ const Order = () => {
                   Total Amount Paid
                 </p>
                 <p className="md:text-[36px]  text-[30px] md:leading-[43.2px] leading-[36px] font-[600] text-[#FFFFFF] mt-3">
-                  ${tottalAmountPaid || 0}
+                  ${isError ? 0 : `${tottalAmountPaid || 0}`}
                   <span className="md:text-[20px] text-[16px]  md:leading-[24px] leading-[19.2px] font-[500]">
                     .00
                   </span>
@@ -117,7 +180,7 @@ const Order = () => {
                   Weekly Payment
                 </p>
                 <p className="md:text-[36px]  text-[30px] md:leading-[43.2px] leading-[36px] font-[600] text-[#FFFFFF] mt-3">
-                  ${weeklyPayment || 0}
+                  ${isError ? 0 : `${weeklyPayment || 0}`}
                   <span className="md:text-[20px] text-[16px]  md:leading-[24px] leading-[19.2px] font-[500]">
                     .00
                   </span>
@@ -136,7 +199,7 @@ const Order = () => {
                   Total Balance Left
                 </p>
                 <p className="md:text-[36px]  text-[30px] md:leading-[43.2px] leading-[36px] font-[600] text-[#FFFFFF] mt-3">
-                  ${tottalAmountLeft || 0}
+                  ${isError ? 0 : `${tottalAmountLeft || 0}`}
                   <span className="md:text-[20px] text-[16px]  md:leading-[24px] leading-[19.2px] font-[500]">
                     .00
                   </span>
@@ -166,7 +229,11 @@ const Order = () => {
           </div>
 
           <div className="flex items-center justify-center gap-x-10 mt-14 w-full">
-            <button className="px-12 py-3 text-[18px] leading-[21.6px] font-[600] text-[#FAFAFA] bg-[#0999FE] rounded-md hover:bg-[#0998fecc] md:w-[30%] w-full">
+            <button
+              className="px-12 py-3 text-[18px] leading-[21.6px] font-[600] text-[#FAFAFA] bg-[#0999FE] rounded-md hover:bg-[#0998fecc] md:w-[30%] w-full"
+              onClick={onPayNow}
+              disabled={Nextpaymentpending}
+            >
               Pay Now
             </button>
           </div>
@@ -174,7 +241,10 @@ const Order = () => {
         {/*  */}
         {/* payment history */}
         {/*  */}
-        <HistoryPaymentNotification installments={installments} />
+        <HistoryPaymentNotification
+          installments={installments}
+          isError={isError}
+        />
         {/*  */}
         <div>
           <p className="font-[600] text-[20px] leading-[24px] text-[#0A0B0A] mt-9">

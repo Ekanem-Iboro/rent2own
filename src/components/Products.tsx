@@ -71,7 +71,7 @@ const Products = () => {
                   </h1>
 
                   <hr className=" border border-[#E6E6E6] mx-2 md:mx-5 my-4 " />
-                  <div className="md:px-5 px-2 ">
+                  <div className="md:px-5 px-2  h-[120px]">
                     <div className=" grid grid-cols-3 items-center justify-start gap-3 product-box  ">
                       {/*  */}
                       <div className="w-full   mb-1">
@@ -124,7 +124,7 @@ const Products = () => {
                         </p>
                       </div>
                       {/*  */}
-                      <div className="w-full  mb-1">
+                      <div className="w-full  mb-1 col-span-2">
                         {/*  */}
                         <div className="  items-center mr-2 ">
                           <p className="text-[#7F7F7F] font-[500] text-[12px] leading-[12px]">

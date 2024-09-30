@@ -8,24 +8,49 @@
 // import fuel from "../assets/icons/fuel.svg";
 // import gearbox from "../assets/icons/gearbox.svg";
 
+import useCarStore from "@/store/ProductStore";
 import AccCarinfo from "./reuseable/AccCarInfo";
 
 const CarInformation = () => {
-  // const { currentCar } = useCarStore();
+  const { currentCar } = useCarStore();
 
   return (
     <div className=" md:mt-[2rem] mt-[4rem]  rounded-md">
       <h1 className="text-[#191919] text-[20px] leading-[24px] font-[500] mb-4">
         Specifications
       </h1>
-      <AccCarinfo title="Performance" information="" />
-      <AccCarinfo title="Fuel Efficiency" information="" />
-      <AccCarinfo title="Dimensions" information="" />
-      <AccCarinfo title="Interior Features" information="" />
-      <AccCarinfo title="Technology" information="" />
-      <AccCarinfo title="Safety Features" information="" />
-      <AccCarinfo title="Exterior Features" information="" />
-      <AccCarinfo title="Storage and Cargo" information="" />
+      <AccCarinfo
+        title="Performance"
+        information={currentCar?.v_peformance || ""}
+      />
+      <AccCarinfo
+        title="Fuel Efficiency"
+        information={currentCar?.fuel_eff || ""}
+      />
+      <AccCarinfo
+        title="Dimensions"
+        information={currentCar?.v_dimension || ""}
+      />
+      <AccCarinfo
+        title="Interior Features"
+        information={currentCar?.int_features || ""}
+      />
+      <AccCarinfo
+        title="Technology"
+        information={currentCar?.v_technology || ""}
+      />
+      <AccCarinfo
+        title="Safety Features"
+        information={currentCar?.safety_features || ""}
+      />
+      <AccCarinfo
+        title="Exterior Features"
+        information={currentCar?.ext_features || ""}
+      />
+      <AccCarinfo
+        title="Storage and Cargo"
+        information={currentCar?.stor_cargo || ""}
+      />
     </div>
   );
 };

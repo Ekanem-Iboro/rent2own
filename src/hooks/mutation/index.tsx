@@ -2,6 +2,7 @@ import {
   // agreementId,
   changePassword,
   forgotPsw,
+  payInstallment,
   registerUser,
   rentCar,
   resetPsw,
@@ -103,18 +104,6 @@ export const useChangePassword = () => {
   });
 };
 
-// export const useAgreementId = () => {
-//   return useMutation({
-//     mutationFn: agreementId,
-//     onSuccess: (data) => {
-//       toast.success(data.message);
-//     },
-//     onError: (error) => {
-//       toast.error(error.message);
-//     },
-//   });
-// };
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Update mutation function to work with rentCar and handle submissionData
 export const useRentCar = () => {
@@ -127,6 +116,18 @@ export const useRentCar = () => {
     },
     onError: (error) => {
       toast.error(error.message); // Show error message
+    },
+  });
+};
+
+export const usePayInstallment = () => {
+  return useMutation({
+    mutationFn: payInstallment,
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 };

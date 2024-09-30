@@ -2,7 +2,7 @@ import TextField from "./reuseable/TextField";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useState } from "react";
+// import { useState } from "react";
 import { ContactAdressPhone } from "./reuseable/ContactAdressPhone";
 // import ctwitter from "../assets/icons/c_twitter.svg";
 // import cinstagram from "../assets/icons/c_instagram.svg";
@@ -19,12 +19,12 @@ const contactSchema = z.object({
 export type ContactInput = z.TypeOf<typeof contactSchema>;
 
 const Contact = () => {
-  const [countryCode, setCountryCode] = useState("+1");
+  // const [countryCode, setCountryCode] = useState("+1");
   // const [phoneNumber, setPhoneNumber] = useState("");
 
-  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCountryCode(e.target.value);
-  };
+  // const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setCountryCode(e.target.value);
+  // };
 
   const methods = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
@@ -70,11 +70,11 @@ const Contact = () => {
                 Phone number
               </label>
               <div
-                className={`flex items-center mt-3 w-full border border-[#B7B7B7] focus:border-[#B7B7B7]  rounded-md p-1  ${
-                  methods.formState.errors.phonenumber ? "border-[#DA1E28]" : ""
-                } `}
+                className={`flex items-center mt-3 w-full border border-[#B7B7B7] focus:border-[#B7B7B7]  rounded-md p-1 
+                  
+                  `}
               >
-                <select
+                {/* <select
                   value={countryCode}
                   onChange={handleCountryChange}
                   className="  w-[16%] focus:outline-none "
@@ -82,13 +82,13 @@ const Contact = () => {
                   <option value="AUS" className="bg-[#ffffff]">
                     AUS
                   </option>
-                </select>
+                </select> */}
                 <input
                   {...register("phonenumber")}
                   type="tel"
                   className={`focus:outline-none pl-5 py-2 w-full `}
                   // value={phoneNumber}
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="0468319716"
                 />
               </div>
               {methods.formState.errors.message && (

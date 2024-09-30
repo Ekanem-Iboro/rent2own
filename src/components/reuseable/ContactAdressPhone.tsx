@@ -35,7 +35,7 @@ export const ContactAdressPhone = () => {
             Phone
           </p>
           <p className="text-[14px] text-[#2D2D2D] font-[500] leading-[16.8px]">
-            Mon-Fri from 8am to 5pm.
+            Monday to Friday 8:30 am to 5 pm, Saturday 9:00 am to 3 pm.
           </p>
           <p className="md:text-[14px] text-primary md:font-[600] md:leading-[16.8px] text-[16px] font-[700] leading-[19.8px]  md:mt-5 mt-2">
             {contactData?.contact_phone}
