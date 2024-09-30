@@ -1,6 +1,7 @@
 import {
   // agreementId,
   changePassword,
+  contactUs,
   forgotPsw,
   payInstallment,
   registerUser,
@@ -123,6 +124,17 @@ export const useRentCar = () => {
 export const usePayInstallment = () => {
   return useMutation({
     mutationFn: payInstallment,
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+export const useContactUs = () => {
+  return useMutation({
+    mutationFn: contactUs,
     onSuccess: (data) => {
       toast.success(data.message);
     },

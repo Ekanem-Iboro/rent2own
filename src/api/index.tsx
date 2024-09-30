@@ -64,3 +64,8 @@ export const payInstallment = async (data: any) => {
   const res = await publicApi.post("pay_installment.php", data); // Use POST and pass the data
   return res.data; // Return the response data
 };
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const contactUs = async (data: any) => {
+  const res = await publicApi.post("message_contact.php", data); // Use POST and pass the data
+  return res.data; // Return the response data
+};

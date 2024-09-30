@@ -4,15 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 // import { useState } from "react";
 import { ContactAdressPhone } from "./reuseable/ContactAdressPhone";
+import { useContactUs } from "@/hooks/mutation";
+import Loader from "./reuseable/Loader";
 // import ctwitter from "../assets/icons/c_twitter.svg";
 // import cinstagram from "../assets/icons/c_instagram.svg";
 // import cfacebook from "../assets/icons/c_facebook.svg";
 const contactSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
+  firstname: z.string().min(1, "First name is required"),
+  lastname: z.string().min(1, "Last name is required"),
   email: z.string().email("Invalid email address"),
   message: z.string().min(1, "Field is required"),
-  phonenumber: z.string().min(11, "Phone Number is required"),
+  phone: z.string().min(11, "Phone Number is required"),
 });
 
 // type definition for login form
@@ -25,7 +27,8 @@ const Contact = () => {
   // const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
   //   setCountryCode(e.target.value);
   // };
-
+  const { mutate: ContactUsMutation, isPending: contactUsPending } =
+    useContactUs();
   const methods = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
   });
@@ -33,7 +36,8 @@ const Contact = () => {
   const { handleSubmit, register } = methods;
 
   const contactMsg = async (data: ContactInput) => {
-    return data;
+    console.log(data);
+    ContactUsMutation(data);
   };
 
   return (
@@ -44,13 +48,13 @@ const Contact = () => {
           <form onSubmit={handleSubmit(contactMsg)}>
             <div className="w-full md:grid grid-cols-2 gap-3 mt-6 block">
               <TextField
-                name="firstName"
+                name="firstname"
                 label="First Name"
                 placeholder="e.g Emmanuel"
                 variant="long"
               />
               <TextField
-                name="lastName"
+                name="lastname"
                 label="Last Name"
                 placeholder="e.g Jimmy"
               />
@@ -84,16 +88,16 @@ const Contact = () => {
                   </option>
                 </select> */}
                 <input
-                  {...register("phonenumber")}
+                  {...register("phone")}
                   type="tel"
-                  className={`focus:outline-none pl-5 py-2 w-full `}
+                  className={`focus:outline-none  py-2 w-full `}
                   // value={phoneNumber}
                   placeholder="0468319716"
                 />
               </div>
               {methods.formState.errors.message && (
                 <p className="text-[#DA1E28] text-sm mt-[6px]">
-                  {methods.formState.errors.phonenumber?.message}
+                  {methods.formState.errors.phone?.message}
                 </p>
               )}
             </div>
@@ -130,7 +134,8 @@ const Contact = () => {
                 You agree to our friendly privacy policy.
               </p>
             </div> */}
-            <button className="w-full bg-secondary py-3 px-[4rem] rounded-[12px] text-white mt-6 text-[16px] font-[600] leading-[19.2px]">
+            <button className="w-full bg-secondary py-3 px-[4rem] rounded-[12px] text-white mt-6 text-[16px] font-[600] leading-[19.2px] flex items-center justify-center gap-1">
+              {contactUsPending && <Loader size={10} />}
               Send message
             </button>
           </form>
