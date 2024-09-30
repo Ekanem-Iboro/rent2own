@@ -37,12 +37,12 @@ export interface Car {
 }
 
 export interface Filters {
-  priceMin?: string;
-  priceMax?: string;
-  searchAbove2M?: boolean;
-  between1Mand2M?: boolean;
-  between500Kand999K?: boolean;
-  lessthan500K?: boolean;
+  priceMin?: string; // Minimum price filter value
+  priceMax?: string; // Maximum price filter value
+  above500?: boolean; // Filter for prices above 500
+  between250and500?: boolean; // Filter for prices between 250 and 500
+  between120and250?: boolean; // Filter for prices between 120 and 250
+  lessthan120?: boolean;
   brand?: string;
   honda?: boolean;
   mazda?: boolean;
@@ -69,10 +69,10 @@ export interface Filters {
 export interface PriceFilter {
   priceMin?: string; // Minimum price filter value
   priceMax?: string; // Maximum price filter value
-  searchAbove50K?: boolean; // Filter for prices above 50,000
-  between10Kand50K?: boolean; // Filter for prices between 10,000 and 50,000
-  between1Kand30K?: boolean; // Filter for prices between 1,000 and 30,000
-  lessthan30K?: boolean; // Filter for prices less than 30,000
+  above500?: boolean; // Filter for prices above 500
+  between250and500?: boolean; // Filter for prices between 250 and 500
+  between120and250?: boolean; // Filter for prices between 120 and 250
+  lessthan120?: boolean; // Filter for prices less than 120
 }
 
 export interface BrandFilters {

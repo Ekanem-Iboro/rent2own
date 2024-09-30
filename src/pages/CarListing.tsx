@@ -82,36 +82,31 @@ const CarListing = () => {
     // Apply min and max price filters
     if (filters.priceMin) {
       filteredData = filteredData.filter(
-        (car) => parseFloat(car.price) >= parseInt(filters.priceMin!)
+        (car) => parseFloat(car.weekly) >= parseInt(filters.priceMin!)
       );
     }
     if (filters.priceMax) {
       filteredData = filteredData.filter(
-        (car) => parseFloat(car.price) <= parseInt(filters.priceMax!)
+        (car) => parseFloat(car.weekly) <= parseInt(filters.priceMax!)
       );
     }
 
     // Apply checkbox filters
-    if (filters.searchAbove2M) {
+    if (filters.above500) {
+      filteredData = filteredData.filter((car) => parseFloat(car.weekly) > 500);
+    }
+    if (filters.between250and500) {
       filteredData = filteredData.filter(
-        (car) => parseFloat(car.price) > 50000
+        (car) => parseFloat(car.weekly) >= 250 && parseFloat(car.weekly) <= 500
       );
     }
-    if (filters.between1Mand2M) {
+    if (filters.between120and250) {
       filteredData = filteredData.filter(
-        (car) =>
-          parseFloat(car.price) >= 10000 && parseFloat(car.price) <= 50000
+        (car) => parseFloat(car.weekly) >= 120 && parseFloat(car.weekly) <= 250
       );
     }
-    if (filters.between500Kand999K) {
-      filteredData = filteredData.filter(
-        (car) => parseFloat(car.price) >= 1000 && parseFloat(car.price) <= 30000
-      );
-    }
-    if (filters.lessthan500K) {
-      filteredData = filteredData.filter(
-        (car) => parseFloat(car.price) < 30000
-      );
+    if (filters.lessthan120) {
+      filteredData = filteredData.filter((car) => parseFloat(car.weekly) < 120);
     }
 
     //search by brand

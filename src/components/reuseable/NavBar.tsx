@@ -52,7 +52,7 @@ const NavBar = () => {
         <div className="flex  items-center justify-between gap-10">
           <p className="cursor-pointer font-[600] text-primary border border-primary leading-[21.6px] py-2 px-[2rem] rounded-xl text-[18px]">
             <Link to={`${sessionstoken ? "/home" : "/sign-in"}`}>
-              {sessionstoken ? "Continue to dashboard" : "Signin"}
+              {sessionstoken ? "Continue to dashboard" : "Sign in"}
             </Link>
           </p>
           <button
@@ -129,7 +129,7 @@ const NavBar = () => {
               className="cursor-pointer text-primary py-3 px-[4rem] text-center rounded-[10px] font-[600] border border-primary w-full mt-3"
               onClick={closeSidebar}
             >
-              {sessionstoken ? "Continue to dashboard" : "Signin"}
+              {sessionstoken ? "Continue to dashboard" : "Sign in"}
             </p>
           </Link>
           <Link to="/sign-up" className="w-full">
@@ -168,7 +168,7 @@ const navBars = [
   },
   {
     id: 4,
-    route: "Contact us",
+    route: "Contact Us",
     path: "/contactus",
   },
 ];
