@@ -253,8 +253,12 @@ const Order = () => {
           </div>
 
           <p className="flex items-center justify-center gap-3 mt-14 w-full font-[500] text-[16px] leading-[19.2px] text-[#FAFAFA]">
-            <AlertCircle />
-            {isError && "No order available!"}
+            {isError && (
+              <>
+                <AlertCircle />
+                No order available!
+              </>
+            )}
           </p>
         </div>
         {/*  */}
