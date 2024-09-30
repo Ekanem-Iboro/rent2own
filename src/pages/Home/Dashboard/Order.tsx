@@ -6,6 +6,7 @@ import { useGetOrderDashboard, useGetUserProfile } from "@/hooks/query";
 import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
 import { usePayInstallment } from "@/hooks/mutation";
 import { useEffect } from "react";
+import { AlertCircle } from "lucide-react";
 // import { useQueryClient } from "@tanstack/react-query";
 
 const Order = () => {
@@ -125,7 +126,13 @@ const Order = () => {
         Car Rental Order
       </p>
 
-      <p className="text-[16px] leading-[19.2px] font-[600] text-[#191919] bg-[#D6EEFF] px-2 py-3 w-fit my-5 rounded-sm">
+      <p
+        className={`${
+          isError
+            ? ""
+            : "px-2 py-3 w-fit my-5 text-[16px] leading-[19.2px] font-[600] text-[#191919] bg-[#D6EEFF]  rounded-sm"
+        }`}
+      >
         {isError ? "" : `${carName || ""}`}
       </p>
       <section className="lg:mr-[5%] ">
@@ -161,6 +168,7 @@ const Order = () => {
                 </p>
                 <p className="md:text-[36px]  text-[30px] md:leading-[43.2px] leading-[36px] font-[600] text-[#FFFFFF] mt-3">
                   ${isError ? 0 : `${tottalAmountPaid || 0}`}
+                  {"  "}
                   <span className="md:text-[20px] text-[16px]  md:leading-[24px] leading-[19.2px] font-[500]">
                     .00
                   </span>
@@ -181,6 +189,7 @@ const Order = () => {
                 </p>
                 <p className="md:text-[36px]  text-[30px] md:leading-[43.2px] leading-[36px] font-[600] text-[#FFFFFF] mt-3">
                   ${isError ? 0 : `${weeklyPayment || 0}`}
+                  {"  "}
                   <span className="md:text-[20px] text-[16px]  md:leading-[24px] leading-[19.2px] font-[500]">
                     .00
                   </span>
@@ -200,6 +209,7 @@ const Order = () => {
                 </p>
                 <p className="md:text-[36px]  text-[30px] md:leading-[43.2px] leading-[36px] font-[600] text-[#FFFFFF] mt-3">
                   ${isError ? 0 : `${tottalAmountLeft || 0}`}
+                  {"  "}
                   <span className="md:text-[20px] text-[16px]  md:leading-[24px] leading-[19.2px] font-[500]">
                     .00
                   </span>
@@ -232,15 +242,20 @@ const Order = () => {
             <button
               className={`px-12 py-3 text-[18px] leading-[21.6px] font-[600] text-[#FAFAFA] bg-[#0999FE] rounded-md md:w-[30%] w-full ${
                 isError
-                  ? "text-red-700 cursor-not-allowed"
+                  ? "cursor-not-allowed bg-[#D1D1D1]"
                   : "hover:bg-[#0998fecc] cursor-pointer  "
               }`}
               onClick={onPayNow}
               disabled={Nextpaymentpending || isError}
             >
-              {isError ? "No Agreement Found" : "Pay Now"}
+              Pay Now
             </button>
           </div>
+
+          <p className="flex items-center justify-center gap-3 mt-14 w-full font-[500] text-[16px] leading-[19.2px] text-[#FAFAFA]">
+            <AlertCircle />
+            {isError && "No order available!"}
+          </p>
         </div>
         {/*  */}
         {/* payment history */}

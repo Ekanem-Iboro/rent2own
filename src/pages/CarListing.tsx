@@ -268,7 +268,7 @@ const CarListing = () => {
 
   return (
     <>
-      {isCarLoading && SpinnerOverlay}
+      {isCarLoading && <SpinnerOverlay />}
 
       <NavBar />
       <div className=" md:mx-[7rem]   p-5 ">
