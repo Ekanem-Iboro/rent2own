@@ -6,6 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Link } from "react-router-dom";
 
 export function BreadcrumbComp({
   item,
@@ -23,9 +24,9 @@ export function BreadcrumbComp({
     <Breadcrumb className="my-5">
       <BreadcrumbList>
         <BreadcrumbItem className="text-primary text-[14px] leading-[16.8px] font-[400]">
-          <BreadcrumbLink href={`${session_token ? "/home" : "/"}`}>
-            Home
-          </BreadcrumbLink>
+          <Link to={`${session_token ? "/home" : "/"}`}>
+            <BreadcrumbLink>Home</BreadcrumbLink>
+          </Link>
         </BreadcrumbItem>
         <BreadcrumbSeparator className={`text-[${sepCol}]`} />
         <BreadcrumbItem>
