@@ -14,7 +14,14 @@ const contactSchema = z.object({
   lastname: z.string().min(1, "Last name is required"),
   email: z.string().email("Invalid email address"),
   message: z.string().min(1, "Field is required"),
-  phone: z.string().min(11, "Phone Number is required"),
+  phone: z
+    .string()
+    .min(7, "Phone number is required")
+    .max(15, "Phone number must be less than or equal to 15 digits")
+    .refine(
+      (val) => /^[\d\s\-()+]+$/.test(val),
+      "Phone number can only contain digits, spaces, dashes, parentheses, and plus sign"
+    ),
 });
 
 // type definition for login form
@@ -33,11 +40,11 @@ const Contact = () => {
     resolver: zodResolver(contactSchema),
   });
   // useForm() destructuring or methods destructuring. Here methods = useForm()
-  const { handleSubmit, register } = methods;
+  const { handleSubmit, register, reset } = methods;
 
   const contactMsg = async (data: ContactInput) => {
-    console.log(data);
     ContactUsMutation(data);
+    reset();
   };
 
   return (
@@ -92,7 +99,8 @@ const Contact = () => {
                   type="tel"
                   className={`focus:outline-none  py-2 w-full `}
                   // value={phoneNumber}
-                  placeholder="0468319716"
+                  placeholder="04XX XXX XXX 
+"
                 />
               </div>
               {methods.formState.errors.message && (
