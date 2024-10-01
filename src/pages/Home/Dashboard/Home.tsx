@@ -365,7 +365,7 @@ const Home = () => {
                       >
                         <div className="w-full h-[220px] flex justify-center">
                           <img
-                            src={`https://rent2ownauto.com.au/${item.image_path}`}
+                            src={`../${item.image_path}`}
                             alt=""
                             className="w-full h-[220px] object-cover cursor-pointer transition-all duration-500 ease-in-out hover:scale-[1.1]"
                           />

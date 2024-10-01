@@ -124,7 +124,10 @@ const NavBar = () => {
         <hr className=" lg:hidden block my-2 " />
 
         <div className="flex flex-col items-center justify-center gap-6 p-5">
-          <Link to={`${sessionstoken ? "/home" : "/sign-in"}`}>
+          <Link
+            to={`${sessionstoken ? "/home" : "/sign-in"}`}
+            className="w-full"
+          >
             <p
               className="cursor-pointer text-primary py-3 px-[4rem] text-center rounded-[10px] font-[600] border border-primary w-full mt-3"
               onClick={closeSidebar}
