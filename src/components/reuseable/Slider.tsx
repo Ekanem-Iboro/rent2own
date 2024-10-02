@@ -43,7 +43,7 @@ function Slider() {
             >
               <div className=" ">
                 <img
-                  src={`https://rent2ownauto.com.au/${img}`}
+                  src={`../${img}`}
                   alt=""
                   className="lg:h-[830px] md:h-[1300px] h-[343px] w-full object-cover"
                 />
