@@ -8,16 +8,24 @@ import { useForm, FormProvider } from "react-hook-form";
 
 const ProfilePicture: React.FC = () => {
   const [profilePic, setProfilePic] = useState<string | null>(null);
+  const [previewProfilePic, setPreviewProfilePic] = useState<string | null>(
+    null
+  );
   const sessionToken = localStorage.getItem("session_token");
   const userId = Number(localStorage.getItem("user_id"));
 
   // Retrieve the user profile
   const { data: userProfile } = useGetUserProfile(userId);
-  // const { mutate: uploadPix } = useUploadProfilePix();
+
   useEffect(() => {
-    setProfilePic(userProfile?.profile_picture);
+    // Set the profile picture URL from the user profile data
+    if (userProfile?.profile_picture) {
+      setProfilePic(
+        `https://www.rent2ownauto.com.au/${userProfile.profile_picture}`
+      );
+    }
   }, [userProfile?.profile_picture]);
-  console.log(userProfile?.profile_picture);
+
   const methods = useForm();
   const { reset } = methods;
 
@@ -25,13 +33,13 @@ const ProfilePicture: React.FC = () => {
     const URLfetch = "https://www.rent2ownauto.com.au/api/update_pix.php";
     const file = e.target.files?.[0];
     if (file) {
-      // const imageUrl = URL.createObjectURL(file);
-      // setProfilePic(imageUrl); // Set the image URL for preview
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewProfilePic(imageUrl); // Set the preview image URL
 
       const fd = new FormData();
       fd.append("newProfilePicture", file);
       fd.append("user_id", userId.toString());
-      console.log(fd);
+
       axios
         .post(URLfetch, fd, {
           headers: {
@@ -47,38 +55,11 @@ const ProfilePicture: React.FC = () => {
           }
         );
 
-      // // Construct the expected object
-      // const payload = {
-      //   user_id: userId,
-      //   newProfilePicture: {
-      //     name: file.name,
-      //     type: file.type,
-      //     tmp_name: imageUrl,
-      //     error: 0,
-      //     size: file.size,
-      //   },
-      // };
-
-      // console.log(payload);
-
-      // Directly upload the picture using the payload
-      // uploadPix(
-      //   {
-      //     user_id: userId,
-      //     profile_picture: imageUrl,
-      //   },
-      //   {
-      //     onSuccess: () => {
-      //       console.log("Profile picture uploaded successfully");
-      //     },
-      //   }
-      // );
-
       reset(); // Optionally reset the form after submission
     }
   };
 
-  // Avatar
+  // Avatar Letters for fallback
   const firstName = userProfile?.firstname || "";
   const lastName = userProfile?.lastname || "";
   const avatarLetters = `${firstName.charAt(0)}${lastName.charAt(
@@ -91,9 +72,15 @@ const ProfilePicture: React.FC = () => {
         <div className="flex items-center gap-5">
           <div className="relative w-[119px] h-[119px] border border-gray-200 rounded-full">
             {sessionToken ? (
-              profilePic ? (
+              previewProfilePic ? (
                 <img
-                  src={`https://www.rent2ownauto.com.au/${profilePic}`}
+                  src={previewProfilePic} // Preview the uploaded image
+                  alt="Profile"
+                  className="w-[119px] h-[119px] rounded-full object-cover"
+                />
+              ) : profilePic != null ? (
+                <img
+                  src={profilePic} // Show the stored profile picture
                   alt="Profile"
                   className="w-[119px] h-[119px] rounded-full object-cover"
                 />
@@ -119,7 +106,7 @@ const ProfilePicture: React.FC = () => {
           <div>
             <label
               htmlFor="profile-pic-input"
-              className="cursor-pointer text-[16px] leading-[19.2px] font-[600] text-[#6B6B6B] border border-[#D1D1D1] rounded-[20px] p-2 px-6"
+              className="cursor-pointer text-[16px] leading-[19.2px] font-[600] text-[#6B6B6B] border border-[#D1D1D1] rounded-[20px] p-2 px-4"
             >
               Upload a picture
             </label>
