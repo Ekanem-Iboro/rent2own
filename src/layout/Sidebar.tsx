@@ -17,7 +17,7 @@ import { BellIcon, ChevronDown, UserCircle } from "lucide-react";
 //   SheetTitle,
 //   SheetTrigger,
 // } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebardata from "@/components/reuseable/SidebarData";
 import Footer from "@/components/Footer";
 // import { toast } from "react-toastify";
@@ -30,6 +30,8 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
+  const [profilePic, setProfilePic] = useState<string | null>(null);
+
   const sessionToken = localStorage.getItem("session_token");
   const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
   const {
@@ -37,6 +39,19 @@ const Sidebar = () => {
     //  isLoading: isUserProfileLoading,
     //  error,
   } = useGetUserProfile(userId);
+  useEffect(() => {
+    // Set the profile picture URL from the user profile data
+    if (userProfile?.profile_picture) {
+      setProfilePic(
+        `https://www.rent2ownauto.com.au/${userProfile.profile_picture}`
+      );
+    }
+  }, [userProfile?.profile_picture]);
+
+  if (profilePic == "https://www.rent2ownauto.com.au/uploads/") {
+    setProfilePic(null);
+  }
+
   //Avata
   const firstName = userProfile?.firstname || "";
   const lastName = userProfile?.lastname || "";
@@ -71,9 +86,20 @@ const Sidebar = () => {
             {" "}
             <NavLink to="/settings">
               {sessionToken ? (
-                <div className="w-[40px] h-[40x] rounded-full border  flex justify-center border-[#D8E6FA] text-[#1C6CDB] bg-[#D8E6FA] items-center mb-[3px]  overflow-hidden">
-                  <p className="text-[25px]">{avatarLetters}</p>
-                </div>
+                profilePic ? (
+                  <div className="w-[40px] h-[40x] rounded-full overflow-hidden">
+                    <img
+                      src={profilePic} // Show the stored profile picture
+                      alt="Profile"
+                      className="w-[40px] h-[40x] rounded-full object-cover"
+                      // loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-[40px] h-[40x] rounded-full border  flex justify-center border-[#D8E6FA] text-[#1C6CDB] bg-[#D8E6FA] items-center mb-[3px]  overflow-hidden">
+                    <p className="text-[25px]">{avatarLetters}</p>
+                  </div>
+                )
               ) : (
                 <UserCircle className="mb-[3px] " />
               )}

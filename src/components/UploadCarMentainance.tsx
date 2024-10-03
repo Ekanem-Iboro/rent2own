@@ -18,34 +18,6 @@ const UploadCarMentainance: React.FC<UploaderProps> = ({
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
 
-  //   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     const selectedFile = event.target.files?.[0];
-  //     if (selectedFile) {
-  //       setFile(selectedFile);
-  //       onUpload(selectedFile);
-  //       // Simulate upload success (you'll replace this with actual upload logic)
-  //       setTimeout(() => setUploadSuccess(true), 2000); // Simulating delay for upload
-  //     }
-  //   };
-
-  //   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-  //     event.preventDefault();
-  //   };
-
-  //   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-  //     event.preventDefault();
-  //     const selectedFile = event.dataTransfer.files?.[0];
-  //     if (selectedFile) {
-  //       setFile(selectedFile);
-  //       onUpload(selectedFile);
-  //       setTimeout(() => setUploadSuccess(true), 2000); // Simulating delay for upload
-  //     }
-  //   };
-
-  //   const handleClearUpload = () => {
-  //     setFile(null);
-  //     setUploadSuccess(false);
-  //   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {

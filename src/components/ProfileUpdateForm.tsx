@@ -2,17 +2,20 @@
 import { FormProvider, useForm } from "react-hook-form";
 // import { zodResolver } from "@hookform/resolvers/zod";
 import AuthTextFeild from "@/components/reuseable/AuthTextField";
-import KYC from "./KYCComp";
+// import KYC from "./KYCComp";
 import { useGetUserProfile } from "@/hooks/query";
 // import ProfilePicture from "./ProfileImageUploader";
 import { IProfile } from "@/api/types";
 import { useEffect } from "react";
+import UploadCarMentainance from "./UploadCarMentainance";
 
 // import Loader from "@/components/reuseable/Loader";
 
 const ProfileUpdatForm: React.FC = () => {
-  // Initialize useForm with Zod resolver
-  // Initialize useForm with IProfile type
+  const handleUpload = (file: File) => {
+    console.log("Uploaded file:", file);
+    // Handle file upload logic here
+  };
 
   const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
   const {
@@ -51,7 +54,7 @@ const ProfileUpdatForm: React.FC = () => {
                     Update your personal details here.
                   </p>
                 </div>
-                <button className="w-[40%] bg-[#E6E6E6] py-2 text-[14px] leading-[19.2px] font-[600] rounded-[10px] mt-6    ">
+                <button className="w-fit bg-[#E6E6E6] py-2 text-[14px] leading-[19.2px] font-[600] rounded-[10px] mt-6 px-2   ">
                   {/* {isPending ? <Loader size={30} /> : "Sign in"} */}
                   Save changes
                 </button>
@@ -133,10 +136,14 @@ const ProfileUpdatForm: React.FC = () => {
                       </select>
                     </div>
                   </div>
-                  <p className="text-[16px] font-[600] leading-[19.2px] text-[#191919] mt-9">
+                  <p className="text-[16px] font-[600] leading-[19.2px] text-[#191919] my-9">
                     KYC INFO
                   </p>
-                  <KYC name="kyc" />
+                  <UploadCarMentainance
+                    onUpload={handleUpload}
+                    setUploaded={() => {}}
+                    setUploadedComplete={() => {}}
+                  />
                 </div>
               </div>
             </div>

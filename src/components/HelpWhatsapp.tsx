@@ -1,7 +1,7 @@
 const WhatsappHelp = () => {
   return (
     <div
-      className={`fixed bottom-[29%]  right-7 z-50 transition-opacity duration-300 
+      className={`fixed bottom-[29%]  right-5 z-50 transition-opacity duration-300 
        `}
     >
       <button
