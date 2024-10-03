@@ -62,10 +62,8 @@ const ChangePassword: React.FC = () => {
   } = methods;
 
   // Form submission handler
-  const ChangeUserPassword = async (data: {
-    oldPassword: string;
-    newPassword: string;
-  }) => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const ChangeUserPassword = async (data: any) => {
     const userId = localStorage.getItem("user_id");
 
     // Check if userId exists
@@ -73,7 +71,7 @@ const ChangePassword: React.FC = () => {
       // Construct the final data object with user_id
       const changePasswordData: IChangePassword = {
         ...data,
-        user_Id: parseInt(userId),
+        user_id: parseInt(userId),
       };
 
       // Trigger the mutation with the combined data
@@ -139,7 +137,7 @@ const ChangePassword: React.FC = () => {
               <div className="relative mt-4">
                 <AuthTextFeild
                   name="confirmPassword"
-                  label="Confirm Password"
+                  label="Confirm New Password"
                   placeholder="Re-enter password"
                   type={confirmPasswordShown ? "text" : "password"}
                 />

@@ -143,6 +143,7 @@ export interface IProfile {
   lastname: string;
   location: string;
   phone: string;
+  // newProfilePicture: string;
   profile_picture: string;
   reset_token: string;
   reset_token_expires: string;

@@ -8,6 +8,7 @@ import {
   rentCar,
   resetPsw,
   signInUser,
+  // uploadProfilePix,
 } from "@/api";
 import { RentCarData } from "@/api/types";
 import { useMutation } from "@tanstack/react-query";
@@ -104,6 +105,17 @@ export const useChangePassword = () => {
     },
   });
 };
+// export const useUploadProfilePix = () => {
+//   return useMutation({
+//     mutationFn: uploadProfilePix,
+//     onSuccess: (data) => {
+//       toast.success(data.message); // Display success toast
+//     },
+//     onError: (error) => {
+//       toast.error(error.message); // Display error toast
+//     },
+//   });
+// };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Update mutation function to work with rentCar and handle submissionData
