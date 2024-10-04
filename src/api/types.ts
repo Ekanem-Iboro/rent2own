@@ -114,7 +114,7 @@ export interface CreateUser {
   firstname: string;
   lastname: string;
   phone: string;
-  postalcode: string;
+  location: string;
   email: string;
   password: string;
   gender: string;
@@ -143,6 +143,7 @@ export interface IProfile {
   lastname: string;
   location: string;
   phone: string;
+  user_id: number;
   // newProfilePicture: string;
   profile_picture: string;
   reset_token: string;
@@ -172,11 +173,12 @@ export interface IChangePassword {
 
 export interface RentCarData {
   car_id: string | number;
-  duration: string | number; // or number, depending on how it's stored
-  total_price: string | number; // or number
-  deposit: string | number; // or number
+  // duration: string | number; // or number, depending on how it's stored
+  // total_price: string | number; // or number
+  // deposit: string | number; // or number
   termsandconditions: boolean;
   user_id: number | null;
-  weekly: string | number;
-  user_email: string;
+  payment_structure: number;
+  // weekly: string | number;
+  // user_email: string;
 }

@@ -5,9 +5,11 @@ import {
   //  useAgreementId,
   useRentCar,
 } from "@/hooks/mutation";
-import { useGetUserProfile } from "@/hooks/query";
+// import { useGetUserProfile } from "@/hooks/query";
 import useCarStore from "@/store/ProductStore";
+
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 interface TermAndConForm {
   termsandconditions: boolean;
@@ -16,7 +18,8 @@ const TermsAndCondition = () => {
   const { currentCar } = useCarStore();
   const { mutate: rentCarMutation, isPending } = useRentCar();
   const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
-  const { data: profile } = useGetUserProfile(userId);
+  const paymentStructure = Number(localStorage.getItem("payment_structure")); // Retrieve the user ID from local storage
+  // const { data: profile } = useGetUserProfile(userId);
   // const { mutate: userAgreement } = useAgreementId();
   const { register, handleSubmit } = useForm<TermAndConForm>();
 
@@ -26,26 +29,31 @@ const TermsAndCondition = () => {
     if (currentCar) {
       const submissionData: RentCarData = {
         car_id: currentCar.id,
-        duration: currentCar.duration,
-        total_price: currentCar.price,
-        deposit: currentCar.deposit,
-        weekly: currentCar.weekly,
+        // duration: currentCar.duration,
+        // total_price: currentCar.price,
+        // deposit: currentCar.deposit,
+        // weekly: currentCar.weekly,
+        payment_structure: paymentStructure,
         termsandconditions: data.termsandconditions,
         user_id: Number(userId),
-        user_email: profile.email,
+        // user_email: profile.email,
       };
 
       rentCarMutation(submissionData, {
         onSuccess: (response) => {
           // Destructure the response
           if (response) {
+            // console.log(response);
             // Send the entire response data to the userAgreement mutation
             window.open(response.payment_url, "_self");
           }
         },
         //
         onError: (error) => {
-          console.error("Error renting the car:", error);
+          toast.error(
+            "Car is currently reserved, contact our support for more details"
+          );
+          return error;
         },
       });
     }

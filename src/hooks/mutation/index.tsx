@@ -8,6 +8,7 @@ import {
   rentCar,
   resetPsw,
   signInUser,
+  updateProfile,
   // uploadProfilePix,
 } from "@/api";
 import { RentCarData } from "@/api/types";
@@ -127,9 +128,9 @@ export const useRentCar = () => {
 
       toast.success(data.message); // Show success message
     },
-    onError: (error) => {
-      toast.error(error.message); // Show error message
-    },
+    // onError: (error) => {
+    //   toast.error(error.message); // Show error message
+    // },
   });
 };
 
@@ -147,6 +148,19 @@ export const usePayInstallment = () => {
 export const useContactUs = () => {
   return useMutation({
     mutationFn: contactUs,
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+// Update profile mutation function
+export const useUpdateProfile = () => {
+  return useMutation({
+    mutationFn: updateProfile,
     onSuccess: (data) => {
       toast.success(data.message);
     },

@@ -40,7 +40,7 @@ const RegisterSchema = z
     //   "Password must contain at least one special character"
     // ),
     confirmPassword: z.string().min(5, "Please confirm your password"),
-    postalcode: z.string().min(1, "Field cannot be empty"),
+    location: z.string().min(1, "Field cannot be empty"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords must match",
@@ -177,7 +177,7 @@ const Register: React.FC = () => {
                 </div>
                 <div className="mt-4">
                   <AuthTextFeild
-                    name="postalcode"
+                    name="location"
                     label="Postal Code"
                     placeholder="1234"
                   />

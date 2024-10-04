@@ -2,38 +2,52 @@
 import { FormProvider, useForm } from "react-hook-form";
 // import { zodResolver } from "@hookform/resolvers/zod";
 import AuthTextFeild from "@/components/reuseable/AuthTextField";
-// import KYC from "./KYCComp";
+import KYC from "./KYCComp";
 import { useGetUserProfile } from "@/hooks/query";
 // import ProfilePicture from "./ProfileImageUploader";
 import { IProfile } from "@/api/types";
 import { useEffect } from "react";
-import UploadCarMentainance from "./UploadCarMentainance";
+import { useUpdateProfile } from "@/hooks/mutation";
+import { toast } from "react-toastify";
 
 // import Loader from "@/components/reuseable/Loader";
 
 const ProfileUpdatForm: React.FC = () => {
-  const handleUpload = (file: File) => {
-    console.log("Uploaded file:", file);
-    // Handle file upload logic here
-  };
+  // Initialize useForm with Zod resolver
+  // Initialize useForm with IProfile type
 
   const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
   const {
     data: userProfile,
     //  isLoading: isUserProfileLoading,
     //  error,
+    refetch: reFetchProfile,
   } = useGetUserProfile(userId);
 
+  const { mutate: upDateUserProfile } = useUpdateProfile();
   useEffect(() => {
     // console.log(userProfile?.phone);
   });
   const methods = useForm<IProfile>();
-  const { handleSubmit, reset, register } = methods;
+  const { handleSubmit, register } = methods;
 
   // Form submission handler
   const profileUpdate = async (data: IProfile) => {
-    console.log(data);
-    reset();
+    upDateUserProfile(
+      {
+        ...data,
+        user_id: userId,
+      },
+      {
+        onSuccess: (response) => {
+          // Destructure and handle the response
+          if (response) {
+            toast.success(response.success);
+            reFetchProfile();
+          }
+        },
+      }
+    );
   };
 
   return (
@@ -93,6 +107,7 @@ const ProfileUpdatForm: React.FC = () => {
                         placeholder="e.g@example.com"
                         variant="long"
                         value={userProfile?.email}
+                        readOnly={true}
                       />
                     </div>
                     <div className="mt-4 basis-1/2">
@@ -108,11 +123,11 @@ const ProfileUpdatForm: React.FC = () => {
                   <div className="md:flex block items-center w-full gap-8">
                     <div className="mt-4 basis-1/2">
                       <AuthTextFeild
-                        name="postalcode"
+                        name="location"
                         label="Postal code"
-                        placeholder="20441"
+                        placeholder="2044"
                         variant="long"
-                        value={userProfile?.postalcode}
+                        value={userProfile?.location}
                       />
                     </div>
                     <div className=" mt-1 basis-1/2">
@@ -126,7 +141,7 @@ const ProfileUpdatForm: React.FC = () => {
                       <select
                         id="gender"
                         {...register("gender")}
-                        className={`block w-full border-2 border-[#CCCBCB] rounded-[10px] p-2 outline-none focus:border-[#CCCBCB] bg-transparent text-[#0A0B0A] disabled:opacity-75 disabled:hover:cursor-not-allowed`}
+                        className={`block w-full border-2 border-[#CCCBCB] capitalize rounded-[10px] p-2 outline-none focus:border-[#CCCBCB] bg-transparent text-[#0A0B0A] disabled:opacity-75 disabled:hover:cursor-not-allowed`}
                       >
                         <option value="" className="text-[#868686]">
                           {userProfile?.gender}
@@ -136,14 +151,10 @@ const ProfileUpdatForm: React.FC = () => {
                       </select>
                     </div>
                   </div>
-                  <p className="text-[16px] font-[600] leading-[19.2px] text-[#191919] my-9">
+                  <p className="text-[16px] font-[600] leading-[19.2px] text-[#191919] mt-9">
                     KYC INFO
                   </p>
-                  <UploadCarMentainance
-                    onUpload={handleUpload}
-                    setUploaded={() => {}}
-                    setUploadedComplete={() => {}}
-                  />
+                  <KYC />
                 </div>
               </div>
             </div>

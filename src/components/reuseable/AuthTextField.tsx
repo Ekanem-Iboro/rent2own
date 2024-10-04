@@ -8,6 +8,7 @@ type FormInputProps = {
   type?: string;
   placeholder?: string;
   disabled?: boolean;
+  readOnly?: boolean; // Add the readOnly prop
   variant?: "short" | "medium" | "long";
   value?: string;
 };
@@ -18,6 +19,7 @@ const FormInput: React.FC<FormInputProps> = ({
   type = "text",
   placeholder,
   disabled,
+  readOnly = false, // Set default value for readOnly as false
   value,
   variant = "long",
 }) => {
@@ -41,6 +43,7 @@ const FormInput: React.FC<FormInputProps> = ({
       </label>
       <input
         type={type}
+        readOnly={readOnly} // Apply the readOnly prop here
         disabled={disabled}
         placeholder={placeholder}
         defaultValue={value}

@@ -87,11 +87,11 @@ const Sidebar = () => {
             <NavLink to="/settings">
               {sessionToken ? (
                 profilePic ? (
-                  <div className="w-[40px] h-[40x] rounded-full overflow-hidden">
+                  <div className="w-[40px] h-[40px] rounded-full overflow-hidden">
                     <img
                       src={profilePic} // Show the stored profile picture
                       alt="Profile"
-                      className="w-[40px] h-[40x] rounded-full object-cover"
+                      className="w-[40px] h-[40px] rounded-full object-cover"
                       // loading="lazy"
                     />
                   </div>

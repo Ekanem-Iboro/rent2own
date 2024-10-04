@@ -62,7 +62,12 @@ const MobileSquareDetails = () => {
           </p>
         </div>
         <div className="w-full text-center ">
-          <Link to="/terms_conditions">
+          <Link
+            to="/terms_conditions"
+            onClick={() => {
+              localStorage.setItem("payment_structure", "1");
+            }}
+          >
             <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
               I want this car
             </button>
@@ -137,7 +142,12 @@ const MobileSquareDetails = () => {
           </p>
         </div>
         <div className="w-full text-center ">
-          <Link to="/terms_conditions">
+          <Link
+            to="/terms_conditions"
+            onClick={() => {
+              localStorage.setItem("payment_structure", "2");
+            }}
+          >
             <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
               I want this car
             </button>
