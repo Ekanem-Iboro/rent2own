@@ -271,7 +271,7 @@ const Order = () => {
         {/*  */}
         <div>
           <p className="font-[600] text-[20px] leading-[24px] text-[#0A0B0A] mt-9">
-            Upload Car Maintenance Invoice
+            Comprehensive Insurance Certificate
           </p>
           <div className=" mt-4 ">
             <UploadCarMentainance

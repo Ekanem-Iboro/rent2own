@@ -41,20 +41,20 @@ const Sidebar = () => {
   } = useGetUserProfile(userId);
   useEffect(() => {
     // Set the profile picture URL from the user profile data
-    if (userProfile?.profile_picture) {
+    if (userProfile?.user?.profile_picture) {
       setProfilePic(
-        `https://www.rent2ownauto.com.au/${userProfile.profile_picture}`
+        `https://www.rent2ownauto.com.au/${userProfile?.user?.profile_picture}`
       );
     }
-  }, [userProfile?.profile_picture]);
+  }, [userProfile?.user?.profile_picture]);
 
   if (profilePic == "https://www.rent2ownauto.com.au/uploads/") {
     setProfilePic(null);
   }
 
   //Avata
-  const firstName = userProfile?.firstname || "";
-  const lastName = userProfile?.lastname || "";
+  const firstName = userProfile?.user?.firstname || "";
+  const lastName = userProfile?.user?.lastname || "";
   const avatarLetters = `${firstName.charAt(0)}${lastName.charAt(
     0
   )}`.toUpperCase();

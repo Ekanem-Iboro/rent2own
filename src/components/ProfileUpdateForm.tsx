@@ -9,6 +9,7 @@ import { IProfile } from "@/api/types";
 import { useEffect } from "react";
 import { useUpdateProfile } from "@/hooks/mutation";
 import { toast } from "react-toastify";
+import Loader from "./reuseable/Loader";
 
 // import Loader from "@/components/reuseable/Loader";
 
@@ -24,9 +25,9 @@ const ProfileUpdatForm: React.FC = () => {
     refetch: reFetchProfile,
   } = useGetUserProfile(userId);
 
-  const { mutate: upDateUserProfile } = useUpdateProfile();
+  const { mutate: upDateUserProfile, isPending } = useUpdateProfile();
   useEffect(() => {
-    // console.log(userProfile?.phone);
+    // console.log(userProfile?.user?.phone);
   });
   const methods = useForm<IProfile>();
   const { handleSubmit, register } = methods;
@@ -69,8 +70,14 @@ const ProfileUpdatForm: React.FC = () => {
                   </p>
                 </div>
                 <button className="w-fit bg-[#E6E6E6] py-2 text-[14px] leading-[19.2px] font-[600] rounded-[10px] mt-6 px-2   ">
-                  {/* {isPending ? <Loader size={30} /> : "Sign in"} */}
-                  Save changes
+                  {isPending ? (
+                    <p className="flex items-center justify-center gap-2">
+                      <Loader size={20} />
+                      Save changes
+                    </p>
+                  ) : (
+                    "Save changes"
+                  )}
                 </button>
               </div>
               <div className="lg:basis-[80%] md:basis-[65%] basis-full">
@@ -85,7 +92,7 @@ const ProfileUpdatForm: React.FC = () => {
                         label="First name"
                         placeholder="John"
                         variant="long"
-                        value={userProfile?.firstname}
+                        value={userProfile?.user?.firstname}
                       />
                     </div>
                     <div className="mt-4 basis-1/2">
@@ -94,7 +101,7 @@ const ProfileUpdatForm: React.FC = () => {
                         label="Last name"
                         placeholder="Doe"
                         variant="long"
-                        value={userProfile?.lastname}
+                        value={userProfile?.user?.lastname}
                       />
                     </div>
                     {/*  */}
@@ -106,7 +113,7 @@ const ProfileUpdatForm: React.FC = () => {
                         label="Email"
                         placeholder="e.g@example.com"
                         variant="long"
-                        value={userProfile?.email}
+                        value={userProfile?.user?.email}
                         readOnly={true}
                       />
                     </div>
@@ -115,7 +122,7 @@ const ProfileUpdatForm: React.FC = () => {
                         name="phone"
                         label="Phone number"
                         placeholder="(288)8367770"
-                        value={userProfile?.phone}
+                        value={userProfile?.user?.phone}
                       />
                     </div>
                   </div>
@@ -127,7 +134,7 @@ const ProfileUpdatForm: React.FC = () => {
                         label="Postal code"
                         placeholder="2044"
                         variant="long"
-                        value={userProfile?.location}
+                        value={userProfile?.user?.location}
                       />
                     </div>
                     <div className=" mt-1 basis-1/2">
@@ -144,22 +151,24 @@ const ProfileUpdatForm: React.FC = () => {
                         className={`block w-full border-2 border-[#CCCBCB] capitalize rounded-[10px] p-2 outline-none focus:border-[#CCCBCB] bg-transparent text-[#0A0B0A] disabled:opacity-75 disabled:hover:cursor-not-allowed`}
                       >
                         <option value="" className="text-[#868686]">
-                          {userProfile?.gender}
+                          {userProfile?.user?.gender}
                         </option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                       </select>
                     </div>
                   </div>
-                  <p className="text-[16px] font-[600] leading-[19.2px] text-[#191919] mt-9">
-                    KYC INFO
-                  </p>
-                  <KYC />
                 </div>
               </div>
             </div>
           </form>
         </FormProvider>
+        <div className="lg:w-[70%] w-full  pb-6 ml-auto">
+          <p className="text-[16px] font-[600] leading-[19.2px] text-[#191919] mt-9">
+            KYC INFO
+          </p>
+          <KYC />
+        </div>
       </div>
     </div>
   );

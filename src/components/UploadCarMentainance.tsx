@@ -18,6 +18,8 @@ const UploadCarMentainance: React.FC<UploaderProps> = ({
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
 
+  //   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
