@@ -21,6 +21,7 @@ const FormInput: React.FC<FormInputProps> = ({
   disabled,
   readOnly = false, // Set default value for readOnly as false
   value,
+
   variant = "long",
 }) => {
   const {

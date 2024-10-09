@@ -12,11 +12,6 @@ import { AlertCircle } from "lucide-react";
 const Order = () => {
   // const queryClient = useQueryClient(); //To refresh the user data
 
-  const handleUpload = (file: File) => {
-    console.log("Uploaded file:", file);
-    // Handle file upload logic here
-  };
-
   const userId = localStorage.getItem("user_id");
   // Soft refresh: Refetches the data when the component mounts
   const {
@@ -274,11 +269,7 @@ const Order = () => {
             Comprehensive Insurance Certificate
           </p>
           <div className=" mt-4 ">
-            <UploadCarMentainance
-              onUpload={handleUpload}
-              setUploaded={() => {}}
-              setUploadedComplete={() => {}}
-            />
+            <UploadCarMentainance />
           </div>
         </div>
       </section>

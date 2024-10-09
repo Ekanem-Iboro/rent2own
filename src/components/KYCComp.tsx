@@ -7,14 +7,12 @@ import SpinnerOverlay from "./reuseable/OverlayLoader";
 
 const KYC = () => {
   const [isUploading, setIsUploading] = useState<number>(0);
-  const [uploaded, setUploaded] = useState<boolean>(() => {
-    // Initialize the state from localStorage
-    return localStorage.getItem("uploaded") === "true";
-  });
+
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
 
+  const loaded = localStorage.getItem("uploaded");
   // Retrieve the user profile
   const {
     data: userProfile,
@@ -34,7 +32,6 @@ const KYC = () => {
     const file = e.target.files ? e.target.files[0] : null;
     // Set localStorage to false before starting the upload
     localStorage.setItem("uploaded", "false");
-    setUploaded(false);
 
     if (file) {
       if (file.type !== "application/pdf") {
@@ -63,15 +60,12 @@ const KYC = () => {
         .then((res) => {
           const uploadedFilename = res.data.filename;
 
-          // Set localStorage to true after successful upload
-          localStorage.setItem("uploaded", "true");
-          setUploaded(true);
-
           // Call the update_pix_id.php API to send filename and userId
           axios
             .post(updateKYCIdURL, {
               user_id: userId,
               filename: uploadedFilename,
+              doc_type: "Driver's License",
             })
             .then((res) => {
               res.data;
@@ -109,7 +103,7 @@ const KYC = () => {
       className={`${
         userProfileLoading ? "hidden" : ""
       }w-full md:h-[300px] h-[284px] flex flex-col items-center justify-center gap-5 border-2 border-dashed rounded-[10px] border-[${
-        uploaded ? "#5FC381" : "#D6EEFF"
+        loaded == "true" ? "#5FC381" : "#D6EEFF"
       }] mt-7 mb-[7rem]`}
     >
       {userProfileLoading && <SpinnerOverlay />}
@@ -142,8 +136,12 @@ const KYC = () => {
             </div>
           </div>
         )}
-        {filePreview && uploaded && (
-          <>
+        {filePreview && (
+          <div
+            className={`${
+              isUploading > 0 && isUploading !== 100 ? "hidden" : "block"
+            }`}
+          >
             <IfFileisLoaded
               filePreview={filePreview}
               kycPendingStatus={kycPendingStatus}
@@ -174,7 +172,9 @@ const KYC = () => {
               {/* <label htmlFor="kyc-input"> */}
               <div
                 className="text-[14px] leading-[14.4px] text-[#016AB3] my-2 cursor-pointer"
-                onClick={() => setFilePreview(null)}
+                onClick={() => {
+                  setFilePreview(null);
+                }}
               >
                 {/* <input
                     type="file"
@@ -188,7 +188,7 @@ const KYC = () => {
               </div>{" "}
               {/* </label> */}
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
@@ -203,7 +203,7 @@ const IfFileisLoaded = ({ filePreview, kycPendingStatus }: any) => {
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <p className="text-[14px] font-[600] leading-[16.8px] text-[#424242] w-full mt-2 text-center mb-2">
-        {filePreview && <p>{filePreview},pdf</p>}
+        {filePreview && <p>{filePreview}</p>}
       </p>
       {kycPendingStatus !== "pending" && (
         <div className="w-[50px] h-[50px] bg-green-100 flex justify-center items-center rounded-full mb-4">

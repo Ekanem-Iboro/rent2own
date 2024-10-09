@@ -20,6 +20,7 @@ const RegisterSchema = z
     firstname: z.string().min(1, "First name is required"),
     lastname: z.string().min(1, "Last name is required"),
     email: z.string().email("Invalid email address"),
+    date_of_birth: z.string().min(2, "Feild cannot be empty"),
     phone: z
       .string()
       .min(7, "Phone number is required")
@@ -119,7 +120,8 @@ const Register: React.FC = () => {
                   store for you.
                 </p>
                 <Link
-                  to={"/uploadKYC"}
+                  to={"/sign-in"}
+                  // to={"/uploadKYC"}
                   className=" w-full bg-[#016AB3] rounded-2xl"
                 >
                   <button className="p-3 w-full bg-[#016AB3]  rounded-2xl text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center ">
@@ -172,6 +174,14 @@ const Register: React.FC = () => {
                     name="phone"
                     label="Phone Number"
                     placeholder="04XX XXX XXX 
+"
+                  />
+                </div>
+                <div className="mt-4">
+                  <AuthTextFeild
+                    name="date_of_birth"
+                    label="Date of Birth"
+                    placeholder="02-02-2000 
 "
                   />
                 </div>
