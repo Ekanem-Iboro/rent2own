@@ -26,7 +26,7 @@ const CarMentainanceCetificate = () => {
     setFilePreview(userProfile?.doc?.doc_type);
   }, [userProfile?.doc?.doc_type]);
   //   console.log(userProfile?.kyc?.doc_type);
-  const handleFileChange = (files: FileList | null) => {
+  const handleFileChange = (file: File) => {
     const uploadCertificates =
       "https://www.rent2ownauto.com.au/api/update_kyc.php";
     const updateCertificateIdURL =
@@ -35,64 +35,55 @@ const CarMentainanceCetificate = () => {
     // Set localStorage to false before starting the upload
     localStorage.setItem("uploadedCli", "false");
 
-    if (files) {
-      const fileArray = Array.from(files); // Convert FileList to an array
+    if (file) {
+      if (file.type !== "application/pdf") {
+        toast.error("Only PDF files are allowed.");
+        return;
+      }
 
-      fileArray.forEach((file) => {
-        // Validate file type
-        if (file.type !== "application/pdf") {
-          toast.error("Only PDF files are allowed.");
-          return;
-        }
+      setFilePreview(file.name); // Display the file name for PDFs
 
-        // Create FormData for each file
-        const formData = new FormData();
-        formData.append("user_id", userId.toString()); // Ensure user_id is available
-        formData.append("file[]", file); // Append the file
+      const fd = new FormData();
+      fd.append("file", file);
 
-        // Display the file name for PDFs
-        setFilePreview(file.name);
+      axios
+        .post(uploadCertificates, fd, {
+          onUploadProgress: (progressEvent) => {
+            const { loaded, total } = progressEvent;
+            if (total) {
+              const progress = Math.round((loaded / total) * 100);
+              setIsUploading(progress);
+            }
+          },
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          const uploadedCliFilename = res.data.filename;
 
-        // Upload each file via Axios
-        axios
-          .post(uploadCertificates, formData, {
-            onUploadProgress: (progressEvent) => {
-              const { loaded, total } = progressEvent;
-              if (total) {
-                const progress = Math.round((loaded / total) * 100);
-                setIsUploading(progress); // Update upload progress
-              }
-            },
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((res) => {
-            const uploadedCliFilename = res.data.filename;
+          // Call the update_kyc_id.php API to send filename and userId
+          axios
+            .post(updateCertificateIdURL, {
+              user_id: userId,
+              filename: uploadedCliFilename,
+              doc_type: "Comprehensive Insurance Certificate",
+            })
+            .then((res) => {
+              res.data;
+              reFetchProfile();
+            })
+            .catch((error) => {
+              toast.error(error.message);
+            });
 
-            // Call the update_kyc_id.php API to send filename and userId
-            axios
-              .post(updateCertificateIdURL, {
-                user_id: localStorage.getItem("user_id"),
-                filename: uploadedCliFilename,
-                doc_type: "Comprehensive Insurance Certificate",
-              })
-              .then((res) => {
-                res.data;
-                reFetchProfile();
-              })
-              .catch((error) => {
-                toast.error(error.message);
-              });
-
-            // Reset form and upload progress after success
-            setIsUploading(0);
-          })
-          .catch((error) => {
-            console.error("Error uploading file:", error);
-            toast.error("Error uploading file.");
-          });
-      });
+          // Reset form and upload progress after success
+          setIsUploading(0);
+        })
+        .catch((error) => {
+          console.error("Error uploading file:", error);
+          toast.error("Error uploading file.");
+        });
     }
   };
 
@@ -115,18 +106,17 @@ const CarMentainanceCetificate = () => {
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault(); // Prevent default behavior (Prevent file from being opened)
-    const selectedFiles = event.dataTransfer.files;
-    if (selectedFiles) {
-      handleFileChange(selectedFiles); // Call handleFileChange with the dropped files
+    const selectedFile = event.dataTransfer.files?.[0];
+    if (selectedFile) {
+      handleFileChange(selectedFile); // Call handleFileChange with the dropped file
     }
   };
-
   const handleFileInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const selectedFiles = event.target.files; // Access the file from input
-    if (selectedFiles) {
-      handleFileChange(selectedFiles); // Handle the file
+    const selectedFile = event.target.files?.[0]; // Access the file from input
+    if (selectedFile) {
+      handleFileChange(selectedFile); // Handle the file
     }
   };
 
