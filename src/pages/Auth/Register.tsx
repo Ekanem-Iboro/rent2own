@@ -121,7 +121,7 @@ const Register: React.FC = () => {
                 </p>
                 <Link
                   // to={"/sign-in"}
-                  to={"/uploadKYC"}
+                  to={"/uploadkyc"}
                   className=" w-full bg-[#016AB3] rounded-2xl"
                 >
                   <button className="p-3 w-full bg-[#016AB3]  rounded-2xl text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center ">
