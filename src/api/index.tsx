@@ -90,3 +90,17 @@ export const updateProfile = async (data: IProfile) => {
   const res = await publicApi.post("/update_user.php", data); // Use POST and pass the data
   return res.data; // Return the response data
 };
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const uploadKYC = async (data: any) => {
+  const res = await publicApi.post("/update_kyc.php", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return res.data; // Return the response data
+};
+export const updateKYCId = async (data: any) => {
+  const res = await publicApi.post("/update_kyc_id.php", data); // Use POST and pass the data
+  return res.data; // Return the response data
+};

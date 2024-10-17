@@ -8,7 +8,9 @@ import {
   rentCar,
   resetPsw,
   signInUser,
+  updateKYCId,
   updateProfile,
+  uploadKYC,
   // uploadProfilePix,
 } from "@/api";
 import { RentCarData } from "@/api/types";
@@ -161,6 +163,29 @@ export const useContactUs = () => {
 export const useUpdateProfile = () => {
   return useMutation({
     mutationFn: updateProfile,
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useUploadKYC = () => {
+  return useMutation({
+    mutationFn: uploadKYC,
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+export const useUpdateKYCId = () => {
+  return useMutation({
+    mutationFn: updateKYCId,
     onSuccess: (data) => {
       toast.success(data.message);
     },

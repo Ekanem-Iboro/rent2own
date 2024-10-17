@@ -1,12 +1,13 @@
 import { useGetUserProfile } from "@/hooks/query";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 // import { useFormContext } from "react-hook-form";
 import { toast } from "react-toastify";
 import SpinnerOverlay from "./reuseable/OverlayLoader";
+import { useUpdateKYCId, useUploadKYC } from "@/hooks/mutation";
 
 const CarMentainanceCetificate = () => {
   const [isUploading, setIsUploading] = useState<number>(0);
+  const [reUpload, setReUpload] = useState<number>(0);
 
   const [preViewCertificate, setPreViewCertificate] = useState<string | null>(
     null
@@ -22,75 +23,87 @@ const CarMentainanceCetificate = () => {
     isLoading: userProfileLoading,
   } = useGetUserProfile(userId);
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const findKYCDoc = userProfile?.docs.filter((item: any) =>
+    item.kyc_doc.startsWith("uploads/users_kyc/")
+  );
+
+  const getCLIDoc = findKYCDoc?.find(
+    (item: any) => item.doc_type === "CIC" || null
+  );
+
   useEffect(() => {
-    setFilePreview(userProfile?.doc?.doc_type);
-  }, [userProfile?.doc?.doc_type]);
-  //   console.log(userProfile?.kyc?.doc_type);
+    if (getCLIDoc) {
+      setFilePreview(getCLIDoc);
+    }
+  }, [getCLIDoc]);
+
+  const {
+    mutate: UploadKYCMutation,
+    isPending: uploadkycPending,
+    isSuccess: uploadkycSuccess,
+  } = useUploadKYC();
+
+  const { mutate: updateKYCMutation } = useUpdateKYCId();
+
+  // Start custom progress simulation
+  const startCustomProgress = () => {
+    setIsUploading(0); // Reset progress
+
+    const progressInterval = setInterval(() => {
+      setIsUploading((prevProgress) => {
+        if (prevProgress < 100) {
+          return prevProgress + 20; // Increment progress by 5% every 100ms
+        } else {
+          clearInterval(progressInterval); // Stop incrementing once it reaches 95%
+          return prevProgress;
+        }
+      });
+    }, 100); // Simulate 100ms interval for progress
+  };
+
   const handleFileChange = (file: File) => {
-    const uploadCertificates =
-      "https://www.rent2ownauto.com.au/api/update_kyc.php";
-    const updateCertificateIdURL =
-      "https://www.rent2ownauto.com.au/api/update_kyc_id.php";
-
-    // Set localStorage to false before starting the upload
-    localStorage.setItem("uploadedCli", "false");
-
+    startCustomProgress(); // Start the progress simulation
     if (file) {
       if (file.type !== "application/pdf") {
         toast.error("Only PDF files are allowed.");
         return;
       }
 
-      setFilePreview(file.name); // Display the file name for PDFs
+      setFilePreview(file?.name);
 
       const fd = new FormData();
       fd.append("file", file);
 
-      axios
-        .post(uploadCertificates, fd, {
-          onUploadProgress: (progressEvent) => {
-            const { loaded, total } = progressEvent;
-            if (total) {
-              const progress = Math.round((loaded / total) * 100);
-              setIsUploading(progress);
+      UploadKYCMutation(fd, {
+        onSuccess: (data) => {
+          const uploadedFilename = data?.filename;
+          // Do something with the uploadedFilename
+          // Stop progress simulation and set to 100% once upload is complete
+          setIsUploading(100);
+          updateKYCMutation(
+            {
+              user_id: userId, // Pass the user ID
+              filename: uploadedFilename, // Pass the uploaded filename
+              doc_type: "CIC", // Specify the document type
+              kyc_order: reUpload,
+            },
+            {
+              onSuccess: () => {
+                // Handle success, such as updating the UI or showing a message
+                reFetchProfile();
+              },
             }
-          },
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          const uploadedCliFilename = res.data.filename;
-
-          // Call the update_kyc_id.php API to send filename and userId
-          axios
-            .post(updateCertificateIdURL, {
-              user_id: userId,
-              filename: uploadedCliFilename,
-              doc_type: "Comprehensive Insurance Certificate",
-            })
-            .then((res) => {
-              res.data;
-              reFetchProfile();
-            })
-            .catch((error) => {
-              toast.error(error.message);
-            });
-
-          // Reset form and upload progress after success
-          setIsUploading(0);
-        })
-        .catch((error) => {
-          console.error("Error uploading file:", error);
-          toast.error("Error uploading file.");
-        });
+          );
+        },
+      });
     }
   };
 
   useEffect(() => {
-    const filePath = `https://www.rent2ownauto.com.au/${userProfile?.doc?.kyc_doc}`;
-    setPreViewCertificate(filePath); // Create a preview URL for the PDF
-  }, [userProfile?.doc?.kyc_doc]);
+    const filePath = `https://www.rent2ownauto.com.au/${getCLIDoc?.kyc_doc}`;
+    setPreViewCertificate(filePath);
+  }, [getCLIDoc?.kyc_doc]);
 
   const handlePreviewPdf = () => {
     if (preViewCertificate) {
@@ -125,7 +138,7 @@ const CarMentainanceCetificate = () => {
       className={`${
         userProfileLoading ? "hidden" : ""
       }w-full md:h-[300px] h-[284px] flex flex-col items-center justify-center gap-5 border-2 border-dashed rounded-[10px] border-[${
-        kycPendingStatus == "Approved" ? "#5FC381" : "#D6EEFF"
+        getCLIDoc?.status == "Approved" ? "#5FC381" : "#D6EEFF"
       }] mt-7 mb-[7rem]`}
     >
       {userProfileLoading && <SpinnerOverlay />}
@@ -143,7 +156,7 @@ const CarMentainanceCetificate = () => {
             />
           </>
         )}
-        {isUploading > 0 && (
+        {uploadkycPending && isUploading > 0 && (
           <div className="w-full">
             <div className="w-full flex items-center justify-center">
               <span className="text-[16px] leading-[19.2px]  font-[700] text-gray-700 my-2">
@@ -154,50 +167,53 @@ const CarMentainanceCetificate = () => {
             <div className="w-[80%]  mx-auto">
               <div className="h-2 bg-gray-200 rounded-[30px] overflow-hidden">
                 <div
-                  className="h-full bg-[#016AB3] transition-all duration-200 delay-100 ease-in-out"
+                  className="h-full bg-[#016AB3] transition-all duration-500 delay-500 ease-in-out"
                   style={{ width: `${isUploading}%` }}
                 />
               </div>
             </div>
           </div>
         )}
-        {filePreview && (
-          <>
-            <IfFileisLoaded
-              filePreview={filePreview}
-              kycPendingStatus={kycPendingStatus}
-            />
-            {kycPendingStatus === "pending" ? (
-              <div className="flex items-center justify-center gap-9">
-                <p className="text-[14px] leading-[14.4px] text-[#ffffff] bg-[#f7d493] p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
-                  Pending
-                </p>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center gap-9">
-                <p className="text-[14px] leading-[14.4px] text-[#027A48] bg-[#ECFDF3]  p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
-                  Approved
-                </p>
-              </div>
-            )}
+        {uploadkycSuccess ||
+          (filePreview && (
+            <>
+              <IfFileisLoaded
+                filePreview={getCLIDoc}
+                kycPendingStatus={kycPendingStatus}
+              />
+              {getCLIDoc?.status === "pending" ? (
+                <div className="flex items-center justify-center gap-9">
+                  <p className="text-[14px] leading-[14.4px] text-[#ffffff] bg-[#f7d493] p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
+                    Pending
+                  </p>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center gap-9">
+                  <p className="text-[14px] leading-[14.4px] text-[#027A48] bg-[#ECFDF3]  p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
+                    Approved
+                  </p>
+                </div>
+              )}
 
-            <div className="flex items-center justify-center gap-9">
-              {/* {kycPendingStatus !== "pending" && ( */}
-              <p
-                className="text-[14px] leading-[14.4px] text-[#A8A8A8] my-2 cursor-pointer"
-                onClick={handlePreviewPdf}
-              >
-                Click to Preview{" "}
-              </p>
-              {/* )} */}
-              {/* <label htmlFor="kyc-input"> */}
-              <div
-                className="text-[14px] leading-[14.4px] text-[#016AB3] my-2 cursor-pointer"
-                onClick={() => {
-                  setFilePreview(null);
-                }}
-              >
-                {/* <input
+              <div className="flex items-center justify-center gap-9">
+                {/* {kycPendingStatus !== "pending" && ( */}
+                <p
+                  className="text-[14px] leading-[14.4px] text-[#A8A8A8] my-2 cursor-pointer"
+                  onClick={handlePreviewPdf}
+                >
+                  Click to Preview{" "}
+                </p>
+                {/* )} */}
+                {/* <label htmlFor="kyc-input"> */}
+                <div
+                  className="text-[14px] leading-[14.4px] text-[#016AB3] my-2 cursor-pointer"
+                  onClick={() => {
+                    setFilePreview(null);
+                    setIsUploading(0);
+                    setReUpload(1);
+                  }}
+                >
+                  {/* <input
                     type="file"
                     id="kyc-input"
                     name="file"
@@ -205,12 +221,12 @@ const CarMentainanceCetificate = () => {
                     accept="application/pdf" // Only allow PDF files
                     onChange={handleFileChange}
                   /> */}
-                Upload Again{" "}
-              </div>{" "}
-              {/* </label> */}
-            </div>
-          </>
-        )}
+                  Upload Again{" "}
+                </div>{" "}
+                {/* </label> */}
+              </div>
+            </>
+          ))}
       </div>
     </div>
   );
@@ -220,13 +236,13 @@ export default CarMentainanceCetificate;
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const IfFileisLoaded = ({ filePreview, kycPendingStatus }: any) => {
+const IfFileisLoaded = ({ filePreview }: any) => {
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <p className="text-[14px] font-[600] leading-[16.8px] text-[#424242] w-full mt-2 text-center mb-2">
-        {filePreview && <p>{filePreview}</p>}
+        {filePreview && <p>{filePreview?.doc_type}</p>}
       </p>
-      {kycPendingStatus !== "pending" && (
+      {filePreview?.status !== "pending" && (
         <div className="w-[50px] h-[50px] bg-green-100 flex justify-center items-center rounded-full mb-4">
           <svg
             width="36"
@@ -353,6 +369,11 @@ const UploadComp = ({
               or drag and drop
               <p className=" text-[12px] leading-[14.4px] text-[#A8A8A8] my-2">
                 Upload your (Comprehensive Insurance Certificates)
+              </p>
+              <p className=" text-[12px] leading-[14.4px] text-[#A8A8A8] my-2">
+                Required documents ( Employment Status, Payslip Bank Statement,
+                Current valid license, Proof of address- ( Utility Bills e.g -
+                Electric Bill etc...))
               </p>
               <p className=" text-[12px] leading-[14.4px] text-[#A8A8A8]">
                 Kindly scan all your document into 1 pdf not more than 5MB

@@ -25,7 +25,7 @@ const ContactUs = lazy(() => import("./pages/ContactUs"));
 const Faq = lazy(() => import("./pages/Faq"));
 const CarListing = lazy(() => import("./pages/CarListing"));
 const Term_Conditions = lazy(() => import("./pages/Term_Conditions"));
-// const UploadKYC = lazy(() => import("@/pages/Auth/UploadKYC"));
+const UploadKYC = lazy(() => import("@/pages/Auth/UploadKYC"));
 
 function App() {
   return (
@@ -47,7 +47,7 @@ function App() {
           <Route path="/sign-in" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          {/* <Route path="/uploadkyc" element={<UploadKYC />} /> */}
+          <Route path="/uploadkyc" element={<UploadKYC />} />
           <Route path="/*" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

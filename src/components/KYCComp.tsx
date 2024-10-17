@@ -1,37 +1,66 @@
-import { useGetUserProfile } from "@/hooks/query";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-// import { useFormContext } from "react-hook-form";
+import React, { useRef, useEffect, useState } from "react";
+// import axios from "axios";
 import { toast } from "react-toastify";
+import { useGetUserProfile } from "@/hooks/query";
 import SpinnerOverlay from "./reuseable/OverlayLoader";
+import { useUpdateKYCId, useUploadKYC } from "@/hooks/mutation";
 
 const KYC = () => {
   const [isUploading, setIsUploading] = useState<number>(0);
+  const [reUpload, setReUpload] = useState<number>(0);
 
+  const [pdfPreview, setPdfPreview] = useState<string | null>(null);
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
-  const [filePreview, setFilePreview] = useState<string | null>(null);
-  const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
+  const fileInputRef = useRef<HTMLInputElement | null>(null); // Add a reference for file input
+  const userId = Number(localStorage.getItem("user_id"));
 
-  const loaded = localStorage.getItem("uploaded");
-  // Retrieve the user profile
   const {
     data: userProfile,
     refetch: reFetchProfile,
     isLoading: userProfileLoading,
   } = useGetUserProfile(userId);
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const findKYCDoc = userProfile?.docs.filter((item: any) =>
+    item.kyc_doc.startsWith("uploads/users_kyc/")
+  );
+
+  const getDriversDoc = findKYCDoc?.find(
+    (item: any) => item.doc_type === "Drivers License" || null
+  );
+
   useEffect(() => {
-    setFilePreview(userProfile?.doc?.doc_type);
-  }, [userProfile?.doc?.doc_type]);
-  //   console.log(userProfile?.kyc?.doc_type);
+    if (getDriversDoc) {
+      setPdfPreview(getDriversDoc);
+    }
+  }, [getDriversDoc]);
+
+  const {
+    mutate: UploadKYCMutation,
+    isPending: uploadkycPending,
+    isSuccess: uploadkycSuccess,
+  } = useUploadKYC();
+
+  const { mutate: updateKYCMutation } = useUpdateKYCId();
+  // Start custom progress simulation
+  const startCustomProgress = () => {
+    setIsUploading(0); // Reset progress
+
+    const progressInterval = setInterval(() => {
+      setIsUploading((prevProgress) => {
+        if (prevProgress < 100) {
+          return prevProgress + 20; // Increment progress by 5% every 100ms
+        } else {
+          clearInterval(progressInterval); // Stop incrementing once it reaches 95%
+          return prevProgress;
+        }
+      });
+    }, 100); // Simulate 100ms interval for progress
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const uploadKYCURL = "https://www.rent2ownauto.com.au/api/update_kyc.php";
-    const updateKYCIdURL =
-      "https://www.rent2ownauto.com.au/api/update_kyc_id.php";
+    startCustomProgress();
     const file = e.target.files ? e.target.files[0] : null;
-    // Set localStorage to false before starting the upload
-    localStorage.setItem("uploaded", "false");
 
     if (file) {
       if (file.type !== "application/pdf") {
@@ -39,158 +68,172 @@ const KYC = () => {
         return;
       }
 
-      setFilePreview(file.name); // Display the file name for PDFs
+      setPdfPreview(file?.name);
 
       const fd = new FormData();
       fd.append("file", file);
 
-      axios
-        .post(uploadKYCURL, fd, {
-          onUploadProgress: (progressEvent) => {
-            const { loaded, total } = progressEvent;
-            if (total) {
-              const progress = Math.round((loaded / total) * 100);
-              setIsUploading(progress);
+      UploadKYCMutation(fd, {
+        onSuccess: (data) => {
+          const uploadedFilename = data?.filename;
+
+          setIsUploading(100);
+          updateKYCMutation(
+            {
+              user_id: userId, // Pass the user ID
+              filename: uploadedFilename, // Pass the uploaded filename
+              doc_type: "Drivers License", // Specify the document type
+              kyc_order: reUpload,
+            },
+            {
+              onSuccess: () => {
+                // Handle success, such as updating the UI or showing a message
+                reFetchProfile();
+              },
             }
-          },
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          const uploadedFilename = res.data.filename;
+          );
+        },
+      });
 
-          // Call the update_pix_id.php API to send filename and userId
-          axios
-            .post(updateKYCIdURL, {
-              user_id: userId,
-              filename: uploadedFilename,
-              doc_type: "Driver's License",
-            })
-            .then((res) => {
-              res.data;
-              reFetchProfile();
-            })
-            .catch((error) => {
-              toast.error(error);
-            });
+      // axios
+      //   .post(uploadKYCURL, fd, {
+      //     onUploadProgress: (progressEvent) => {
+      //       const { loaded, total } = progressEvent;
+      //       if (total) {
+      //         const progress = Math.round((loaded / total) * 100);
+      //         setIsUploading(progress);
+      //         setIsPending("pending");
+      //       }
+      //     },
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   })
+      //   .then((res) => {
+      //     const uploadedFilename = res.data.filename;
+      //     setIsSuccess("success");
 
-          // Reset form and upload progress after success
+      //     axios
+      //       .post(updateKYCIdURL, {
+      //         user_id: userId,
+      //         filename: uploadedFilename,
+      //         doc_type: "Driver's License",
+      //       })
+      //       .then((res) => {
+      //         res.data;
+      //         reFetchProfile();
+      //       })
+      //       .catch((error) => {
+      //         toast.error(error);
+      //       });
 
-          setIsUploading(0);
-        })
-        .catch((error) => {
-          console.error("Error uploading profile picture:", error);
-        });
+      //     setIsUploading(0);
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error uploading file:", error);
+      //   });
     }
   };
+
   useEffect(() => {
-    const filePath = `https://www.rent2ownauto.com.au/${userProfile?.doc?.kyc_doc}`;
-    setPdfPreviewUrl(filePath); // Create a preview URL for the PDF
-  }, [userProfile?.doc?.kyc_doc]);
-  //
+    const filePath = `https://www.rent2ownauto.com.au/${getDriversDoc?.kyc_doc}`;
+    setPdfPreviewUrl(filePath);
+  }, [getDriversDoc?.kyc_doc]);
 
   const handlePreviewPdf = () => {
     if (pdfPreviewUrl) {
       window.open(pdfPreviewUrl, "_blank");
     }
   };
-  //   const { register } = useFormContext(); // Get access to form context
-  const kycPendingStatus = userProfile?.doc?.status;
+
+  const handleUploadAgain = () => {
+    // Clear states
+    setIsUploading(0);
+    setPdfPreview(null);
+    setReUpload(1);
+  };
 
   return (
     <div
       className={`${
         userProfileLoading ? "hidden" : ""
-      }w-full md:h-[300px] h-[284px] flex flex-col items-center justify-center gap-5 border-2 border-dashed rounded-[10px] border-[${
-        loaded == "true" ? "#5FC381" : "#D6EEFF"
+      } w-full md:h-[300px] h-[284px] flex flex-col items-center justify-center gap-5 border-2 border-dashed rounded-[10px] border-[${
+        getDriversDoc?.status == "approved" ? "#5FC381" : "#D6EEFF"
       }] mt-7 mb-[7rem]`}
     >
       {userProfileLoading && <SpinnerOverlay />}
       <div className="w-full">
-        {filePreview ? (
+        {pdfPreview ? (
           <PreviewSVG />
         ) : (
-          <>
-            <UploadComp
-              handleFileChange={handleFileChange}
-              isUploading={isUploading}
-            />
-          </>
+          <UploadComp
+            handleFileChange={handleFileChange}
+            isUploading={isUploading}
+          />
         )}
-        {isUploading > 0 && (
+
+        {uploadkycPending && isUploading > 0 && (
           <div className="w-full">
             <div className="w-full flex items-center justify-center">
-              <span className="text-[16px] leading-[19.2px]  font-[700] text-gray-700 my-2">
+              <span className="text-[16px] leading-[19.2px] font-[700] text-gray-700 my-2">
                 {isUploading}%
               </span>
             </div>
-
-            <div className="w-[80%]  mx-auto">
+            <div className="w-[80%] mx-auto">
               <div className="h-2 bg-gray-200 rounded-[30px] overflow-hidden">
                 <div
-                  className="h-full bg-[#016AB3] transition-all duration-200 delay-100 ease-in-out"
+                  className="h-full bg-[#016AB3] transition-all duration-500 delay-500 ease-in-out"
                   style={{ width: `${isUploading}%` }}
                 />
               </div>
             </div>
           </div>
         )}
-        {filePreview && (
+
+        {uploadkycSuccess || pdfPreview ? (
           <div
             className={`${
-              isUploading > 0 && isUploading !== 100 ? "hidden" : "block"
+              !uploadkycSuccess && isUploading > 0 ? "hidden" : "block"
             }`}
           >
-            <IfFileisLoaded
-              filePreview={filePreview}
-              kycPendingStatus={kycPendingStatus}
-            />
-            {kycPendingStatus === "pending" ? (
-              <div className="flex items-center justify-center gap-9">
-                <p className="text-[14px] leading-[14.4px] text-[#ffffff] bg-[#f7d493] p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
+            <IfFileisLoaded filePreview={getDriversDoc} />
+            <div className="flex items-center justify-center w-full">
+              {getDriversDoc?.status === "pending" ? (
+                <p className="text-[14px] leading-[14.4px] text-[#ffffff] bg-[#f7d493] p-1.5 w-fit rounded-3xl mb-1">
                   Pending
                 </p>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center gap-9">
-                <p className="text-[14px] leading-[14.4px] text-[#027A48] bg-[#ECFDF3]  p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
+              ) : (
+                <p className="text-[14px] leading-[14.4px] text-[#027A48] bg-[#ECFDF3] p-1.5 w-fit rounded-3xl mb-1">
                   Approved
                 </p>
-              </div>
-            )}
+              )}
+            </div>
 
             <div className="flex items-center justify-center gap-9">
-              {/* {kycPendingStatus !== "pending" && ( */}
               <p
                 className="text-[14px] leading-[14.4px] text-[#A8A8A8] my-2 cursor-pointer"
                 onClick={handlePreviewPdf}
               >
-                Click to Preview{" "}
+                Click to Preview
               </p>
-              {/* )} */}
-              {/* <label htmlFor="kyc-input"> */}
               <div
                 className="text-[14px] leading-[14.4px] text-[#016AB3] my-2 cursor-pointer"
-                onClick={() => {
-                  setFilePreview(null);
-                }}
+                onClick={handleUploadAgain} // Trigger upload again
               >
-                {/* <input
-                    type="file"
-                    id="kyc-input"
-                    name="file"
-                    className="hidden"
-                    accept="application/pdf" // Only allow PDF files
-                    onChange={handleFileChange}
-                  /> */}
-                Upload Again{" "}
-              </div>{" "}
-              {/* </label> */}
+                Upload Again
+              </div>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
+      {/* Hidden file input */}
+      <input
+        type="file"
+        ref={fileInputRef} // Attach the ref here
+        accept="application/pdf"
+        className="hidden"
+        onChange={handleFileChange}
+      />
     </div>
   );
 };
@@ -199,13 +242,13 @@ export default KYC;
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const IfFileisLoaded = ({ filePreview, kycPendingStatus }: any) => {
+const IfFileisLoaded = ({ filePreview }: any) => {
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <p className="text-[14px] font-[600] leading-[16.8px] text-[#424242] w-full mt-2 text-center mb-2">
-        {filePreview && <p>{filePreview}</p>}
+        <p>{filePreview?.doc_type}</p>
       </p>
-      {kycPendingStatus !== "pending" && (
+      {filePreview?.status !== "pending" && (
         <div className="w-[50px] h-[50px] bg-green-100 flex justify-center items-center rounded-full mb-4">
           <svg
             width="36"

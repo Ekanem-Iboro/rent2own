@@ -120,8 +120,8 @@ const Register: React.FC = () => {
                   store for you.
                 </p>
                 <Link
-                  to={"/sign-in"}
-                  // to={"/uploadKYC"}
+                  // to={"/sign-in"}
+                  to={"/uploadKYC"}
                   className=" w-full bg-[#016AB3] rounded-2xl"
                 >
                   <button className="p-3 w-full bg-[#016AB3]  rounded-2xl text-[#FAFAFA] text-[16px] leading-[19.2px] font-[700] text-center ">
@@ -134,10 +134,15 @@ const Register: React.FC = () => {
               <div className=" p-4  py-8 rounded-2xl   mt-2  ">
                 <p className="text-red-400 text-[16px]  p-1 rounded-2xl  font-[500] w-full text-center leading-[16.8px] my-4">
                   Failed to create an account ,
-                  <Link to="/sign-up" className="underline text-blue-600">
+                  <span
+                    className="underline text-blue-600"
+                    onClick={() => {
+                      window.location.reload;
+                    }}
+                  >
                     {" "}
                     Try again!
-                  </Link>
+                  </span>
                 </p>
               </div>
             )}
@@ -173,16 +178,14 @@ const Register: React.FC = () => {
                   <AuthTextFeild
                     name="phone"
                     label="Phone Number"
-                    placeholder="04XX XXX XXX 
-"
+                    placeholder="04XX XXX XXX "
                   />
                 </div>
                 <div className="mt-4">
                   <AuthTextFeild
                     name="date_of_birth"
                     label="Date of Birth"
-                    placeholder="02-02-2000 
-"
+                    placeholder="2000-10-06"
                   />
                 </div>
                 <div className="mt-4">

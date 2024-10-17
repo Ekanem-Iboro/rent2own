@@ -150,6 +150,7 @@ export interface IProfile {
   reset_token_expires: string;
   postalcode: string;
   kyc: string;
+  date_of_birth: string;
 }
 
 export interface ContactInfo {

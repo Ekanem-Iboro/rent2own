@@ -23,6 +23,7 @@ const ProfileUpdatForm: React.FC = () => {
       phone: userProfile?.user?.phone || "",
       location: userProfile?.user?.location || "",
       gender: userProfile?.user?.gender || "",
+      date_of_birth: userProfile?.user?.date_of_birth || "",
     },
   });
 
@@ -37,6 +38,7 @@ const ProfileUpdatForm: React.FC = () => {
       setValue("phone", userProfile.user.phone);
       setValue("location", userProfile.user.location);
       setValue("gender", userProfile.user.gender);
+      setValue("date_of_birth", userProfile.user.date_of_birth);
     }
   }, [userProfile, setValue]);
 
@@ -112,7 +114,17 @@ const ProfileUpdatForm: React.FC = () => {
                       />
                     </div>
                   </div>
-
+                  {/*  */}
+                  <div className="mt-4 basis-1/2">
+                    <AuthTextFeild
+                      name="date_of_birth"
+                      label="Date of Birth"
+                      placeholder="2000-10-06"
+                      variant="long"
+                      value={userProfile?.user?.date_of_birth}
+                    />
+                  </div>
+                  {/*  */}
                   <div className="md:flex block items-center w-full gap-8">
                     <div className="mt-4 basis-1/2">
                       <AuthTextFeild
