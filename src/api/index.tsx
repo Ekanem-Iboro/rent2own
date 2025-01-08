@@ -6,9 +6,9 @@ import {
   forgotpsw,
   IChangePassword,
   IProfile,
-  RentCarData,
   resetpsw,
   SignInUser,
+  upLoadState,
 } from "./types";
 
 export const getCars = async (): Promise<Car[]> => {
@@ -46,7 +46,7 @@ export const getFAQ = async (): Promise<any> => {
   return res.data; // Return the data as any
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const rentCar = async (data: RentCarData) => {
+export const rentCar = async (data: upLoadState) => {
   const res = await publicApi.post("/rent_car.php", data); // Use POST and pass the data
   return res.data; // Return the response data
 };

@@ -183,3 +183,11 @@ export interface RentCarData {
   // weekly: string | number;
   // user_email: string;
 }
+export interface upLoadState {
+  car_id: string | number;
+
+  user_id: number | null;
+  payment_structure: number;
+  // weekly: string | number;
+  // user_email: string;
+}

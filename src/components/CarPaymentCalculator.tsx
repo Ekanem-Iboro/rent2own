@@ -6,6 +6,7 @@ import CurrencyFormatter from "./reuseable/currencyFormat";
 // import { FormProvider, useForm } from "react-hook-form";
 // import RangeSlider from "./reuseable/RangeSlider";
 import useCarStore from "@/store/ProductStore";
+import useSliderStore from "@/store/Slide";
 import { Link } from "react-router-dom";
 
 // const calculateSchema = z.object({
@@ -31,6 +32,8 @@ const CarPaymentCalculator = () => {
   //   console.log(data);
   //   reset();
   // };
+  const { setModal } = useSliderStore();
+
   return (
     <>
       <div className="   md:w-[420px]  bg-white rounded-[10px] overflow-hidden lg:block hidden p-7">
@@ -86,16 +89,17 @@ const CarPaymentCalculator = () => {
           </p>
         </div>
         <div className="w-full text-center ">
-          <Link
-            to="/terms_conditions"
+          <div
+            // to="/terms_conditions"
             onClick={() => {
+              setModal(true);
               localStorage.setItem("payment_structure", "1");
             }}
           >
             <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
               I want this car
             </button>
-          </Link>
+          </div>
         </div>
         <p
           className={` text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-4  ${
@@ -166,16 +170,17 @@ const CarPaymentCalculator = () => {
           </p>
         </div>
         <div className="w-full text-center ">
-          <Link
-            to="/terms_conditions"
+          <div
+            // to="/terms_conditions"
             onClick={() => {
+              setModal(true);
               localStorage.setItem("payment_structure", "2");
             }}
           >
             <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
               I want this car
             </button>
-          </Link>
+          </div>
         </div>
         <p
           className={` text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-4  ${

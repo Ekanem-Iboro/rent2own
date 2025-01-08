@@ -1,12 +1,11 @@
 import { BreadcrumbComp } from "@/components/reuseable/BreadCrumbs";
 import paymentIcon from "@/assets/icons/payment.svg";
-import UploadCarMentainance from "@/components/UploadCarMentainance";
 import HistoryPaymentNotification from "@/components/HistoryPaymentNotification";
 import { useGetOrderDashboard, useGetUserProfile } from "@/hooks/query";
 import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
 import { usePayInstallment } from "@/hooks/mutation";
 import { useEffect } from "react";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, CheckCheck, CircleAlert } from "lucide-react";
 // import { useQueryClient } from "@tanstack/react-query";
 
 const Order = () => {
@@ -112,6 +111,9 @@ const Order = () => {
   //   });
   // });
 
+  const getDocStatus = profile?.docs.find(
+    (doc: any) => doc?.doc_type === "CIC"
+  )?.status;
   return (
     <div className="md:mx-0 mx-3">
       {isOrderLoading && <SpinnerOverlay />}
@@ -232,22 +234,63 @@ const Order = () => {
             </div>
             {/*  */}
           </div>
-
           <div className="flex items-center justify-center gap-x-10 mt-14 w-full">
             <button
               className={`px-12 py-3 text-[18px] leading-[21.6px] font-[600] text-[#FAFAFA]  rounded-md md:w-[30%] w-full ${
-                isError
+                isError || getDocStatus === "pending"
                   ? "cursor-not-allowed bg-[#D1D1D1]"
                   : "hover:bg-[#0998fecc] cursor-pointer  bg-[#0999FE]"
               }`}
               onClick={onPayNow}
-              disabled={Nextpaymentpending || isError}
+              disabled={
+                Nextpaymentpending ||
+                isError ||
+                getDocStatus === "pending" ||
+                getDocStatus === null
+              }
             >
               Pay Now
             </button>
           </div>
+          <div className="flex  justify-center items-center w-full  mt-5">
+            <div>
+              {getDocStatus === "pending" && (
+                <p
+                  className={`w-full flex gap-1  rounded-md font-[600] text-[16px] leading-[19.2px]
+              text-[#f7d493]
+                capitalize`}
+                >
+                  Document {getDocStatus}
+                  <CircleAlert size={20} />
+                </p>
+              )}
 
-          <p className="flex items-center justify-center gap-3 mt-14 w-full font-[500] text-[16px] leading-[19.2px] text-[#FAFAFA]">
+              {getDocStatus === "approved" && (
+                <p
+                  className={` w-full  flex gap-1 rounded-md font-[600] text-[16px] leading-[19.2px]
+              text-green-500
+                capitalize
+           
+                `}
+                >
+                  Document {getDocStatus}
+                  <CheckCheck size={20} />
+                </p>
+              )}
+
+              {getDocStatus === "" && (
+                <p
+                  className={`w-full  rounded-md font-[600] text-[16px] leading-[19.2px]
+               text-red-400
+                capitalize
+                `}
+                >
+                  No document uploaded
+                </p>
+              )}
+            </div>
+          </div>
+          <p className="flex items-center justify-center gap-3 mt-4 w-full font-[500] text-[16px] leading-[19.2px] text-[#FAFAFA]">
             {isError && (
               <>
                 <AlertCircle />
@@ -264,14 +307,6 @@ const Order = () => {
           isError={isError}
         />
         {/*  */}
-        <div>
-          <p className="font-[600] text-[20px] leading-[24px] text-[#0A0B0A] mt-9">
-            Upload Required Certificate
-          </p>
-          <div className=" mt-4 ">
-            <UploadCarMentainance />
-          </div>
-        </div>
       </section>
     </div>
   );

@@ -62,8 +62,8 @@ const MobileSquareDetails = () => {
           </p>
         </div>
         <div className="w-full text-center ">
-          <Link
-            to="/terms_conditions"
+          <div
+            // to="/terms_conditions"
             onClick={() => {
               localStorage.setItem("payment_structure", "1");
             }}
@@ -71,7 +71,7 @@ const MobileSquareDetails = () => {
             <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
               I want this car
             </button>
-          </Link>
+          </div>
         </div>
         <p
           className={` text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-4  ${
@@ -142,8 +142,9 @@ const MobileSquareDetails = () => {
           </p>
         </div>
         <div className="w-full text-center ">
-          <Link
-            to="/terms_conditions"
+          <div
+            // to="/terms_conditions"
+
             onClick={() => {
               localStorage.setItem("payment_structure", "2");
             }}
@@ -151,7 +152,7 @@ const MobileSquareDetails = () => {
             <button className="bg-primary text-[#fff] font-[600] leading-[21.6px] text-[18px] py-3 px-10  rounded-md  w-full">
               I want this car
             </button>
-          </Link>
+          </div>
         </div>
         <p
           className={` text-[#5A5555] text-[14px] font-[400] leading-[16px] w-full text-center my-4  ${

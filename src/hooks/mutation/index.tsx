@@ -13,7 +13,7 @@ import {
   uploadKYC,
   // uploadProfilePix,
 } from "@/api";
-import { RentCarData } from "@/api/types";
+import { upLoadState } from "@/api/types";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -124,7 +124,7 @@ export const useChangePassword = () => {
 // Update mutation function to work with rentCar and handle submissionData
 export const useRentCar = () => {
   return useMutation({
-    mutationFn: (data: RentCarData) => rentCar(data), // Pass data to rentCar
+    mutationFn: (data: upLoadState) => rentCar(data), // Pass data to rentCar
     onSuccess: (data) => {
       // localStorage.setItem("agreement_id", data.agreement_id);
 

@@ -10,9 +10,13 @@ import useCarStore from "@/store/ProductStore";
 import location from "@/assets/icons/location.svg";
 import AboutThisCar from "@/components/AboutThisCar";
 import { BreadcrumbComp } from "@/components/reuseable/BreadCrumbs";
+import Modal from "@/components/reuseable/Modal";
+import useSliderStore from "@/store/Slide";
 
 const HomeCarDetails = () => {
   const { currentCar } = useCarStore();
+  const { modal, setModal } = useSliderStore();
+
   return (
     <section className=" px-7 md:px-[1%]">
       <BreadcrumbComp item={currentCar?.model} sepCol="" color="#191919" />
@@ -56,6 +60,7 @@ const HomeCarDetails = () => {
       <div className="">
         <FindSimilarCars />
       </div>
+      {modal && <Modal isOpen={modal} onClose={() => setModal(false)} />}
     </section>
   );
 };

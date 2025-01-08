@@ -5,6 +5,7 @@ import Sidebar from "@/layout/Sidebar";
 import PrivateRoute from "@/components/privateRoute";
 import NotFound from "../NotFound";
 import Loader from "@/components/reuseable/PageLoader";
+import UploadDoc from "./Dashboard/UploadDoc";
 
 // Lazy load components
 const Home = lazy(() => import("./Dashboard/Home"));
@@ -72,6 +73,7 @@ function Index() {
                 </PrivateRoute>
               }
             />
+
             <Route
               path="/settings"
               element={
@@ -81,7 +83,14 @@ function Index() {
               }
             />
           </Route>
-
+          <Route
+            path="/upload"
+            element={
+              <PrivateRoute>
+                <UploadDoc />
+              </PrivateRoute>
+            }
+          />
           <Route path="/paymentsuccess" element={<PaymentSuccess />} />
           <Route path="/paymentfailed" element={<TransactionFailed />} />
           <Route path="*" element={<NotFound />} />

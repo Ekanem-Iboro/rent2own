@@ -1,72 +1,72 @@
-import { RentCarData } from "@/api/types";
-import Loader from "@/components/reuseable/Loader";
-import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
-import {
-  //  useAgreementId,
-  useRentCar,
-} from "@/hooks/mutation";
-// import { useGetUserProfile } from "@/hooks/query";
-import useCarStore from "@/store/ProductStore";
+// import { RentCarData } from "@/api/types";
+// import Loader from "@/components/reuseable/Loader";
+// import SpinnerOverlay from "@/components/reuseable/OverlayLoader";
+// import {
+//   //  useAgreementId,
+//   useRentCar,
+// } from "@/hooks/mutation";
+// // import { useGetUserProfile } from "@/hooks/query";
+// import useCarStore from "@/store/ProductStore";
 
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
-interface TermAndConForm {
-  termsandconditions: boolean;
-}
+// interface TermAndConForm {
+//   termsandconditions: boolean;
+// }
 const TermsAndCondition = () => {
-  const { currentCar } = useCarStore();
-  const { mutate: rentCarMutation, isPending } = useRentCar();
-  const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
-  const paymentStructure = Number(localStorage.getItem("payment_structure")); // Retrieve the user ID from local storage
-  // const { data: profile } = useGetUserProfile(userId);
-  // const { mutate: userAgreement } = useAgreementId();
-  const { register, handleSubmit } = useForm<TermAndConForm>();
+  // const { currentCar } = useCarStore();
+  // const { mutate: rentCarMutation, isPending } = useRentCar();
+  // const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
+  // const paymentStructure = Number(localStorage.getItem("payment_structure")); // Retrieve the user ID from local storage
+  // // const { data: profile } = useGetUserProfile(userId);
+  // // const { mutate: userAgreement } = useAgreementId();
+  const { register } = useForm();
 
-  // const userAgreementId = localStorage.getItem("agreement_id");
+  // // const userAgreementId = localStorage.getItem("agreement_id");
 
-  const onSubmit = (data: TermAndConForm) => {
-    if (currentCar) {
-      const submissionData: RentCarData = {
-        car_id: currentCar.id,
-        // duration: currentCar.duration,
-        // total_price: currentCar.price,
-        // deposit: currentCar.deposit,
-        // weekly: currentCar.weekly,
-        payment_structure: paymentStructure,
-        termsandconditions: data.termsandconditions,
-        user_id: Number(userId),
-        // user_email: profile.email,
-      };
+  // const onSubmit = (data: TermAndConForm) => {
+  //   if (currentCar) {
+  //     const submissionData: RentCarData = {
+  //       car_id: currentCar.id,
+  //       // duration: currentCar.duration,
+  //       // total_price: currentCar.price,
+  //       // deposit: currentCar.deposit,
+  //       // weekly: currentCar.weekly,
+  //       payment_structure: paymentStructure,
+  //       termsandconditions: data.termsandconditions,
+  //       user_id: Number(userId),
+  //       // user_email: profile.email,
+  //     };
 
-      rentCarMutation(submissionData, {
-        onSuccess: (response) => {
-          // Destructure the response
-          if (response) {
-            // console.log(response);
-            // Send the entire response data to the userAgreement mutation
-            window.open(response.payment_url, "_self");
-          }
-        },
-        //
-        onError: (error) => {
-          toast.error(
-            "Car is currently reserved, contact our support for more details"
-          );
-          return error;
-        },
-      });
-    }
-  };
+  //     rentCarMutation(submissionData, {
+  //       onSuccess: (response) => {
+  //         // Destructure the response
+  //         if (response) {
+  //           // console.log(response);
+  //           // Send the entire response data to the userAgreement mutation
+  //           window.open(response.payment_url, "_self");
+  //         }
+  //       },
+  //       //
+  //       onError: (error) => {
+  //         toast.error(
+  //           "Car is currently reserved, contact our support for more details"
+  //         );
+  //         return error;
+  //       },
+  //     });
+  //   }
+  // };
 
   return (
     <div className="md:mb-[8rem] mb-[2rem]">
-      {isPending && <SpinnerOverlay />}
+      {/* {isPending && <SpinnerOverlay />} */}
 
       <h1 className="font-[600] text-[30px] leadind-[36px]  my-5 w-full text-center md:text-start md:px-16 px-3 mt-9">
         Terms & Conditions
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <div className="md:px-16 px-3 mt-9 py-8 rounded-xl bg-[#ffffff] md:w-[90%] w-full">
           {termsAndConditions?.map((item, index) => (
             <ol key={index}>
@@ -95,7 +95,7 @@ const TermsAndCondition = () => {
           >
             {/* : isSuccess ? "Pay now" */}
             {
-              isPending ? <Loader size={25} /> : "Continue to pay"
+              "Continue to pay"
               // Replace with your own loading state or error handling mechanism
             }{" "}
           </button>

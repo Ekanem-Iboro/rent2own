@@ -17,9 +17,13 @@ import DetailsBanner from "@/components/DetailsBanner";
 import Footer from "@/components/Footer";
 import AboutThisCar from "@/components/AboutThisCar";
 import { ContactAdressPhone } from "@/components/reuseable/ContactAdressPhone";
+import useSliderStore from "@/store/Slide";
+import Modal from "@/components/reuseable/Modal";
 
 const CarsDetails = () => {
   const { currentCar } = useCarStore();
+  const { modal, setModal } = useSliderStore();
+
   return (
     <section>
       <NavBar />
@@ -68,6 +72,7 @@ const CarsDetails = () => {
       <div className="">
         <FindSimilarCars />
         <DetailsBanner />
+        {modal && <Modal isOpen={modal} onClose={() => setModal(false)} />}
       </div>
       <ContactAdressPhone />
 

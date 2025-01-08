@@ -3,15 +3,22 @@ import React, { useEffect, useState } from "react";
 // import { useFormContext } from "react-hook-form";
 import { toast } from "react-toastify";
 import SpinnerOverlay from "./reuseable/OverlayLoader";
-import { useUpdateKYCId, useUploadKYC } from "@/hooks/mutation";
+import { useRentCar, useUpdateKYCId, useUploadKYC } from "@/hooks/mutation";
+import useCarStore from "@/store/ProductStore";
+import { upLoadState } from "@/api/types";
+import { useNavigate } from "react-router-dom";
 
 const CarMentainanceCetificate = () => {
+  const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState<number>(0);
   const [reUpload, setReUpload] = useState<number>(0);
 
   const [preViewCertificate, setPreViewCertificate] = useState<string | null>(
     null
   );
+  const { currentCar } = useCarStore();
+  const { mutate: rentCarMutation, isPending } = useRentCar();
+  const paymentStructure = Number(localStorage.getItem("payment_structure"));
 
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const userId = Number(localStorage.getItem("user_id")); // Retrieve the user ID from local storage
@@ -92,6 +99,40 @@ const CarMentainanceCetificate = () => {
               onSuccess: () => {
                 // Handle success, such as updating the UI or showing a message
                 reFetchProfile();
+                //
+                if (currentCar) {
+                  const submissionData: upLoadState = {
+                    car_id: currentCar.id,
+                    // duration: currentCar.duration,
+                    // total_price: currentCar.price,
+                    // deposit: currentCar.deposit,
+                    // weekly: currentCar.weekly,
+                    payment_structure: paymentStructure,
+                    user_id: userId,
+                    // user_email: profile.email,
+                  };
+
+                  rentCarMutation(submissionData, {
+                    onSuccess: (response) => {
+                      setTimeout(() => {
+                        navigate("/orders");
+                      }, 1500);
+                      // Destructure the response
+                      if (response) {
+                        // console.log(response);
+                        // Send the entire response data to the userAgreement mutation
+                        // window.open(response.payment_url, "_self");
+                      }
+                    },
+                    //
+                    onError: (error) => {
+                      toast.error(
+                        "Car is currently reserved, contact our support for more details"
+                      );
+                      return error;
+                    },
+                  });
+                }
               },
             }
           );
@@ -134,86 +175,89 @@ const CarMentainanceCetificate = () => {
   };
 
   return (
-    <div
-      className={`${
-        userProfileLoading ? "hidden" : ""
-      }w-full md:h-[300px] h-[284px] flex flex-col items-center justify-center gap-5 border-2 border-dashed rounded-[10px] border-[${
-        getCLIDoc?.status == "Approved" ? "#5FC381" : "#D6EEFF"
-      }] mt-7 mb-[7rem]`}
-    >
-      {userProfileLoading && <SpinnerOverlay />}
-      <div className="w-full">
-        {filePreview ? (
-          <PreviewSVG />
-        ) : (
-          <>
-            <UploadComp
-              // handleFileChange={handleFileChange}
-              handleFileUpload={handleFileInputChange}
-              handleDrop={handleDrop}
-              handleDragOver={handleDragOver}
-              isUploading={isUploading}
-            />
-          </>
-        )}
-        {uploadkycPending && isUploading > 0 && (
-          <div className="w-full">
-            <div className="w-full flex items-center justify-center">
-              <span className="text-[16px] leading-[19.2px]  font-[700] text-gray-700 my-2">
-                {isUploading}%
-              </span>
-            </div>
+    <>
+      {isPending && <SpinnerOverlay />}
 
-            <div className="w-[80%]  mx-auto">
-              <div className="h-2 bg-gray-200 rounded-[30px] overflow-hidden">
-                <div
-                  className="h-full bg-[#016AB3] transition-all duration-500 delay-500 ease-in-out"
-                  style={{ width: `${isUploading}%` }}
-                />
+      <div
+        className={`${
+          userProfileLoading ? "hidden" : ""
+        } sm:w-[800px] w-full md:h-[300px] h-[284px] flex flex-col items-center justify-center gap-5 border-2 border-dashed rounded-[10px]  border-[${
+          getCLIDoc?.status == "Approved" ? "#5FC381" : "#D6EEFF"
+        }] mt-7 mb-[7rem]`}
+      >
+        {userProfileLoading && <SpinnerOverlay />}
+        <div className="w-full">
+          {filePreview ? (
+            <PreviewSVG />
+          ) : (
+            <>
+              <UploadComp
+                // handleFileChange={handleFileChange}
+                handleFileUpload={handleFileInputChange}
+                handleDrop={handleDrop}
+                handleDragOver={handleDragOver}
+                isUploading={isUploading}
+              />
+            </>
+          )}
+          {uploadkycPending && isUploading > 0 && (
+            <div className="w-full">
+              <div className="w-full flex items-center justify-center">
+                <span className="text-[16px] leading-[19.2px]  font-[700] text-gray-700 my-2">
+                  {isUploading}%
+                </span>
+              </div>
+
+              <div className="w-[80%]  mx-auto">
+                <div className="h-2 bg-gray-200 rounded-[30px] overflow-hidden">
+                  <div
+                    className="h-full bg-[#016AB3] transition-all duration-500 delay-500 ease-in-out"
+                    style={{ width: `${isUploading}%` }}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        )}
-        {uploadkycSuccess ||
-          (filePreview && (
-            <>
-              <IfFileisLoaded
-                filePreview={getCLIDoc}
-                kycPendingStatus={kycPendingStatus}
-              />
-              {getCLIDoc?.status === "pending" ? (
-                <div className="flex items-center justify-center gap-9">
-                  <p className="text-[14px] leading-[14.4px] text-[#ffffff] bg-[#f7d493] p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
-                    Pending
-                  </p>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center gap-9">
-                  <p className="text-[14px] leading-[14.4px] text-[#027A48] bg-[#ECFDF3]  p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
-                    Approved
-                  </p>
-                </div>
-              )}
+          )}
+          {uploadkycSuccess ||
+            (filePreview && (
+              <>
+                <IfFileisLoaded
+                  filePreview={getCLIDoc}
+                  kycPendingStatus={kycPendingStatus}
+                />
+                {getCLIDoc?.status === "pending" ? (
+                  <div className="flex items-center justify-center gap-9">
+                    <p className="text-[14px] leading-[14.4px] text-[#ffffff] bg-[#f7d493] p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
+                      Pending
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center gap-9">
+                    <p className="text-[14px] leading-[14.4px] text-[#027A48] bg-[#ECFDF3]  p-1.5 w-fit rounded-3xl mb-1 cursor-pointer">
+                      Approved
+                    </p>
+                  </div>
+                )}
 
-              <div className="flex items-center justify-center gap-9">
-                {/* {kycPendingStatus !== "pending" && ( */}
-                <p
-                  className="text-[14px] leading-[14.4px] text-[#A8A8A8] my-2 cursor-pointer"
-                  onClick={handlePreviewPdf}
-                >
-                  Click to Preview{" "}
-                </p>
-                {/* )} */}
-                {/* <label htmlFor="kyc-input"> */}
-                <div
-                  className="text-[14px] leading-[14.4px] text-[#016AB3] my-2 cursor-pointer"
-                  onClick={() => {
-                    setFilePreview(null);
-                    setIsUploading(0);
-                    setReUpload(1);
-                  }}
-                >
-                  {/* <input
+                <div className="flex items-center justify-center gap-9">
+                  {/* {kycPendingStatus !== "pending" && ( */}
+                  <p
+                    className="text-[14px] leading-[14.4px] text-[#A8A8A8] my-2 cursor-pointer"
+                    onClick={handlePreviewPdf}
+                  >
+                    Click to Preview{" "}
+                  </p>
+                  {/* )} */}
+                  {/* <label htmlFor="kyc-input"> */}
+                  <div
+                    className="text-[14px] leading-[14.4px] text-[#016AB3] my-2 cursor-pointer"
+                    onClick={() => {
+                      setFilePreview(null);
+                      setIsUploading(0);
+                      setReUpload(1);
+                    }}
+                  >
+                    {/* <input
                     type="file"
                     id="kyc-input"
                     name="file"
@@ -221,14 +265,15 @@ const CarMentainanceCetificate = () => {
                     accept="application/pdf" // Only allow PDF files
                     onChange={handleFileChange}
                   /> */}
-                  Upload Again{" "}
-                </div>{" "}
-                {/* </label> */}
-              </div>
-            </>
-          ))}
+                    Upload Again{" "}
+                  </div>{" "}
+                  {/* </label> */}
+                </div>
+              </>
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -334,7 +379,7 @@ const UploadComp = ({
 }: any) => {
   return (
     <div
-      className="  rounded-lg p-6 flex flex-col items-center justify-center w-full  bg-[#FFFFFF] "
+      className="  rounded-lg p-6 flex flex-col items-center justify-center w-full   "
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
