@@ -246,7 +246,7 @@ const Order = () => {
                 Nextpaymentpending ||
                 isError ||
                 getDocStatus === "pending" ||
-                getDocStatus === null
+                getDocStatus === ""!
               }
             >
               Pay Now
@@ -278,7 +278,7 @@ const Order = () => {
                 </p>
               )}
 
-              {getDocStatus === "" && (
+              {getDocStatus === ""! && (
                 <p
                   className={`w-full  rounded-md font-[600] text-[16px] leading-[19.2px]
                text-red-400

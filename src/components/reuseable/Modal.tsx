@@ -62,6 +62,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         <h2 className="text-[2rem] font-bold my-8 text-center text-slate-800 ">
           Required Documents
         </h2>
+        <p className=" text-[14px] leading-[17.4px] mb-4 text-[#A8A8A8]">
+          Kindly scan all your document into 1 pdf not more than 5MB
+        </p>
         {
           uploadRequirement.map((item, idx) => (
             <motion.div
@@ -94,14 +97,29 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 export default Modal;
 
 const uploadRequirement = [
-  { id: 1, requirement: " Employment Status", type: "document" },
   {
-    id: 2,
-    requirement:
-      "Proof of address- ( Utility Bills e.g - Electric Bill etc...)",
+    id: 1,
+    requirement: " QLD license / international license and passport",
     type: "document",
   },
-  { id: 3, requirement: " Payslip Bank Statement", type: "document" },
-  { id: 4, requirement: " Current valid license", type: "document" },
-  { id: 5, requirement: "Insurance Policy", type: "document" },
+  { id: 2, requirement: " 4 x payment slip (1 months) ", type: "document" },
+  { id: 3, requirement: "Bank statement (1 months)", type: "document" },
+  {
+    id: 4,
+    requirement:
+      "Current Proof of address- ( Utility Bills e.g - Electric Bill etc...)",
+    type: "document",
+  },
 ];
+// const uploadRequirement = [
+//   { id: 1, requirement: " Employment Status", type: "document" },
+//   {
+//     id: 2,
+//     requirement:
+//       "Proof of address- ( Utility Bills e.g - Electric Bill etc...)",
+//     type: "document",
+//   },
+//   { id: 3, requirement: " Payslip Bank Statement", type: "document" },
+//   { id: 4, requirement: " Current valid license", type: "document" },
+//   { id: 5, requirement: "Insurance Policy", type: "document" },
+// ];

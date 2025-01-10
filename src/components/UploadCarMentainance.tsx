@@ -413,13 +413,16 @@ const UploadComp = ({
               </span>{" "}
               or drag and drop
               <p className=" text-[12px] leading-[14.4px] text-[#A8A8A8] my-2">
-                Upload your (Comprehensive Insurance Certificates)
+                Upload your Documents
               </p>
-              <p className=" text-[12px] leading-[14.4px] text-[#A8A8A8] my-2">
+              {/* <p className=" text-[12px] leading-[14.4px] text-[#A8A8A8] my-2">
+                Upload your (Comprehensive Insurance Certificates)
+              </p> */}
+              {/* <p className=" text-[12px] leading-[14.4px] text-[#A8A8A8] my-2">
                 Required documents ( Employment Status, Payslip Bank Statement,
                 Current valid license, Proof of address- ( Utility Bills e.g -
                 Electric Bill etc...))
-              </p>
+              </p> */}
               <p className=" text-[12px] leading-[14.4px] text-[#A8A8A8]">
                 Kindly scan all your document into 1 pdf not more than 5MB
               </p>
